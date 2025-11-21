@@ -5,7 +5,8 @@ from Decorators.Email_decorators import auto_perf_logger
 import email
 import time
 import socket
-
+from concurrent.futures import ThreadPoolExecutor
+import threading
 DNS_CACHE={}
 
 IMAP_PROVIDERS = {
@@ -45,7 +46,7 @@ def resolve_imap_host(hostname: str) -> str:
 
 @auto_perf_logger
 class EmailReceiver:
-    def __init__(self, username, password, provider,ip_cache=True):
+    def __init__(self, username, password,ip_cache=True):
         self.username = username
         self.password = password
         self.mail = None
@@ -55,6 +56,7 @@ class EmailReceiver:
 
         if not self.host:
             raise RuntimeError("Invalid provider.")
+        self.connect()
 
     def connect(self):
         context = ssl.create_default_context()
@@ -110,9 +112,11 @@ class EmailReceiver:
                     if isinstance(response_part, tuple):
                         msg=email.message_from_bytes(response_part[1])
                         emails.append(msg)
+            print(f"mail sayısı: {len(emails)}")
             return emails
         except Exception as e:
             print(f"Problems with {e}")
+            print(f"mail sayısı: {len(emails)}")
             return emails
 
     def close_connection(self):
@@ -122,7 +126,3 @@ class EmailReceiver:
 
 
 
-fetcher = EmailReceiver("kaangulergs@gmail.com", "ioue gqpu aekc zcbj", "gmail.com")
-fetcher.connect()
-emails = fetcher.fetch_mails(10)
-fetcher.close_connection()
