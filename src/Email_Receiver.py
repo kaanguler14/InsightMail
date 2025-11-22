@@ -111,7 +111,7 @@ class EmailReceiver:
 
                 status, data = self.mail.uid('fetch', uid_str,"(RFC822)")
 
-                if status != 'OK':
+                if status == 'OK':
                     for response_part in data:
                         if isinstance(response_part, tuple):
                             try:
