@@ -4,6 +4,7 @@ import email as email_module
 import time
 from bs4 import BeautifulSoup
 from Decorators.Email_parser_decorator import auto_perf_logger
+from email.header import decode_header
 
 @auto_perf_logger
 class EmailParser:
@@ -19,16 +20,37 @@ class EmailParser:
         print("Parsing emails")
         start = time.time()
         for index,mail_item in enumerate(self.emails):
-            print("Parsing mail", index)
-            print("-------------------------------------------")
-            print("Subject:", self.parse_subject(mail_item))
-            print("Date:", mail_item['Date'])
-            print("From:", mail_item['From'])
-            print("Body:",self.parse_body(mail_item))
-
+            #print("Parsing mail", index)
+            #print("-------------------------------------------")
+            #print("Subject:", self.parse_subject(mail_item))
+            #print("Date:", mail_item['Date'])
+            #print("From:", mail_item['From'])
+            #print("To:", mail_item['To'])
+            #print("Body:",self.parse_body(mail_item))
+            full_text = f"Subject: {self.parse_subject(mail_item)}\nDate: {mail_item['Date']}\nTo: {self.parse_address(mail_item["To"])}\nFrom: {mail_item['From']}\nBody: {self.parse_body(mail_item)}"
+            yield {
+                "subject": self.parse_subject(mail_item),
+                "date": mail_item['Date'],
+                "from": mail_item['From'],
+                "to": self.parse_address(mail_item["To"]),
+                "body": self.parse_body(mail_item)
+            }
         end = time.time()
         print(f"TIME ELAPSED {end-start}")
 
+    def parse_address(self,header_value):
+        try:
+            decoded_parts = decode_header(header_value)
+            parts = []
+            for s, charset in decoded_parts:
+                if isinstance(s, bytes):
+                    charset = charset or "utf-8"
+                    parts.append(s.decode(charset, errors="ignore"))
+                else:
+                    parts.append(s)
+            return "".join(parts)
+        except Exception:
+            return header_value
 
     def parse_subject(self,mail_item):
 
@@ -112,6 +134,8 @@ class EmailParser:
 
         # tablolar, td, tr vs. tamamen text’e dönüşür
         text = soup.get_text(separator=" ")
+        invisible_chars = r'[\xad\u200b\u200c\u200d\uFEFF]'
+        text = re.sub(invisible_chars, '', text)
 
         # &nbsp; temizle
         text = text.replace("\xa0", " ")
@@ -124,8 +148,9 @@ class EmailParser:
 
 
 
-start=time.time()
-email_parser = EmailParser("kaangulergs@gmail.com", "ioue gqpu aekc zcbj")
-email_parser.parse()
-end=time.time()
-print(f"TOTAL TIME ELAPSED {end-start}")
+#start=time.time()
+#email_parser = EmailParser("kaangulergs@gmail.com", "ioue gqpu aekc zcbj")
+#for mail in email_parser.parse():
+#    print(mail)
+#end=time.time()
+#print(f"TOTAL TIME ELAPSED {end-start}")
