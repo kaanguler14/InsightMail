@@ -103,20 +103,26 @@ class EmailReceiver:
 
             mail_uids.reverse()
 
-            for uid in mail_uids:
-                status,msg_data = self.mail.uid('fetch', uid, '(RFC822)')
-                if status != 'OK':
-                    continue
+            batch_size=20
 
-                for response_part in msg_data:
-                    if isinstance(response_part, tuple):
-                        msg=email.message_from_bytes(response_part[1])
-                        emails.append(msg)
-            print(f"mail sayısı: {len(emails)}")
+            for i in range(0,len(mail_uids),batch_size):
+                batch_uids = mail_uids[i:i+batch_size]
+                uid_str=b",".join(batch_uids)
+
+                status, data = self.mail.uid('fetch', uid_str,"(RFC822)")
+
+                if status != 'OK':
+                    for response_part in data:
+                        if isinstance(response_part, tuple):
+                            try:
+                                msg=email.message_from_bytes(response_part[1])
+                                emails.append(msg)
+                            except Exception as e:
+                                print("parse hatası",e)
+
             return emails
         except Exception as e:
-            print(f"Problems with {e}")
-            print(f"mail sayısı: {len(emails)}")
+            print(f"Fetch error: {e}")
             return emails
 
     def close_connection(self):
