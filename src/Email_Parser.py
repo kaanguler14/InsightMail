@@ -13,8 +13,7 @@ class EmailParser:
         self.password = password
         self.email_receiver = EmailReceiver(self.address,self.password)
         self.emails = self.email_receiver.fetch_mails(100)
-
-
+        print("MAİL SAYISI:", len(self.emails))
 
     def parse(self):
         print("Parsing emails")
@@ -27,7 +26,7 @@ class EmailParser:
             #print("From:", mail_item['From'])
             #print("To:", mail_item['To'])
             #print("Body:",self.parse_body(mail_item))
-            full_text = f"Subject: {self.parse_subject(mail_item)}\nDate: {mail_item['Date']}\nTo: {self.parse_address(mail_item["To"])}\nFrom: {mail_item['From']}\nBody: {self.parse_body(mail_item)}"
+            full_text = f"Subject: {self.parse_subject(mail_item)}\nDate: {mail_item['Date']}\nTo: {self.parse_address(mail_item['To'])}\nFrom: {mail_item['From']}\nBody: {self.parse_body(mail_item)}"
             yield {
                 "subject": self.parse_subject(mail_item),
                 "date": mail_item['Date'],
@@ -35,6 +34,8 @@ class EmailParser:
                 "to": self.parse_address(mail_item["To"]),
                 "body": self.parse_body(mail_item)
             }
+
+
         end = time.time()
         print(f"TIME ELAPSED {end-start}")
 
