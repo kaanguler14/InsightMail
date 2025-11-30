@@ -11,9 +11,12 @@ class EmailParser:
     def __init__(self,address,password):
         self.address = address
         self.password = password
+        start=time.time()
         self.email_receiver = EmailReceiver(self.address,self.password)
         self.emails = self.email_receiver.fetch_mails(100)
         print("MAİL SAYISI:", len(self.emails))
+        end=time.time()
+        print("Receiver->", end-start )
 
     def parse(self):
         print("Parsing emails")
