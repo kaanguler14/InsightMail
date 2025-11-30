@@ -2,10 +2,13 @@ from src.Email_Parser import EmailParser
 import time
 import spacy
 nlp = spacy.load("en_core_web_sm")
+from Decorators.Email_Chunker_Decorator import auto_perf_logger
 
+@auto_perf_logger
 class EmailChunker():
     def __init__(self, parser: EmailParser):
         self.parser = parser
+        self.parse_and_chunk()
 
     def chunk_text_fixed_size(self,text,size,overlapping):
         for i in range(0, len(text), size - overlapping):
@@ -42,27 +45,7 @@ class EmailChunker():
 
 
 
-start=time.time()
-startParser=time.time()
-parser = EmailParser("kaangulergs@gmail.com", "ioue gqpu aekc zcbj")
-endParser=time.time()
-startChunking=time.time()
-chunker = EmailChunker(parser)
-endChunking=time.time()
-startChunker=time.time()
-i=0
-for chunk in chunker.parse_and_chunk(size=400):
-    print("------------CHUNK--------------")
-    print(chunk)
-    i=i+1
-print("Total Chunk=",i)
-endChunker=time.time()
 
-end=time.time()
-print("Total time Parser", endParser-startParser)
-print("Total time Chunking", endChunking-startChunking)
-print("Total time Chunker", endChunker-startChunker)
-print("TOTAL TIME ELAPSED ",end-start)
 
 
 
