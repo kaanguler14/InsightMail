@@ -5,8 +5,8 @@ from sentence_transformers import SentenceTransformer
 import torch
 
 from src.Email_Parser import EmailParser
-from global_model import  GLOBAL_MODEL
-from global_model import  t
+from src.global_model import  GLOBAL_MODEL
+from src.global_model import  t
 MODEL_NAME="Qwen/Qwen3-Embedding-0.6B"
 import time
 

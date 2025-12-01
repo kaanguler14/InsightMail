@@ -1,5 +1,5 @@
 import re
-from Email_Receiver import EmailReceiver
+from src.Email_Receiver import EmailReceiver
 import email as email_module
 import time
 from bs4 import BeautifulSoup

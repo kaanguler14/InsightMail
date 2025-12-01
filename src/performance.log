@@ -1,0 +1,867 @@
+2025-11-21 13:39:37,479 - INFO - EmailReceiver.__init__ çalýþtý: 0.000s
+2025-11-21 13:39:38,436 - INFO - EmailReceiver.connect çalýþtý: 0.957s
+2025-11-21 13:39:44,347 - INFO - EmailReceiver.fetch_mails çalýþtý: 5.894s, mail sayýsý: 10, toplam boyut: 539459 byte
+2025-11-21 13:39:44,536 - INFO - EmailReceiver.close_connection çalýþtý: 0.188s
+2025-11-21 13:39:58,908 - INFO - EmailReceiver.__init__ çalýþtý: 0.000s
+2025-11-21 13:39:59,720 - INFO - EmailReceiver.connect çalýþtý: 0.812s
+2025-11-21 13:40:01,381 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.646s, mail sayýsý: 10, toplam boyut: 539459 byte
+2025-11-21 13:40:01,587 - INFO - EmailReceiver.close_connection çalýþtý: 0.202s
+2025-11-21 13:40:27,304 - INFO - EmailReceiver.__init__ çalýþtý: 0.000s
+2025-11-21 13:40:28,178 - INFO - EmailReceiver.connect çalýþtý: 0.874s
+2025-11-21 13:40:30,798 - INFO - EmailReceiver.fetch_mails çalýþtý: 2.606s, mail sayýsý: 10, toplam boyut: 539459 byte
+2025-11-21 13:40:31,005 - INFO - EmailReceiver.close_connection çalýþtý: 0.207s
+2025-11-21 13:42:22,702 - INFO - EmailReceiver.connect çalýþtý: 0.823s
+2025-11-21 13:42:22,703 - INFO - EmailReceiver.__init__ çalýþtý: 0.824s
+2025-11-21 13:42:23,354 - INFO - EmailReceiver.connect çalýþtý: 0.652s
+2025-11-21 13:42:25,068 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.699s, mail sayýsý: 10, toplam boyut: 539459 byte
+2025-11-21 13:42:25,255 - INFO - EmailReceiver.close_connection çalýþtý: 0.187s
+2025-11-21 13:43:34,179 - INFO - EmailReceiver.connect çalýþtý: 0.781s
+2025-11-21 13:43:34,180 - INFO - EmailReceiver.__init__ çalýþtý: 0.783s
+2025-11-21 13:43:35,886 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.694s, mail sayýsý: 10, toplam boyut: 539459 byte
+2025-11-21 13:43:36,081 - INFO - EmailReceiver.close_connection çalýþtý: 0.195s
+2025-11-21 14:01:31,493 - INFO - EmailReceiver.connect çalýþtý: 1.056s
+2025-11-21 14:01:31,493 - INFO - EmailReceiver.__init__ çalýþtý: 1.056s
+2025-11-21 14:01:33,412 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.906s, mail sayýsý: 10, toplam boyut: 539459 byte
+2025-11-21 14:01:33,675 - INFO - EmailReceiver.close_connection çalýþtý: 0.262s
+2025-11-21 14:01:56,671 - INFO - EmailReceiver.connect çalýþtý: 0.854s
+2025-11-21 14:01:56,672 - INFO - EmailReceiver.__init__ çalýþtý: 0.855s
+2025-11-21 14:01:58,725 - INFO - EmailReceiver.fetch_mails çalýþtý: 2.036s, mail sayýsý: 10, toplam boyut: 539459 byte
+2025-11-21 14:01:59,006 - INFO - EmailReceiver.close_connection çalýþtý: 0.281s
+2025-11-21 14:02:00,196 - INFO - EmailReceiver.connect çalýþtý: 1.190s
+2025-11-21 14:02:00,196 - INFO - EmailReceiver.__init__ çalýþtý: 1.190s
+2025-11-21 14:02:03,002 - INFO - EmailReceiver.fetch_mails çalýþtý: 2.789s, mail sayýsý: 10, toplam boyut: 539459 byte
+2025-11-21 14:02:48,364 - INFO - EmailReceiver.connect çalýþtý: 0.836s
+2025-11-21 14:02:48,365 - INFO - EmailReceiver.__init__ çalýþtý: 0.837s
+2025-11-21 14:02:50,127 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.747s, mail sayýsý: 10, toplam boyut: 539459 byte
+2025-11-21 14:02:50,324 - INFO - EmailReceiver.close_connection çalýþtý: 0.197s
+2025-11-21 14:02:50,937 - INFO - EmailReceiver.connect çalýþtý: 0.613s
+2025-11-21 14:02:50,937 - INFO - EmailReceiver.__init__ çalýþtý: 0.613s
+2025-11-21 14:02:52,715 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.764s, mail sayýsý: 10, toplam boyut: 539459 byte
+2025-11-21 14:03:42,071 - INFO - EmailReceiver.connect çalýþtý: 0.783s
+2025-11-21 14:03:42,071 - INFO - EmailReceiver.__init__ çalýþtý: 0.783s
+2025-11-21 14:03:43,782 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.695s, mail sayýsý: 10, toplam boyut: 539459 byte
+2025-11-21 14:03:43,977 - INFO - EmailReceiver.close_connection çalýþtý: 0.195s
+2025-11-21 14:03:44,736 - INFO - EmailReceiver.connect çalýþtý: 0.758s
+2025-11-21 14:03:44,736 - INFO - EmailReceiver.__init__ çalýþtý: 0.758s
+2025-11-21 14:03:46,392 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.642s, mail sayýsý: 10, toplam boyut: 539459 byte
+2025-11-21 14:05:21,822 - INFO - EmailReceiver.connect çalýþtý: 0.796s
+2025-11-21 14:05:21,822 - INFO - EmailReceiver.__init__ çalýþtý: 0.796s
+2025-11-21 14:05:23,533 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.699s, mail sayýsý: 10, toplam boyut: 539459 byte
+2025-11-21 14:05:23,736 - INFO - EmailReceiver.close_connection çalýþtý: 0.201s
+2025-11-21 14:05:24,331 - INFO - EmailReceiver.connect çalýþtý: 0.596s
+2025-11-21 14:05:24,331 - INFO - EmailReceiver.__init__ çalýþtý: 0.596s
+2025-11-21 14:05:25,982 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.637s, mail sayýsý: 10, toplam boyut: 539459 byte
+2025-11-21 14:05:56,058 - INFO - EmailReceiver.connect çalýþtý: 0.890s
+2025-11-21 14:05:56,058 - INFO - EmailReceiver.__init__ çalýþtý: 0.890s
+2025-11-21 14:05:57,670 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.592s, mail sayýsý: 10, toplam boyut: 539459 byte
+2025-11-21 14:05:57,859 - INFO - EmailReceiver.close_connection çalýþtý: 0.189s
+2025-11-21 14:05:58,594 - INFO - EmailReceiver.connect çalýþtý: 0.734s
+2025-11-21 14:05:58,594 - INFO - EmailReceiver.__init__ çalýþtý: 0.734s
+2025-11-21 14:06:00,220 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.610s, mail sayýsý: 10, toplam boyut: 539459 byte
+2025-11-21 14:07:21,575 - INFO - EmailReceiver.connect çalýþtý: 0.596s
+2025-11-21 14:07:21,575 - INFO - EmailReceiver.__init__ çalýþtý: 0.596s
+2025-11-21 14:07:23,233 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.647s, mail sayýsý: 10, toplam boyut: 539459 byte
+2025-11-21 14:07:23,423 - INFO - EmailReceiver.close_connection çalýþtý: 0.191s
+2025-11-21 14:08:08,110 - INFO - EmailReceiver.connect çalýþtý: 0.781s
+2025-11-21 14:08:08,110 - INFO - EmailReceiver.__init__ çalýþtý: 0.781s
+2025-11-21 14:08:09,884 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.756s, mail sayýsý: 10, toplam boyut: 539459 byte
+2025-11-21 14:08:10,076 - INFO - EmailReceiver.close_connection çalýþtý: 0.192s
+2025-11-21 14:08:10,861 - INFO - EmailReceiver.connect çalýþtý: 0.785s
+2025-11-21 14:08:10,862 - INFO - EmailReceiver.__init__ çalýþtý: 0.786s
+2025-11-21 14:08:12,603 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.725s, mail sayýsý: 10, toplam boyut: 539459 byte
+2025-11-21 14:08:28,448 - INFO - EmailReceiver.connect çalýþtý: 0.760s
+2025-11-21 14:08:28,448 - INFO - EmailReceiver.__init__ çalýþtý: 0.760s
+2025-11-21 14:08:30,085 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.621s, mail sayýsý: 10, toplam boyut: 539459 byte
+2025-11-21 14:08:30,278 - INFO - EmailReceiver.close_connection çalýþtý: 0.192s
+2025-11-21 14:08:30,891 - INFO - EmailReceiver.connect çalýþtý: 0.613s
+2025-11-21 14:08:30,891 - INFO - EmailReceiver.__init__ çalýþtý: 0.613s
+2025-11-21 14:08:32,658 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.753s, mail sayýsý: 10, toplam boyut: 539459 byte
+2025-11-21 14:09:00,539 - INFO - EmailReceiver.connect çalýþtý: 0.810s
+2025-11-21 14:09:00,539 - INFO - EmailReceiver.__init__ çalýþtý: 0.810s
+2025-11-21 14:09:02,293 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.740s, mail sayýsý: 10, toplam boyut: 539459 byte
+2025-11-21 14:11:15,849 - INFO - EmailReceiver.connect çalýþtý: 1.028s
+2025-11-21 14:11:15,849 - INFO - EmailReceiver.__init__ çalýþtý: 1.029s
+2025-11-21 14:11:17,690 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.823s, mail sayýsý: 10, toplam boyut: 539459 byte
+2025-11-21 14:11:50,216 - INFO - EmailReceiver.connect çalýþtý: 0.879s
+2025-11-21 14:11:50,217 - INFO - EmailReceiver.__init__ çalýþtý: 0.880s
+2025-11-21 14:11:51,992 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.764s, mail sayýsý: 10, toplam boyut: 539459 byte
+2025-11-21 14:14:51,403 - INFO - EmailReceiver.connect çalýþtý: 0.627s
+2025-11-21 14:14:51,403 - INFO - EmailReceiver.__init__ çalýþtý: 0.627s
+2025-11-21 14:14:53,120 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.701s, mail sayýsý: 10, toplam boyut: 539459 byte
+2025-11-21 14:15:05,679 - INFO - EmailReceiver.connect çalýþtý: 0.828s
+2025-11-21 14:15:05,679 - INFO - EmailReceiver.__init__ çalýþtý: 0.828s
+2025-11-21 14:15:07,576 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.884s, mail sayýsý: 10, toplam boyut: 539459 byte
+2025-11-21 14:15:20,027 - INFO - EmailReceiver.connect çalýþtý: 0.741s
+2025-11-21 14:15:20,027 - INFO - EmailReceiver.__init__ çalýþtý: 0.741s
+2025-11-21 14:15:21,637 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.592s, mail sayýsý: 10, toplam boyut: 539459 byte
+2025-11-21 14:15:35,326 - INFO - EmailReceiver.connect çalýþtý: 0.755s
+2025-11-21 14:15:35,327 - INFO - EmailReceiver.__init__ çalýþtý: 0.756s
+2025-11-21 14:15:36,975 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.632s, mail sayýsý: 10, toplam boyut: 539459 byte
+2025-11-21 14:16:49,389 - INFO - EmailReceiver.connect çalýþtý: 0.867s
+2025-11-21 14:16:49,389 - INFO - EmailReceiver.__init__ çalýþtý: 0.867s
+2025-11-21 14:16:51,430 - INFO - EmailReceiver.fetch_mails çalýþtý: 2.025s, mail sayýsý: 10, toplam boyut: 539459 byte
+2025-11-21 14:17:32,144 - INFO - EmailReceiver.connect çalýþtý: 0.986s
+2025-11-21 14:17:32,145 - INFO - EmailReceiver.__init__ çalýþtý: 0.987s
+2025-11-21 14:17:34,142 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.974s, mail sayýsý: 10, toplam boyut: 632537 byte
+2025-11-21 14:18:03,317 - INFO - EmailReceiver.connect çalýþtý: 0.811s
+2025-11-21 14:18:03,317 - INFO - EmailReceiver.__init__ çalýþtý: 0.811s
+2025-11-21 14:18:05,194 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.859s, mail sayýsý: 10, toplam boyut: 632537 byte
+2025-11-21 14:21:28,837 - INFO - EmailReceiver.connect çalýþtý: 0.729s
+2025-11-21 14:21:28,838 - INFO - EmailReceiver.__init__ çalýþtý: 0.730s
+2025-11-21 14:21:30,581 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.723s, mail sayýsý: 10, toplam boyut: 632537 byte
+2025-11-21 14:21:48,363 - INFO - EmailReceiver.connect çalýþtý: 0.760s
+2025-11-21 14:21:48,363 - INFO - EmailReceiver.__init__ çalýþtý: 0.760s
+2025-11-21 14:21:49,992 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.609s, mail sayýsý: 10, toplam boyut: 632537 byte
+2025-11-21 14:22:25,865 - INFO - EmailReceiver.connect çalýþtý: 0.621s
+2025-11-21 14:22:25,865 - INFO - EmailReceiver.__init__ çalýþtý: 0.621s
+2025-11-21 14:22:27,620 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.737s, mail sayýsý: 10, toplam boyut: 632537 byte
+2025-11-21 14:23:14,103 - INFO - EmailReceiver.connect çalýþtý: 0.813s
+2025-11-21 14:23:14,103 - INFO - EmailReceiver.__init__ çalýþtý: 0.814s
+2025-11-21 14:23:16,188 - INFO - EmailReceiver.fetch_mails çalýþtý: 2.071s, mail sayýsý: 10, toplam boyut: 705033 byte
+2025-11-21 14:27:01,210 - INFO - EmailReceiver.connect çalýþtý: 0.861s
+2025-11-21 14:27:01,210 - INFO - EmailReceiver.__init__ çalýþtý: 0.861s
+2025-11-21 14:27:02,913 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.688s, mail sayýsý: 10, toplam boyut: 705033 byte
+2025-11-21 14:32:15,409 - INFO - EmailReceiver.connect çalýþtý: 0.863s
+2025-11-21 14:32:15,410 - INFO - EmailReceiver.__init__ çalýþtý: 0.864s
+2025-11-21 14:32:17,054 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.630s, mail sayýsý: 10, toplam boyut: 705033 byte
+2025-11-21 14:34:30,664 - INFO - EmailReceiver.connect çalýþtý: 0.818s
+2025-11-21 14:34:30,664 - INFO - EmailReceiver.__init__ çalýþtý: 0.819s
+2025-11-21 14:34:32,421 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.743s, mail sayýsý: 10, toplam boyut: 705033 byte
+2025-11-21 14:37:20,097 - INFO - EmailReceiver.connect çalýþtý: 0.735s
+2025-11-21 14:37:20,097 - INFO - EmailReceiver.__init__ çalýþtý: 0.735s
+2025-11-21 14:37:21,746 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.637s, mail sayýsý: 10, toplam boyut: 705033 byte
+2025-11-21 14:37:45,500 - INFO - EmailReceiver.connect çalýþtý: 0.892s
+2025-11-21 14:37:45,500 - INFO - EmailReceiver.__init__ çalýþtý: 0.892s
+2025-11-21 14:37:47,238 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.724s, mail sayýsý: 10, toplam boyut: 705033 byte
+2025-11-21 14:42:50,513 - INFO - EmailReceiver.connect çalýþtý: 0.928s
+2025-11-21 14:42:50,513 - INFO - EmailReceiver.__init__ çalýþtý: 0.929s
+2025-11-21 14:42:52,258 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.733s, mail sayýsý: 10, toplam boyut: 705033 byte
+2025-11-21 14:45:59,518 - INFO - EmailReceiver.connect çalýþtý: 0.828s
+2025-11-21 14:45:59,518 - INFO - EmailReceiver.__init__ çalýþtý: 0.828s
+2025-11-21 14:46:01,511 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.975s, mail sayýsý: 10, toplam boyut: 705033 byte
+2025-11-21 14:46:07,245 - INFO - EmailReceiver.connect çalýþtý: 0.818s
+2025-11-21 14:46:07,246 - INFO - EmailReceiver.__init__ çalýþtý: 0.819s
+2025-11-21 14:46:09,012 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.750s, mail sayýsý: 10, toplam boyut: 705033 byte
+2025-11-21 14:48:30,361 - INFO - EmailReceiver.connect çalýþtý: 0.882s
+2025-11-21 14:48:30,362 - INFO - EmailReceiver.__init__ çalýþtý: 0.883s
+2025-11-21 14:48:31,968 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.592s, mail sayýsý: 10, toplam boyut: 705033 byte
+2025-11-21 14:48:36,901 - INFO - EmailReceiver.connect çalýþtý: 0.796s
+2025-11-21 14:48:36,902 - INFO - EmailReceiver.__init__ çalýþtý: 0.796s
+2025-11-21 14:48:38,937 - INFO - EmailReceiver.fetch_mails çalýþtý: 2.021s, mail sayýsý: 10, toplam boyut: 705033 byte
+2025-11-21 14:57:05,282 - INFO - EmailReceiver.connect çalýþtý: 0.924s
+2025-11-21 14:57:05,282 - INFO - EmailReceiver.__init__ çalýþtý: 0.924s
+2025-11-21 14:57:06,880 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.586s, mail sayýsý: 10, toplam boyut: 705033 byte
+2025-11-21 14:59:09,658 - INFO - EmailReceiver.connect çalýþtý: 0.600s
+2025-11-21 14:59:09,658 - INFO - EmailReceiver.__init__ çalýþtý: 0.600s
+2025-11-21 14:59:11,292 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.619s, mail sayýsý: 10, toplam boyut: 705033 byte
+2025-11-21 15:00:48,105 - INFO - EmailReceiver.connect çalýþtý: 1.020s
+2025-11-21 15:00:48,106 - INFO - EmailReceiver.__init__ çalýþtý: 1.021s
+2025-11-21 15:00:49,795 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.672s, mail sayýsý: 10, toplam boyut: 705033 byte
+2025-11-21 15:03:00,506 - INFO - EmailReceiver.connect çalýþtý: 0.880s
+2025-11-21 15:03:00,506 - INFO - EmailReceiver.__init__ çalýþtý: 0.880s
+2025-11-21 15:03:02,145 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.621s, mail sayýsý: 10, toplam boyut: 705033 byte
+2025-11-21 17:29:48,148 - INFO - EmailReceiver.connect çalýþtý: 0.942s
+2025-11-21 17:29:48,149 - INFO - EmailReceiver.__init__ çalýþtý: 0.943s
+2025-11-21 17:29:50,221 - INFO - EmailReceiver.fetch_mails çalýþtý: 2.059s, mail sayýsý: 10, toplam boyut: 675516 byte
+2025-11-21 17:32:57,978 - INFO - EmailReceiver.connect çalýþtý: 0.846s
+2025-11-21 17:32:57,978 - INFO - EmailReceiver.__init__ çalýþtý: 0.847s
+2025-11-21 17:32:59,668 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.679s, mail sayýsý: 10, toplam boyut: 675516 byte
+2025-11-21 17:33:37,996 - INFO - EmailReceiver.connect çalýþtý: 0.866s
+2025-11-21 17:33:37,996 - INFO - EmailReceiver.__init__ çalýþtý: 0.866s
+2025-11-21 17:33:39,826 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.816s, mail sayýsý: 10, toplam boyut: 675516 byte
+2025-11-21 17:33:55,952 - INFO - EmailReceiver.connect çalýþtý: 0.579s
+2025-11-21 17:33:55,952 - INFO - EmailReceiver.__init__ çalýþtý: 0.579s
+2025-11-21 17:33:57,674 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.705s, mail sayýsý: 10, toplam boyut: 675516 byte
+2025-11-21 17:34:59,781 - INFO - EmailReceiver.connect çalýþtý: 0.600s
+2025-11-21 17:34:59,781 - INFO - EmailReceiver.__init__ çalýþtý: 0.601s
+2025-11-21 17:35:01,397 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.604s, mail sayýsý: 10, toplam boyut: 675516 byte
+2025-11-21 17:35:09,019 - INFO - EmailReceiver.connect çalýþtý: 0.606s
+2025-11-21 17:35:09,020 - INFO - EmailReceiver.__init__ çalýþtý: 0.606s
+2025-11-21 17:35:10,602 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.567s, mail sayýsý: 10, toplam boyut: 675516 byte
+2025-11-21 17:35:24,815 - INFO - EmailReceiver.connect çalýþtý: 0.682s
+2025-11-21 17:35:24,815 - INFO - EmailReceiver.__init__ çalýþtý: 0.682s
+2025-11-21 17:35:26,516 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.688s, mail sayýsý: 10, toplam boyut: 675516 byte
+2025-11-21 17:51:39,845 - INFO - EmailReceiver.connect çalýþtý: 1.039s
+2025-11-21 17:51:39,845 - INFO - EmailReceiver.__init__ çalýþtý: 1.039s
+2025-11-21 17:51:41,758 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.895s, mail sayýsý: 10, toplam boyut: 675516 byte
+2025-11-21 17:53:19,290 - INFO - EmailReceiver.connect çalýþtý: 0.890s
+2025-11-21 17:53:19,291 - INFO - EmailReceiver.__init__ çalýþtý: 0.891s
+2025-11-21 17:53:21,131 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.829s, mail sayýsý: 10, toplam boyut: 675516 byte
+2025-11-21 17:56:27,335 - INFO - EmailReceiver.connect çalýþtý: 0.809s
+2025-11-21 17:56:27,335 - INFO - EmailReceiver.__init__ çalýþtý: 0.809s
+2025-11-21 17:56:29,353 - INFO - EmailReceiver.fetch_mails çalýþtý: 2.002s, mail sayýsý: 10, toplam boyut: 675516 byte
+2025-11-21 17:57:42,650 - INFO - EmailReceiver.connect çalýþtý: 0.874s
+2025-11-21 17:57:42,651 - INFO - EmailReceiver.__init__ çalýþtý: 0.874s
+2025-11-21 17:57:44,367 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.701s, mail sayýsý: 10, toplam boyut: 675516 byte
+2025-11-21 18:08:15,563 - INFO - EmailReceiver.connect çalýþtý: 0.851s
+2025-11-21 18:08:15,564 - INFO - EmailReceiver.__init__ çalýþtý: 0.851s
+2025-11-21 18:08:17,213 - INFO - EmailReceiver.fetch_mails çalýþtý: 1.637s, mail sayýsý: 10, toplam boyut: 675516 byte
+2025-11-21 18:08:35,158 - INFO - EmailReceiver.connect çalýþtý: 1.112s
+2025-11-21 18:08:35,159 - INFO - EmailReceiver.__init__ çalýþtý: 1.113s
+2025-11-21 18:09:00,598 - INFO - EmailReceiver.fetch_mails çalýþtý: 25.317s, mail sayýsý: 100, toplam boyut: 6805540 byte
+2025-11-21 18:18:22,213 - INFO - EmailReceiver.connect çalýþtý: 0.899s
+2025-11-21 18:18:22,213 - INFO - EmailReceiver.__init__ çalýþtý: 0.899s
+2025-11-21 18:18:37,868 - INFO - EmailReceiver.fetch_mails çalýþtý: 15.521s, mail sayýsý: 100, toplam boyut: 6745643 byte
+2025-11-21 18:19:14,702 - INFO - EmailReceiver.connect çalýþtý: 0.799s
+2025-11-21 18:19:14,703 - INFO - EmailReceiver.__init__ çalýþtý: 0.800s
+2025-11-21 18:19:15,065 - INFO - EmailReceiver.fetch_single çalýþtý: 0.123s
+2025-11-21 18:19:15,066 - INFO - EmailReceiver.fetch_single çalýþtý: 0.124s
+2025-11-21 18:19:15,066 - INFO - EmailReceiver.fetch_single çalýþtý: 0.124s
+2025-11-21 18:22:37,492 - INFO - EmailReceiver.connect çalýþtý: 0.879s
+2025-11-21 18:22:37,492 - INFO - EmailReceiver.__init__ çalýþtý: 0.880s
+2025-11-21 18:22:37,492 - INFO - EmailReceiver.get_mail_uids çalýþtý: 0.000s
+2025-11-21 18:22:37,492 - INFO - EmailReceiver.fetch_mails_parallel çalýþtý: 0.000s
+2025-11-21 18:23:53,740 - INFO - EmailReceiver.connect çalýþtý: 0.776s
+2025-11-21 18:23:53,741 - INFO - EmailReceiver.__init__ çalýþtý: 0.777s
+2025-11-21 18:26:27,877 - INFO - EmailReceiver.connect çalýþtý: 0.730s
+2025-11-21 18:26:27,877 - INFO - EmailReceiver.__init__ çalýþtý: 0.730s
+2025-11-21 18:26:28,933 - INFO - EmailReceiver.get_mail_uids çalýþtý: 1.055s
+2025-11-21 18:26:28,933 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,934 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,934 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,934 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,934 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,934 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,934 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,934 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,935 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,935 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,935 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,935 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,935 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,935 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,935 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,935 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,935 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,936 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,936 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,936 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,936 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,936 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,936 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,936 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,936 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,936 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,936 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,937 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,937 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.001s
+2025-11-21 18:26:28,936 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,937 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,937 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,937 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,937 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,937 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,937 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,937 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,937 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,937 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,937 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,937 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,938 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,938 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,938 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,937 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,937 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,938 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,938 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.001s
+2025-11-21 18:26:28,938 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,938 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,938 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,938 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,938 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,938 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,938 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,938 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,938 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,939 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,939 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,939 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,939 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,939 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,939 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.001s
+2025-11-21 18:26:28,939 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,939 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,939 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,939 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,939 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,939 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,939 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,940 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.001s
+2025-11-21 18:26:28,940 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,940 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,940 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,940 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,940 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,940 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,940 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,940 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,940 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,940 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,940 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,941 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,941 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,941 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,941 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,941 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,941 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,941 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,941 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,941 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,941 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,941 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,941 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,941 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,941 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,941 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,941 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,942 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,942 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.000s
+2025-11-21 18:26:28,942 - INFO - EmailReceiver.fetch_mails_parallel çalýþtý: 1.065s
+2025-11-21 18:27:13,916 - INFO - EmailReceiver.connect çalýþtý: 0.778s
+2025-11-21 18:27:13,916 - INFO - EmailReceiver.__init__ çalýþtý: 0.778s
+2025-11-21 18:27:15,047 - INFO - EmailReceiver.get_mail_uids çalýþtý: 1.128s
+2025-11-21 18:27:58,108 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 43.059s
+2025-11-21 18:27:58,110 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 43.062s
+2025-11-21 18:27:58,241 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 43.193s
+2025-11-21 18:27:58,306 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 43.257s
+2025-11-21 18:28:58,749 - INFO - EmailReceiver.connect çalýþtý: 0.749s
+2025-11-21 18:28:58,749 - INFO - EmailReceiver.__init__ çalýþtý: 0.750s
+2025-11-21 18:28:59,769 - INFO - EmailReceiver.get_mail_uids çalýþtý: 1.018s
+2025-11-21 18:29:00,883 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.105s
+2025-11-21 18:29:00,920 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.149s
+2025-11-21 18:29:00,978 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.191s
+2025-11-21 18:29:01,222 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.451s
+2025-11-21 18:29:01,969 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.086s
+2025-11-21 18:29:02,141 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.221s
+2025-11-21 18:29:02,142 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.164s
+2025-11-21 18:29:02,449 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.226s
+2025-11-21 18:29:02,935 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.966s
+2025-11-21 18:29:03,158 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.015s
+2025-11-21 18:29:03,271 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.129s
+2025-11-21 18:29:03,544 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.095s
+2025-11-21 18:29:03,965 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.030s
+2025-11-21 18:29:04,279 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.120s
+2025-11-21 18:29:04,595 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.324s
+2025-11-21 18:29:04,673 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.128s
+2025-11-21 18:29:05,124 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.157s
+2025-11-21 18:29:05,303 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.024s
+2025-11-21 18:29:05,814 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.217s
+2025-11-21 18:29:05,846 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.172s
+2025-11-21 18:29:06,288 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.164s
+2025-11-21 18:29:06,574 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.271s
+2025-11-21 18:29:06,842 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.028s
+2025-11-21 18:29:06,917 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.071s
+2025-11-21 18:29:07,382 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.093s
+2025-11-21 18:29:07,718 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.143s
+2025-11-21 18:29:07,996 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.078s
+2025-11-21 18:29:08,028 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.185s
+2025-11-21 18:29:08,331 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.949s
+2025-11-21 18:29:08,846 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.128s
+2025-11-21 18:29:09,147 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.150s
+2025-11-21 18:29:09,147 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.119s
+2025-11-21 18:29:09,560 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.229s
+2025-11-21 18:29:09,836 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.990s
+2025-11-21 18:29:10,065 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.919s
+2025-11-21 18:29:10,343 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.191s
+2025-11-21 18:29:10,588 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.028s
+2025-11-21 18:29:10,887 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.051s
+2025-11-21 18:29:11,118 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.053s
+2025-11-21 18:29:11,343 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.000s
+2025-11-21 18:29:11,811 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.223s
+2025-11-21 18:29:12,057 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.169s
+2025-11-21 18:29:12,181 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.063s
+2025-11-21 18:29:12,483 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.139s
+2025-11-21 18:29:12,900 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.088s
+2025-11-21 18:29:13,169 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.988s
+2025-11-21 18:29:13,358 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.301s
+2025-11-21 18:29:13,801 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.318s
+2025-11-21 18:29:14,072 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.172s
+2025-11-21 18:29:14,128 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.958s
+2025-11-21 18:29:14,604 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.246s
+2025-11-21 18:29:14,891 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.090s
+2025-11-21 18:29:15,262 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.189s
+2025-11-21 18:29:15,403 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.275s
+2025-11-21 18:29:15,707 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.102s
+2025-11-21 18:29:16,087 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.195s
+2025-11-21 18:29:16,331 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.069s
+2025-11-21 18:29:16,503 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.099s
+2025-11-21 18:29:16,836 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.128s
+2025-11-21 18:29:17,212 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.125s
+2025-11-21 18:29:17,519 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.188s
+2025-11-21 18:29:17,531 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.029s
+2025-11-21 18:29:17,963 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.127s
+2025-11-21 18:29:18,449 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.236s
+2025-11-21 18:29:18,516 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.984s
+2025-11-21 18:29:18,696 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.176s
+2025-11-21 18:29:18,950 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.987s
+2025-11-21 18:29:19,537 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.089s
+2025-11-21 18:29:19,817 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.121s
+2025-11-21 18:29:19,864 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.347s
+2025-11-21 18:29:20,149 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.198s
+2025-11-21 18:29:20,678 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.140s
+2025-11-21 18:29:21,005 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.188s
+2025-11-21 18:29:21,158 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.294s
+2025-11-21 18:29:21,279 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.130s
+2025-11-21 18:29:22,005 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.000s
+2025-11-21 18:29:22,016 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.336s
+2025-11-21 18:29:22,251 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.093s
+2025-11-21 18:29:22,549 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.270s
+2025-11-21 18:29:23,021 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.005s
+2025-11-21 18:29:23,078 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.073s
+2025-11-21 18:29:23,491 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.240s
+2025-11-21 18:29:23,785 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.237s
+2025-11-21 18:29:24,026 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.005s
+2025-11-21 18:29:24,430 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.351s
+2025-11-21 18:29:24,673 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.182s
+2025-11-21 18:29:24,843 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.057s
+2025-11-21 18:29:25,057 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.030s
+2025-11-21 18:29:25,511 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.081s
+2025-11-21 18:29:25,823 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.979s
+2025-11-21 18:29:25,833 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.159s
+2025-11-21 18:29:26,240 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.184s
+2025-11-21 18:29:26,517 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.006s
+2025-11-21 18:29:26,869 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.036s
+2025-11-21 18:29:26,949 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.126s
+2025-11-21 18:29:27,524 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.284s
+2025-11-21 18:29:27,592 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.075s
+2025-11-21 18:29:27,808 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.939s
+2025-11-21 18:29:28,047 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.098s
+2025-11-21 18:29:28,349 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.825s
+2025-11-21 18:29:28,350 - INFO - EmailReceiver.fetch_mails_parallel çalýþtý: 29.601s
+2025-11-21 18:31:16,859 - INFO - EmailReceiver.connect çalýþtý: 0.762s
+2025-11-21 18:31:16,859 - INFO - EmailReceiver.__init__ çalýþtý: 0.762s
+2025-11-21 18:31:18,368 - INFO - EmailReceiver.get_mail_uids çalýþtý: 1.508s
+2025-11-21 18:31:19,876 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.508s
+2025-11-21 18:31:20,104 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.721s
+2025-11-21 18:31:20,226 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.853s
+2025-11-21 18:31:20,314 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.945s
+2025-11-21 18:31:20,985 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.107s
+2025-11-21 18:31:21,208 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.982s
+2025-11-21 18:31:21,270 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.167s
+2025-11-21 18:31:21,568 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.255s
+2025-11-21 18:31:22,058 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.073s
+2025-11-21 18:31:22,215 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.944s
+2025-11-21 18:31:22,405 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.197s
+2025-11-21 18:31:22,702 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.134s
+2025-11-21 18:31:22,956 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.898s
+2025-11-21 18:31:23,118 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.903s
+2025-11-21 18:31:23,585 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.180s
+2025-11-21 18:31:23,720 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.018s
+2025-11-21 18:31:24,186 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.229s
+2025-11-21 18:31:24,192 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.074s
+2025-11-21 18:31:24,682 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.096s
+2025-11-21 18:31:24,986 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.266s
+2025-11-21 18:31:25,222 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.036s
+2025-11-21 18:31:25,246 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.054s
+2025-11-21 18:31:25,946 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.264s
+2025-11-21 18:31:26,205 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.219s
+2025-11-21 18:31:26,379 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.133s
+2025-11-21 18:31:26,465 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.243s
+2025-11-21 18:31:27,233 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.288s
+2025-11-21 18:31:27,421 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.216s
+2025-11-21 18:31:27,504 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.125s
+2025-11-21 18:31:27,731 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.266s
+2025-11-21 18:31:28,336 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.102s
+2025-11-21 18:31:28,440 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.018s
+2025-11-21 18:31:28,755 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.251s
+2025-11-21 18:31:29,035 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.304s
+2025-11-21 18:31:29,332 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.996s
+2025-11-21 18:31:29,600 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.160s
+2025-11-21 18:31:29,808 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.053s
+2025-11-21 18:31:30,112 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.077s
+2025-11-21 18:31:30,560 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.229s
+2025-11-21 18:31:30,776 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.176s
+2025-11-21 18:31:31,041 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.232s
+2025-11-21 18:31:31,312 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.200s
+2025-11-21 18:31:31,841 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.281s
+2025-11-21 18:31:32,263 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.487s
+2025-11-21 18:31:32,323 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.282s
+2025-11-21 18:31:32,357 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.044s
+2025-11-21 18:31:32,762 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.920s
+2025-11-21 18:31:33,397 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.074s
+2025-11-21 18:31:33,503 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.240s
+2025-11-21 18:31:33,628 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.271s
+2025-11-21 18:31:34,029 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.265s
+2025-11-21 18:31:34,610 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.213s
+2025-11-21 18:31:34,646 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.018s
+2025-11-21 18:31:34,687 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.185s
+2025-11-21 18:31:35,236 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.208s
+2025-11-21 18:31:35,650 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.962s
+2025-11-21 18:31:35,867 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.221s
+2025-11-21 18:31:35,974 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.364s
+2025-11-21 18:31:36,469 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.232s
+2025-11-21 18:31:36,876 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.225s
+2025-11-21 18:31:37,021 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.154s
+2025-11-21 18:31:37,133 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.159s
+2025-11-21 18:31:37,759 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.290s
+2025-11-21 18:31:37,944 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.068s
+2025-11-21 18:31:38,125 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.104s
+2025-11-21 18:31:38,396 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.262s
+2025-11-21 18:31:39,124 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.365s
+2025-11-21 18:31:39,213 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.268s
+2025-11-21 18:31:39,364 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.968s
+2025-11-21 18:31:39,501 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.376s
+2025-11-21 18:31:40,351 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.137s
+2025-11-21 18:31:40,428 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.304s
+2025-11-21 18:31:40,522 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.021s
+2025-11-21 18:31:40,682 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.318s
+2025-11-21 18:31:41,417 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.066s
+2025-11-21 18:31:41,582 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.060s
+2025-11-21 18:31:41,649 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.966s
+2025-11-21 18:31:41,745 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.317s
+2025-11-21 18:31:42,545 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.963s
+2025-11-21 18:31:42,579 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.161s
+2025-11-21 18:31:42,621 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.972s
+2025-11-21 18:31:42,901 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.156s
+2025-11-21 18:31:43,532 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.910s
+2025-11-21 18:31:43,680 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.100s
+2025-11-21 18:31:43,858 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.313s
+2025-11-21 18:31:43,999 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.098s
+2025-11-21 18:31:44,615 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.934s
+2025-11-21 18:31:44,656 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.124s
+2025-11-21 18:31:45,013 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.155s
+2025-11-21 18:31:45,095 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.096s
+2025-11-21 18:31:45,530 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.915s
+2025-11-21 18:31:46,008 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 0.913s
+2025-11-21 18:31:46,018 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.363s
+2025-11-21 18:31:46,312 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.300s
+2025-11-21 18:31:46,592 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.062s
+2025-11-21 18:31:47,293 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.285s
+2025-11-21 18:31:47,300 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.282s
+2025-11-21 18:31:47,503 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.190s
+2025-11-21 18:31:47,826 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.233s
+2025-11-21 18:31:48,300 - INFO - EmailReceiver.fetch_single_uid çalýþtý: 1.007s
+2025-11-21 18:31:48,301 - INFO - EmailReceiver.fetch_mails_parallel çalýþtý: 31.441s
+2025-11-21 18:36:26,828 - INFO - EmailReceiver.connect çalýþtý: 0.958s
+2025-11-21 18:36:26,828 - INFO - EmailReceiver.__init__ çalýþtý: 0.958s
+2025-11-21 18:36:27,732 - INFO - EmailReceiver.fetch_mails_parallel çalýþtý: 0.904s
+2025-11-21 18:38:15,746 - INFO - EmailReceiver.connect çalýþtý: 0.794s
+2025-11-21 18:38:15,747 - INFO - EmailReceiver.__init__ çalýþtý: 0.795s
+2025-11-21 18:38:15,982 - INFO - EmailReceiver.get_mail_uids çalýþtý: 0.234s
+2025-11-21 18:38:17,109 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.119s
+2025-11-21 18:38:17,147 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.164s
+2025-11-21 18:38:17,263 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.263s
+2025-11-21 18:38:17,370 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.370s
+2025-11-21 18:38:18,325 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.214s
+2025-11-21 18:38:18,349 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.202s
+2025-11-21 18:38:18,498 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.234s
+2025-11-21 18:38:18,509 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.137s
+2025-11-21 18:38:19,517 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.192s
+2025-11-21 18:38:19,594 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.097s
+2025-11-21 18:38:19,649 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.141s
+2025-11-21 18:38:19,718 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.369s
+2025-11-21 18:38:20,609 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.092s
+2025-11-21 18:38:20,619 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 0.969s
+2025-11-21 18:38:20,761 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.166s
+2025-11-21 18:38:21,085 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.366s
+2025-11-21 18:38:21,556 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 0.937s
+2025-11-21 18:38:21,796 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.184s
+2025-11-21 18:38:21,875 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.114s
+2025-11-21 18:38:22,179 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.093s
+2025-11-21 18:38:22,770 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.214s
+2025-11-21 18:38:23,013 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.138s
+2025-11-21 18:38:23,120 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.325s
+2025-11-21 18:38:23,293 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.113s
+2025-11-21 18:38:24,042 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.271s
+2025-11-21 18:38:24,135 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.122s
+2025-11-21 18:38:24,180 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.058s
+2025-11-21 18:38:24,332 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.039s
+2025-11-21 18:38:25,110 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.068s
+2025-11-21 18:38:25,361 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.225s
+2025-11-21 18:38:25,388 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.208s
+2025-11-21 18:38:25,474 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.142s
+2025-11-21 18:38:26,239 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.129s
+2025-11-21 18:38:26,463 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.075s
+2025-11-21 18:38:26,487 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.126s
+2025-11-21 18:38:26,642 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.168s
+2025-11-21 18:38:27,199 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 0.959s
+2025-11-21 18:38:27,453 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 0.966s
+2025-11-21 18:38:27,539 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.075s
+2025-11-21 18:38:27,758 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.116s
+2025-11-21 18:38:28,347 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.147s
+2025-11-21 18:38:28,555 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.102s
+2025-11-21 18:38:28,585 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.046s
+2025-11-21 18:38:29,022 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.264s
+2025-11-21 18:38:29,549 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 0.994s
+2025-11-21 18:38:29,608 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.262s
+2025-11-21 18:38:29,753 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.168s
+2025-11-21 18:38:29,990 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 0.968s
+2025-11-21 18:38:30,576 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.027s
+2025-11-21 18:38:30,783 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.173s
+2025-11-21 18:38:30,990 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.236s
+2025-11-21 18:38:30,998 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.008s
+2025-11-21 18:38:31,634 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 0.852s
+2025-11-21 18:38:31,745 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.169s
+2025-11-21 18:38:32,198 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.209s
+2025-11-21 18:38:32,204 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.206s
+2025-11-21 18:38:33,001 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.367s
+2025-11-21 18:38:33,038 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.294s
+2025-11-21 18:38:33,318 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.114s
+2025-11-21 18:38:33,346 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.147s
+2025-11-21 18:38:34,090 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.087s
+2025-11-21 18:38:34,140 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.102s
+2025-11-21 18:38:34,318 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.000s
+2025-11-21 18:38:34,497 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.151s
+2025-11-21 18:38:35,309 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.220s
+2025-11-21 18:38:35,355 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.215s
+2025-11-21 18:38:35,389 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.072s
+2025-11-21 18:38:35,558 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.061s
+2025-11-21 18:38:36,398 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.088s
+2025-11-21 18:38:36,597 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.208s
+2025-11-21 18:38:36,703 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.348s
+2025-11-21 18:38:36,733 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.175s
+2025-11-21 18:38:37,518 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.120s
+2025-11-21 18:38:37,713 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 0.980s
+2025-11-21 18:38:37,815 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.217s
+2025-11-21 18:38:37,951 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.247s
+2025-11-21 18:38:38,646 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.127s
+2025-11-21 18:38:38,826 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.010s
+2025-11-21 18:38:38,978 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.265s
+2025-11-21 18:38:39,038 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.087s
+2025-11-21 18:38:39,552 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 0.905s
+2025-11-21 18:38:39,863 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.038s
+2025-11-21 18:38:40,141 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.162s
+2025-11-21 18:38:40,403 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.365s
+2025-11-21 18:38:40,719 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.166s
+2025-11-21 18:38:41,011 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.148s
+2025-11-21 18:38:41,325 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 0.922s
+2025-11-21 18:38:41,528 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.386s
+2025-11-21 18:38:41,735 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.016s
+2025-11-21 18:38:41,839 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 0.828s
+2025-11-21 18:38:42,379 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.054s
+2025-11-21 18:38:42,774 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.247s
+2025-11-21 18:38:42,798 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.063s
+2025-11-21 18:38:42,976 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.136s
+2025-11-21 18:38:43,373 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 0.994s
+2025-11-21 18:38:43,679 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 0.904s
+2025-11-21 18:38:43,871 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.072s
+2025-11-21 18:38:43,930 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 0.954s
+2025-11-21 18:38:44,275 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 0.902s
+2025-11-21 18:38:45,008 - INFO - EmailReceiver.fetch_single_uid_threadsafe çalýþtý: 1.329s
+2025-11-21 18:38:45,009 - INFO - EmailReceiver.fetch_mails_parallel çalýþtý: 29.262s
+2025-11-21 18:39:11,588 - INFO - EmailReceiver.connect çalýþtý: 0.833s
+2025-11-21 18:39:11,588 - INFO - EmailReceiver.__init__ çalýþtý: 0.833s
+2025-11-21 18:39:26,502 - INFO - EmailReceiver.fetch_mails çalýþtý: 14.794s, mail sayýsý: 100, toplam boyut: 6799220 byte
+2025-11-21 18:44:40,978 - INFO - EmailReceiver.connect çalýþtý: 0.684s
+2025-11-21 18:44:40,978 - INFO - EmailReceiver.__init__ çalýþtý: 0.685s
+2025-11-21 18:44:56,829 - INFO - EmailReceiver.fetch_mails çalýþtý: 15.733s, mail sayýsý: 100, toplam boyut: 6758562 byte
+2025-11-22 00:57:39,692 - INFO - EmailReceiver.connect çalýþtý: 0.928s
+2025-11-22 00:57:39,692 - INFO - EmailReceiver.__init__ çalýþtý: 0.928s
+2025-11-22 00:57:56,579 - INFO - EmailReceiver.fetch_mails çalýþtý: 16.762s, mail sayýsý: 100, toplam boyut: 6696231 byte
+2025-11-22 00:58:58,681 - INFO - EmailReceiver.connect çalýþtý: 0.828s
+2025-11-22 00:58:58,682 - INFO - EmailReceiver.__init__ çalýþtý: 0.829s
+2025-11-22 00:59:12,298 - INFO - EmailReceiver.fetch_mails çalýþtý: 13.499s, mail sayýsý: 100, toplam boyut: 6696231 byte
+2025-11-22 01:00:33,632 - INFO - EmailReceiver.connect çalýþtý: 0.875s
+2025-11-22 01:00:33,632 - INFO - EmailReceiver.__init__ çalýþtý: 0.875s
+2025-11-22 01:00:48,794 - INFO - EmailReceiver.fetch_mails çalýþtý: 15.009s, mail sayýsý: 100, toplam boyut: 6696231 byte
+2025-11-22 14:36:59,306 - INFO - EmailReceiver.connect çalýþtý: 1.055s
+2025-11-22 14:36:59,308 - INFO - EmailReceiver.__init__ çalýþtý: 1.057s
+2025-11-22 14:37:14,991 - INFO - EmailReceiver.fetch_mails çalýþtý: 15.561s, mail sayýsý: 100, toplam boyut: 6890120 byte
+2025-11-22 14:37:48,588 - INFO - EmailReceiver.connect çalýþtý: 0.923s
+2025-11-22 14:37:48,588 - INFO - EmailReceiver.__init__ çalýþtý: 0.923s
+2025-11-22 14:38:03,390 - INFO - EmailReceiver.fetch_mails çalýþtý: 14.684s, mail sayýsý: 100, toplam boyut: 6890120 byte
+2025-11-22 14:38:05,567 - INFO - EmailReceiver.connect çalýþtý: 0.729s
+2025-11-22 14:38:05,567 - INFO - EmailReceiver.__init__ çalýþtý: 0.729s
+2025-11-22 14:38:21,939 - INFO - EmailReceiver.fetch_mails çalýþtý: 16.256s, mail sayýsý: 100, toplam boyut: 6890120 byte
+2025-11-22 14:39:12,730 - INFO - EmailReceiver.connect çalýþtý: 0.668s
+2025-11-22 14:39:12,731 - INFO - EmailReceiver.__init__ çalýþtý: 0.669s
+2025-11-22 14:39:28,052 - INFO - EmailReceiver.fetch_mails çalýþtý: 15.202s, mail sayýsý: 100, toplam boyut: 6890120 byte
+2025-11-22 14:42:29,520 - INFO - EmailReceiver.connect çalýþtý: 0.753s
+2025-11-22 14:42:29,521 - INFO - EmailReceiver.__init__ çalýþtý: 0.754s
+2025-11-22 14:42:47,949 - INFO - EmailReceiver.fetch_mails çalýþtý: 18.302s, mail sayýsý: 100, toplam boyut: 6890120 byte
+2025-11-22 14:43:27,383 - INFO - EmailReceiver.connect çalýþtý: 1.515s
+2025-11-22 14:43:27,383 - INFO - EmailReceiver.__init__ çalýþtý: 1.515s
+2025-11-22 14:43:57,148 - INFO - EmailReceiver.fetch_mails çalýþtý: 29.640s, mail sayýsý: 100, toplam boyut: 6890120 byte
+2025-11-22 14:46:47,411 - INFO - EmailReceiver.connect çalýþtý: 0.790s
+2025-11-22 14:46:47,411 - INFO - EmailReceiver.__init__ çalýþtý: 0.790s
+2025-11-22 14:47:07,032 - INFO - EmailReceiver.fetch_mails çalýþtý: 19.489s, mail sayýsý: 100, toplam boyut: 6890120 byte
+2025-11-22 14:51:11,077 - INFO - EmailReceiver.connect çalýþtý: 1.447s
+2025-11-22 14:51:11,077 - INFO - EmailReceiver.__init__ çalýþtý: 1.447s
+2025-11-22 14:51:28,221 - INFO - EmailReceiver.fetch_mails çalýþtý: 16.990s, mail sayýsý: 100, toplam boyut: 6890120 byte
+2025-11-22 15:00:39,658 - INFO - EmailReceiver.connect çalýþtý: 2.896s
+2025-11-22 15:00:39,658 - INFO - EmailReceiver.__init__ çalýþtý: 2.896s
+2025-11-22 15:01:32,844 - INFO - EmailReceiver.fetch_mails çalýþtý: 53.066s, mail sayýsý: 100, toplam boyut: 6843764 byte
+2025-11-22 15:07:35,515 - INFO - EmailReceiver.connect çalýþtý: 0.999s
+2025-11-22 15:07:35,516 - INFO - EmailReceiver.__init__ çalýþtý: 0.999s
+2025-11-22 15:08:05,344 - INFO - EmailReceiver.fetch_mails çalýþtý: 29.690s, mail sayýsý: 100, toplam boyut: 6843764 byte
+2025-11-22 15:08:41,528 - INFO - EmailReceiver.connect çalýþtý: 1.136s
+2025-11-22 15:08:41,529 - INFO - EmailReceiver.__init__ çalýþtý: 1.137s
+2025-11-22 15:09:02,560 - INFO - EmailReceiver.fetch_mails çalýþtý: 20.908s, mail sayýsý: 100, toplam boyut: 6843764 byte
+2025-11-22 15:09:42,687 - INFO - EmailReceiver.connect çalýþtý: 1.128s
+2025-11-22 15:09:42,687 - INFO - EmailReceiver.__init__ çalýþtý: 1.128s
+2025-11-22 15:10:10,484 - INFO - EmailReceiver.fetch_mails çalýþtý: 27.673s, mail sayýsý: 100, toplam boyut: 6843764 byte
+2025-11-22 15:13:07,696 - INFO - EmailReceiver.connect çalýþtý: 1.120s
+2025-11-22 15:13:07,696 - INFO - EmailReceiver.__init__ çalýþtý: 1.120s
+2025-11-22 15:13:42,566 - INFO - EmailReceiver.fetch_mails çalýþtý: 34.749s, mail sayýsý: 100, toplam boyut: 6843764 byte
+2025-11-22 15:22:41,507 - INFO - EmailReceiver.connect çalýþtý: 1.558s
+2025-11-22 15:22:41,507 - INFO - EmailReceiver.__init__ çalýþtý: 1.558s
+2025-11-22 15:23:15,264 - INFO - EmailReceiver.fetch_mails çalýþtý: 33.630s, mail sayýsý: 100, toplam boyut: 6843764 byte
+2025-11-22 15:28:40,977 - INFO - EmailReceiver.connect çalýþtý: 2.122s
+2025-11-22 15:28:40,977 - INFO - EmailReceiver.__init__ çalýþtý: 2.122s
+2025-11-22 15:29:22,967 - INFO - EmailReceiver.fetch_mails çalýþtý: 41.863s, mail sayýsý: 100, toplam boyut: 6843764 byte
+2025-11-22 15:35:55,085 - INFO - EmailReceiver.connect çalýþtý: 2.924s
+2025-11-22 15:35:55,085 - INFO - EmailReceiver.__init__ çalýþtý: 2.924s
+2025-11-22 15:37:23,374 - INFO - EmailReceiver.fetch_mails çalýþtý: 88.169s, mail sayýsý: 100, toplam boyut: 6843764 byte
+2025-11-22 15:40:15,935 - INFO - EmailReceiver.connect çalýþtý: 1.849s
+2025-11-22 15:40:15,936 - INFO - EmailReceiver.__init__ çalýþtý: 1.850s
+2025-11-22 15:40:22,856 - INFO - EmailReceiver.fetch_mails çalýþtý: 6.788s, mail sayýsý: 100, toplam boyut: 6882155 byte
+2025-11-22 15:41:17,142 - INFO - EmailReceiver.connect çalýþtý: 2.073s
+2025-11-22 15:41:17,143 - INFO - EmailReceiver.__init__ çalýþtý: 2.074s
+2025-11-22 15:41:25,673 - INFO - EmailReceiver.fetch_mails çalýþtý: 8.413s, mail sayýsý: 100, toplam boyut: 6882155 byte
+2025-11-22 15:41:49,210 - INFO - EmailReceiver.connect çalýþtý: 1.254s
+2025-11-22 15:41:49,210 - INFO - EmailReceiver.__init__ çalýþtý: 1.254s
+2025-11-22 15:41:55,220 - INFO - EmailReceiver.fetch_mails çalýþtý: 5.891s, mail sayýsý: 100, toplam boyut: 6882155 byte
+2025-11-22 19:51:23,847 - INFO - EmailReceiver.connect çalýþtý: 0.927s
+2025-11-22 19:51:23,847 - INFO - EmailReceiver.__init__ çalýþtý: 0.927s
+2025-11-22 19:51:27,596 - INFO - EmailReceiver.fetch_mails çalýþtý: 3.749s, mail sayýsý: 0, toplam boyut: 0 byte
+2025-11-22 19:53:16,971 - INFO - EmailReceiver.connect çalýþtý: 0.846s
+2025-11-22 19:53:16,971 - INFO - EmailReceiver.__init__ çalýþtý: 0.846s
+2025-11-22 19:53:20,176 - INFO - EmailReceiver.fetch_mails çalýþtý: 3.205s, mail sayýsý: 0, toplam boyut: 0 byte
+2025-11-22 19:55:14,486 - INFO - EmailReceiver.connect çalýþtý: 0.747s
+2025-11-22 19:55:14,486 - INFO - EmailReceiver.__init__ çalýþtý: 0.747s
+2025-11-22 19:55:17,661 - INFO - EmailReceiver.fetch_mails çalýþtý: 3.175s, mail sayýsý: 0, toplam boyut: 0 byte
+2025-11-22 19:56:24,702 - INFO - EmailReceiver.connect çalýþtý: 0.883s
+2025-11-22 19:56:24,702 - INFO - EmailReceiver.__init__ çalýþtý: 0.883s
+2025-11-22 19:56:27,989 - INFO - EmailReceiver.fetch_mails çalýþtý: 3.287s, mail sayýsý: 0, toplam boyut: 0 byte
+2025-11-22 19:57:41,356 - INFO - EmailReceiver.connect çalýþtý: 0.839s
+2025-11-22 19:57:41,356 - INFO - EmailReceiver.__init__ çalýþtý: 0.839s
+2025-11-22 19:57:45,336 - INFO - EmailReceiver.fetch_mails çalýþtý: 3.980s, mail sayýsý: 0, toplam boyut: 0 byte
+2025-11-22 20:00:00,805 - INFO - EmailReceiver.connect çalýþtý: 1.840s
+2025-11-22 20:00:00,805 - INFO - EmailReceiver.__init__ çalýþtý: 1.840s
+2025-11-22 20:00:05,155 - INFO - EmailReceiver.fetch_mails çalýþtý: 4.350s, mail sayýsý: 0, toplam boyut: 0 byte
+2025-11-22 23:33:58,940 - INFO - EmailReceiver.connect çalýþtý: 0.959s
+2025-11-22 23:33:58,940 - INFO - EmailReceiver.__init__ çalýþtý: 0.959s
+2025-11-22 23:34:03,811 - INFO - EmailReceiver.fetch_mails çalýþtý: 4.691s, mail sayýsý: 100, toplam boyut: 6891849 byte
+2025-11-22 23:35:25,849 - INFO - EmailReceiver.connect çalýþtý: 0.821s
+2025-11-22 23:35:25,849 - INFO - EmailReceiver.__init__ çalýþtý: 0.821s
+2025-11-22 23:35:30,266 - INFO - EmailReceiver.fetch_mails çalýþtý: 4.297s, mail sayýsý: 100, toplam boyut: 6891849 byte
+2025-11-22 23:35:52,195 - INFO - EmailReceiver.connect çalýþtý: 0.874s
+2025-11-22 23:35:52,195 - INFO - EmailReceiver.__init__ çalýþtý: 0.874s
+2025-11-22 23:35:55,941 - INFO - EmailReceiver.fetch_mails çalýþtý: 3.627s, mail sayýsý: 100, toplam boyut: 6891849 byte
+2025-11-22 23:36:06,799 - INFO - EmailReceiver.connect çalýþtý: 0.813s
+2025-11-22 23:36:06,800 - INFO - EmailReceiver.__init__ çalýþtý: 0.814s
+2025-11-22 23:36:10,133 - INFO - EmailReceiver.fetch_mails çalýþtý: 3.213s, mail sayýsý: 100, toplam boyut: 6891849 byte
+2025-11-22 23:36:40,138 - INFO - EmailReceiver.connect çalýþtý: 0.827s
+2025-11-22 23:36:40,139 - INFO - EmailReceiver.__init__ çalýþtý: 0.827s
+2025-11-22 23:36:43,480 - INFO - EmailReceiver.fetch_mails çalýþtý: 3.223s, mail sayýsý: 100, toplam boyut: 6891849 byte
+2025-11-22 23:48:28,494 - INFO - EmailReceiver.connect çalýþtý: 1.037s
+2025-11-22 23:48:28,495 - INFO - EmailReceiver.__init__ çalýþtý: 1.039s
+2025-11-22 23:48:32,398 - INFO - EmailReceiver.fetch_mails çalýþtý: 3.781s, mail sayýsý: 100, toplam boyut: 6891849 byte
+2025-11-22 23:53:37,535 - INFO - EmailReceiver.connect çalýþtý: 0.776s
+2025-11-22 23:53:37,535 - INFO - EmailReceiver.__init__ çalýþtý: 0.777s
+2025-11-22 23:53:41,074 - INFO - EmailReceiver.fetch_mails çalýþtý: 3.372s, mail sayýsý: 100, toplam boyut: 6891849 byte
+2025-11-22 23:56:54,051 - INFO - EmailReceiver.connect çalýþtý: 0.752s
+2025-11-22 23:56:54,052 - INFO - EmailReceiver.__init__ çalýþtý: 0.753s
+2025-11-22 23:56:57,263 - INFO - EmailReceiver.fetch_mails çalýþtý: 3.089s, mail sayýsý: 100, toplam boyut: 6891849 byte
+2025-11-23 00:00:59,944 - INFO - EmailReceiver.connect çalýþtý: 1.018s
+2025-11-23 00:00:59,944 - INFO - EmailReceiver.__init__ çalýþtý: 1.018s
+2025-11-23 00:01:03,534 - INFO - EmailReceiver.fetch_mails çalýþtý: 3.468s, mail sayýsý: 100, toplam boyut: 6891849 byte
+2025-11-23 00:05:55,848 - INFO - EmailReceiver.connect çalýþtý: 0.897s
+2025-11-23 00:05:55,849 - INFO - EmailReceiver.__init__ çalýþtý: 0.898s
+2025-11-23 00:05:59,431 - INFO - EmailReceiver.fetch_mails çalýþtý: 3.461s, mail sayýsý: 100, toplam boyut: 6891849 byte
+2025-11-23 00:06:34,412 - INFO - EmailReceiver.connect çalýþtý: 0.754s
+2025-11-23 00:06:34,412 - INFO - EmailReceiver.__init__ çalýþtý: 0.754s
+2025-11-23 00:06:37,591 - INFO - EmailReceiver.fetch_mails çalýþtý: 3.056s, mail sayýsý: 100, toplam boyut: 6891849 byte
+2025-11-23 00:16:50,392 - INFO - EmailReceiver.connect çalýþtý: 0.580s
+2025-11-23 00:16:50,392 - INFO - EmailReceiver.__init__ çalýþtý: 0.580s
+2025-11-23 00:16:54,310 - INFO - EmailReceiver.fetch_mails çalýþtý: 3.795s, mail sayýsý: 100, toplam boyut: 6891849 byte
+2025-11-23 00:18:14,096 - INFO - EmailReceiver.connect çalýþtý: 0.849s
+2025-11-23 00:18:14,097 - INFO - EmailReceiver.__init__ çalýþtý: 0.849s
+2025-11-23 00:18:17,742 - INFO - EmailReceiver.fetch_mails çalýþtý: 3.523s, mail sayýsý: 100, toplam boyut: 6891849 byte
+2025-11-23 00:19:09,683 - INFO - EmailReceiver.connect çalýþtý: 0.803s
+2025-11-23 00:19:09,684 - INFO - EmailReceiver.__init__ çalýþtý: 0.803s
+2025-11-23 00:19:12,814 - INFO - EmailReceiver.fetch_mails çalýþtý: 3.006s, mail sayýsý: 100, toplam boyut: 6891849 byte
+2025-11-23 00:20:17,405 - INFO - EmailReceiver.connect çalýþtý: 0.761s
+2025-11-23 00:20:17,406 - INFO - EmailReceiver.__init__ çalýþtý: 0.762s
+2025-11-23 00:20:20,714 - INFO - EmailReceiver.fetch_mails çalýþtý: 3.156s, mail sayýsý: 100, toplam boyut: 6891849 byte
+2025-11-26 00:55:32,063 - INFO - EmailReceiver.connect çalýþtý: 0.926s
+2025-11-26 00:55:32,064 - INFO - EmailReceiver.__init__ çalýþtý: 0.928s
+2025-11-26 00:55:39,681 - INFO - EmailReceiver.fetch_mails çalýþtý: 7.485s, mail sayýsý: 100, toplam boyut: 6519970 byte
+2025-11-26 00:55:45,110 - INFO - Load pretrained SentenceTransformer: Qwen/Qwen3-Embedding-0.6B
+2025-11-26 00:57:09,955 - INFO - 1 prompt is loaded, with the key: query
+2025-11-26 01:00:08,159 - INFO - EmailReceiver.connect çalýþtý: 1.207s
+2025-11-26 01:00:08,159 - INFO - EmailReceiver.__init__ çalýþtý: 1.207s
+2025-11-26 01:00:13,340 - INFO - EmailReceiver.fetch_mails çalýþtý: 5.062s, mail sayýsý: 100, toplam boyut: 6519970 byte
+2025-11-26 01:00:18,703 - INFO - Load pretrained SentenceTransformer: Qwen/Qwen3-Embedding-0.6B
+2025-11-26 01:01:43,090 - INFO - 1 prompt is loaded, with the key: query
+2025-11-27 18:50:42,222 - INFO - EmailReceiver.connect çalýþtý: 1.211s
+2025-11-27 18:50:42,222 - INFO - EmailReceiver.__init__ çalýþtý: 1.211s
+2025-11-27 18:50:48,505 - INFO - EmailReceiver.fetch_mails çalýþtý: 6.125s, mail sayýsý: 100, toplam boyut: 5892087 byte
+2025-11-27 18:50:55,655 - INFO - Load pretrained SentenceTransformer: Qwen/Qwen3-Embedding-0.6B
+2025-11-27 18:52:20,138 - INFO - 1 prompt is loaded, with the key: query
+2025-11-27 18:56:57,780 - INFO - EmailReceiver.connect çalýþtý: 0.944s
+2025-11-27 18:56:57,780 - INFO - EmailReceiver.__init__ çalýþtý: 0.944s
+2025-11-27 18:57:01,576 - INFO - EmailReceiver.fetch_mails çalýþtý: 3.684s, mail sayýsý: 100, toplam boyut: 5892087 byte
+2025-11-27 18:57:06,466 - INFO - Load pretrained SentenceTransformer: Qwen/Qwen3-Embedding-0.6B
+2025-11-27 18:58:30,649 - INFO - 1 prompt is loaded, with the key: query
+2025-11-27 19:04:10,779 - INFO - EmailReceiver.connect çalýþtý: 4.155s
+2025-11-27 19:04:10,779 - INFO - EmailReceiver.__init__ çalýþtý: 4.155s
+2025-11-27 19:04:21,129 - INFO - EmailReceiver.fetch_mails çalýþtý: 10.223s, mail sayýsý: 100, toplam boyut: 5892087 byte
+2025-11-27 19:04:27,515 - INFO - Load pretrained SentenceTransformer: Qwen/Qwen3-Embedding-0.6B
+2025-11-27 19:05:51,740 - INFO - 1 prompt is loaded, with the key: query
+2025-11-29 03:14:08,632 - INFO - EmailReceiver.connect çalýþtý: 1.537s
+2025-11-29 03:14:08,635 - INFO - EmailReceiver.__init__ çalýþtý: 1.540s
+2025-11-29 03:14:13,013 - INFO - EmailReceiver.fetch_mails çalýþtý: 4.263s, mail sayýsý: 100, toplam boyut: 6065836 byte
+2025-11-29 03:14:19,658 - INFO - Load pretrained SentenceTransformer: Qwen/Qwen3-Embedding-0.6B
+2025-11-29 03:15:44,733 - INFO - 1 prompt is loaded, with the key: query
+2025-11-29 03:19:33,871 - INFO - Load pretrained SentenceTransformer: Qwen/Qwen3-Embedding-0.6B
+2025-11-29 03:20:33,480 - INFO - Load pretrained SentenceTransformer: Qwen/Qwen3-Embedding-0.6B
+2025-11-29 03:21:57,821 - INFO - 1 prompt is loaded, with the key: query
+2025-11-29 03:21:58,990 - INFO - EmailReceiver.connect çalýþtý: 1.168s
+2025-11-29 03:21:58,990 - INFO - EmailReceiver.__init__ çalýþtý: 1.168s
+2025-11-29 03:22:02,607 - INFO - EmailReceiver.fetch_mails çalýþtý: 3.500s, mail sayýsý: 100, toplam boyut: 6065836 byte
+2025-11-29 03:30:37,808 - INFO - Load pretrained SentenceTransformer: Qwen/Qwen3-Embedding-0.6B
+2025-11-29 03:32:02,022 - INFO - 1 prompt is loaded, with the key: query
+2025-11-29 03:32:02,690 - INFO - EmailReceiver.connect çalýþtý: 0.667s
+2025-11-29 03:32:02,690 - INFO - EmailReceiver.__init__ çalýþtý: 0.667s
+2025-11-29 03:32:06,213 - INFO - EmailReceiver.fetch_mails çalýþtý: 3.402s, mail sayýsý: 100, toplam boyut: 6065836 byte
+2025-11-30 11:50:48,859 - INFO - Load pretrained SentenceTransformer: Qwen/Qwen3-Embedding-0.6B
+2025-11-30 11:52:13,235 - INFO - 1 prompt is loaded, with the key: query
+2025-11-30 11:52:14,254 - INFO - EmailReceiver.connect çalýþtý: 1.019s
+2025-11-30 11:52:14,254 - INFO - EmailReceiver.__init__ çalýþtý: 1.019s
+2025-11-30 11:52:19,283 - INFO - EmailReceiver.fetch_mails çalýþtý: 4.912s, mail sayýsý: 100, toplam boyut: 6288512 byte
+2025-11-30 12:10:58,966 - INFO - Load pretrained SentenceTransformer: Qwen/Qwen3-Embedding-0.6B
+2025-11-30 12:12:23,228 - INFO - 1 prompt is loaded, with the key: query
+2025-11-30 12:12:24,173 - INFO - EmailReceiver.connect çalýþtý: 0.945s
+2025-11-30 12:12:24,173 - INFO - EmailReceiver.__init__ çalýþtý: 0.945s
+2025-11-30 12:12:29,890 - INFO - EmailReceiver.fetch_mails çalýþtý: 5.595s, mail sayýsý: 100, toplam boyut: 6399213 byte
+2025-11-30 12:17:21,165 - INFO - Load pretrained SentenceTransformer: Qwen/Qwen3-Embedding-0.6B
+2025-11-30 12:18:45,445 - INFO - 1 prompt is loaded, with the key: query
+2025-11-30 12:18:46,501 - INFO - EmailReceiver.connect çalýþtý: 1.056s
+2025-11-30 12:18:46,501 - INFO - EmailReceiver.__init__ çalýþtý: 1.056s
+2025-11-30 12:18:51,480 - INFO - EmailReceiver.fetch_mails çalýþtý: 4.861s, mail sayýsý: 100, toplam boyut: 6399213 byte
+2025-11-30 13:46:51,861 - INFO - Load pretrained SentenceTransformer: Qwen/Qwen3-Embedding-0.6B
+2025-11-30 13:48:16,729 - INFO - 1 prompt is loaded, with the key: query
+2025-11-30 13:48:17,785 - INFO - EmailReceiver.connect çalýþtý: 1.055s
+2025-11-30 13:48:17,785 - INFO - EmailReceiver.__init__ çalýþtý: 1.055s
+2025-11-30 13:48:22,193 - INFO - EmailReceiver.fetch_mails çalýþtý: 4.293s, mail sayýsý: 100, toplam boyut: 6399213 byte
+2025-11-30 14:42:57,078 - INFO - Load pretrained SentenceTransformer: Qwen/Qwen3-Embedding-0.6B
+2025-11-30 14:44:21,220 - INFO - 1 prompt is loaded, with the key: query
+2025-11-30 14:44:22,385 - INFO - EmailReceiver.connect çalýþtý: 1.165s
+2025-11-30 14:44:22,385 - INFO - EmailReceiver.__init__ çalýþtý: 1.165s
+2025-11-30 14:44:27,167 - INFO - EmailReceiver.fetch_mails çalýþtý: 4.667s, mail sayýsý: 100, toplam boyut: 6399213 byte
+2025-11-30 14:49:08,220 - INFO - Load pretrained SentenceTransformer: Qwen/Qwen3-Embedding-0.6B
+2025-11-30 14:50:32,519 - INFO - 1 prompt is loaded, with the key: query
+2025-11-30 14:50:33,393 - INFO - EmailReceiver.connect çalýþtý: 0.874s
+2025-11-30 14:50:33,393 - INFO - EmailReceiver.__init__ çalýþtý: 0.874s
+2025-11-30 14:50:37,922 - INFO - EmailReceiver.fetch_mails çalýþtý: 4.406s, mail sayýsý: 100, toplam boyut: 6399213 byte
+2025-11-30 21:20:58,099 - INFO - Load pretrained SentenceTransformer: Qwen/Qwen3-Embedding-0.6B
+2025-11-30 21:22:22,516 - INFO - 1 prompt is loaded, with the key: query
+2025-11-30 21:22:23,766 - INFO - EmailReceiver.connect çalýþtý: 1.250s
+2025-11-30 21:22:23,767 - INFO - EmailReceiver.__init__ çalýþtý: 1.251s
+2025-11-30 21:22:27,619 - INFO - EmailReceiver.fetch_mails çalýþtý: 3.676s, mail sayýsý: 100, toplam boyut: 6416017 byte
+2025-11-30 21:35:57,175 - INFO - Load pretrained SentenceTransformer: Qwen/Qwen3-Embedding-0.6B
+2025-11-30 21:37:21,300 - INFO - 1 prompt is loaded, with the key: query
+2025-11-30 21:37:22,328 - INFO - EmailReceiver.connect çalýþtý: 1.028s
+2025-11-30 21:37:22,328 - INFO - EmailReceiver.__init__ çalýþtý: 1.028s
+2025-11-30 21:37:26,157 - INFO - EmailReceiver.fetch_mails çalýþtý: 3.697s, mail sayýsý: 100, toplam boyut: 6416017 byte
+2025-11-30 21:40:04,134 - INFO - Load pretrained SentenceTransformer: Qwen/Qwen3-Embedding-0.6B
+2025-11-30 21:41:28,341 - INFO - 1 prompt is loaded, with the key: query
+2025-11-30 21:41:29,185 - INFO - EmailReceiver.connect çalýþtý: 0.844s
+2025-11-30 21:41:29,186 - INFO - EmailReceiver.__init__ çalýþtý: 0.845s
+2025-11-30 21:41:32,445 - INFO - EmailReceiver.fetch_mails çalýþtý: 3.134s, mail sayýsý: 100, toplam boyut: 6416017 byte
+2025-11-30 21:46:13,862 - INFO - Load pretrained SentenceTransformer: Qwen/Qwen3-Embedding-0.6B
+2025-11-30 21:47:37,877 - INFO - 1 prompt is loaded, with the key: query
+2025-11-30 21:47:38,704 - INFO - EmailReceiver.connect çalýþtý: 0.827s
+2025-11-30 21:47:38,704 - INFO - EmailReceiver.__init__ çalýþtý: 0.827s
+2025-11-30 21:47:41,980 - INFO - EmailReceiver.fetch_mails çalýþtý: 3.156s, mail sayýsý: 100, toplam boyut: 6416017 byte

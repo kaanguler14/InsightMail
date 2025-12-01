@@ -27,6 +27,6 @@ class QdrantStorage:
             source=payload.get("source","")
             if text:
                 contexts.append(text)
-                sources.append(source)
+                sources.add(source)
 
         return {"contexts":contexts,"sources": list(sources)}
