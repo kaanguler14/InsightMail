@@ -111,17 +111,13 @@ class EmailParser:
         if html_content:
             return self.html_to_clean_text(html_content)
 
-        # 2. Öncelik: HTML yoksa, düz metni kullan.
-        # NOT: Bazı e-postalarda düz metin parçası bile HTML kalıntıları içerebilir, bu yüzden ona da temizlik uygulayalım.
+
         if plain_content:
-            # Düz metin parçasında HTML kalıntıları varsa temizler
             return self.html_to_clean_text(plain_content)
 
-            # 3. Öncelik: Tek parçalı e-posta ise (multipart değilse)
         else:
             try:
                 payload = mail_item.get_payload(decode=True).decode('utf-8', errors='ignore').strip()
-                # Tek parça gövdeye de temizlik uygulayalım
                 return self.html_to_clean_text(payload)
             except Exception:
                 return "error"
@@ -153,7 +149,7 @@ class EmailParser:
 
 
 #start=time.time()
-#email_parser = EmailParser("kaangulergs@gmail.com", "ioue gqpu aekc zcbj")
+#email_parser = EmailParser("", "")
 #for mail in email_parser.parse():
 #    print(mail)
 #end=time.time()

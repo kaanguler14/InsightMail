@@ -8,7 +8,7 @@ qdrant = QdrantStorage(
     collection="emails",
     dim=1024
 )
-parser = EmailParser("kaangulergs@gmail.com","ioue gqpu aekc zcbj")
+parser = EmailParser("","")
 chunker = EmailChunker(parser)
 embedder = Email_Embedding(chunker,'Qwen/Qwen3-Embedding-0.6B')
 

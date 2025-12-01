@@ -65,7 +65,7 @@ class Email_Embedding:
 
 start=time.time()
 startParser=time.time()
-parser = EmailParser("kaangulergs@gmail.com", "ioue gqpu aekc zcbj")
+parser = EmailParser("", "")
 endParser=time.time()
 startChunking=time.time()
 chunker = EmailChunker(parser)
