@@ -4,7 +4,7 @@ A locally-hosted RAG pipeline that turns your email inbox into a queryable knowl
 
 ## Why This Exists
 
-Email is the largest unstructured knowledge base most professionals have, yet it's locked behind keyword search. InsightMail applies retrieval-augmented generation to your inbox: it indexes emails as vector embeddings, retrieves relevant context via semantic similarity, and generates answers, summaries, and reply drafts using a local LLM. Everything runs on your hardware — no API keys, no cloud inference, no data leakage.
+Email is the largest unstructured knowledge base most professionals have, yet it's locked behind keyword search. InsightMail applies retrieval-augmented generation to your inbox: it indexes emails as vector embeddings, retrieves relevant context via semantic similarity, and generates answers, summaries, and reply drafts using a local LLM. Everything runs on your hardware . no API keys, no cloud inference, no data leakage.
 
 ## Architecture
 
@@ -51,38 +51,7 @@ Email is the largest unstructured knowledge base most professionals have, yet it
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### Diagram (Mermaid)
 
-```mermaid
-flowchart LR
-  subgraph INGEST["Ingestion Pipeline"]
-    A1[IMAP] --> A2[Receiver]
-    A2 --> A3[Parser]
-    A3 --> A4[Chunker]
-    A4 --> A5[Embedder]
-    A5 --> A6[Qdrant]
-  end
-
-  subgraph QUERY["Query Pipeline"]
-    B1[Query] --> B2[Embed]
-    B2 --> B3[Search]
-    B3 --> B4[Context]
-    B4 --> B5[LLM]
-    B5 --> B6[Response]
-  end
-
-  subgraph CONV["Conversation Pipeline"]
-    C1[Contact] --> C2[IMAP Fetch]
-    C2 --> C3[Parse & Label]
-    C3 --> C4[LLM]
-    C4 --> C5[Summary / Replies]
-  end
-
-  subgraph SERVE["Serving Layer"]
-    D1[Browser] --> D2[React]
-    D2 --> D3[FastAPI]
-  end
-```
 
 ## Tech Stack
 
@@ -92,7 +61,7 @@ flowchart LR
 | **Embeddings** | Qwen3-Embedding-0.6B (1024-dim) | Compact model with strong multilingual retrieval quality. FP16 on CUDA |
 | **Vector DB** | Qdrant | Production-grade, supports filtering, payload storage, and cosine similarity out of the box |
 | **Chunking** | spaCy `en_core_web_sm` | Sentence-boundary-aware splitting avoids mid-sentence breaks that degrade retrieval quality |
-| **Email** | IMAP via `imaplib` | Direct protocol access — no third-party wrappers. Custom IPv4-forced socket for network reliability |
+| **Email** | IMAP via `imaplib` | Direct protocol access . no third-party wrappers. Custom IPv4-forced socket for network reliability |
 | **API** | FastAPI + Pydantic | Typed request/response validation, async-ready, auto-generated OpenAPI docs |
 | **Frontend** | React 19 + Vite + CSS Modules | Component-based UI with design token system, no CSS framework dependency |
 
@@ -124,7 +93,7 @@ When summarizing or generating replies, the system dynamically adjusts `max_body
 
 ### Explicit role labeling for LLM accuracy
 
-Conversation context is built with `[ME (user@email)]` and `[THEM (contact@email)]` prefixes on each message. Without this, the LLM frequently confuses who sent what, especially in reply generation. This was validated empirically — unlabeled context produced replies written from the wrong perspective.
+Conversation context is built with `[ME (user@email)]` and `[THEM (contact@email)]` prefixes on each message. Without this, the LLM frequently confuses who sent what, especially in reply generation. This was validated empirically.  unlabeled context produced replies written from the wrong perspective.
 
 ### IMAP sent folder discovery
 
