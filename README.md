@@ -65,15 +65,15 @@ Email is the largest unstructured knowledge base most professionals have, yet it
 
 ## Key Features
 
-**RAG Q&A** — Ask natural language questions about your emails. The system retrieves semantically relevant chunks from Qdrant and generates grounded answers via the local LLM. Score threshold (0.5) filters low-relevance noise.
+**RAG Q&A** : Ask natural language questions about your emails. The system retrieves semantically relevant chunks from Qdrant and generates grounded answers via the local LLM. Score threshold (0.5) filters low-relevance noise.
 
-**Semantic Search** — Vector similarity search without LLM generation. Returns the top-k most relevant email chunks ranked by cosine distance. Useful for finding context fast.
+**Semantic Search** : Vector similarity search without LLM generation. Returns the top-k most relevant email chunks ranked by cosine distance. Useful for finding context fast.
 
-**Conversation Summarization** — Fetches the last N emails with a specific contact (both sent and received), labels each message with `[ME]`/`[THEM]` role markers, and generates a structured summary (topics, outcomes, current status).
+**Conversation Summarization** : Fetches the last N emails with a specific contact (both sent and received), labels each message with `[ME]`/`[THEM]` role markers, and generates a structured summary (topics, outcomes, current status).
 
-**Reply Suggestions** — Generates 3 contextual reply drafts for the latest incoming email from a contact. Supports tone control: `formal`, `friendly`, or `brief`. Dynamic body truncation scales per-email context allocation based on thread length to stay within the 4096-token context window.
+**Reply Suggestions** : Generates 3 contextual reply drafts for the latest incoming email from a contact. Supports tone control: `formal`, `friendly`, or `brief`. Dynamic body truncation scales per-email context allocation based on thread length to stay within the 4096-token context window.
 
-**Multi-Provider IMAP** — Supports Gmail, Outlook, Yahoo, Yandex, and iCloud. Dynamically discovers the sent-mail folder via IMAP `LIST` + `\Sent` flag parsing, with localized folder name fallbacks (including Turkish Gmail).
+**Multi-Provider IMAP** : Supports Gmail, Outlook, Yahoo, Yandex, and iCloud. Dynamically discovers the sent-mail folder via IMAP `LIST` + `\Sent` flag parsing, with localized folder name fallbacks (including Turkish Gmail).
 
 ## Technical Decisions & Trade-offs
 
