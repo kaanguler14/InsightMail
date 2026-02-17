@@ -1,44 +1,44 @@
 from src.Email_Parser import EmailParser
-import time
 import spacy
-nlp = spacy.load("en_core_web_sm")
-from Decorators.Email_Chunker_Decorator import auto_perf_logger
+from Decorators.perf_logger import auto_perf_logger
+
 
 @auto_perf_logger
 class EmailChunker():
+    _nlp = None
+
     def __init__(self, parser: EmailParser):
         self.parser = parser
-        self.parse_and_chunk()
+        if EmailChunker._nlp is None:
+            EmailChunker._nlp = spacy.load("en_core_web_sm")
 
-    def chunk_text_fixed_size(self,text,size,overlapping):
-        for i in range(0, len(text), size - overlapping):
-            yield text[i:i + size]
-
-
-    #def chunk_text_sentence(self,text):
-    #    sentences = sent_tokenize(text)
-    #    for s in sentences:
-    #        yield s.strip()
-
-    def spacy_sentence_split(self,text):
-        doc = nlp(text)
+    def spacy_sentence_split(self, text):
+        doc = self._nlp(text)
         for sent in doc.sents:
             yield sent.text.strip()
 
-    def parse_and_chunk(self,size=512,overlapping=50):
+    def parse_and_chunk(self, min_chunk_size=200):
         for mail in self.parser.parse():
-            body=mail["body"]
-            for chunk in self.spacy_sentence_split(body):
-                yield  (
+            body = mail["body"]
+            sentences = list(self.spacy_sentence_split(body))
+
+            current_chunk = ""
+            for sent in sentences:
+                current_chunk += sent + " "
+                if len(current_chunk) >= min_chunk_size:
+                    yield (
+                        f"Subject: {mail['subject']}\n"
+                        f"From: {mail['from']}\n"
+                        f"Body:\n{current_chunk.strip()}"
+                    )
+                    current_chunk = ""
+
+            if current_chunk.strip():
+                yield (
                     f"Subject: {mail['subject']}\n"
-                    f"Date: {mail['date']}\n"
                     f"From: {mail['from']}\n"
-                    f"To: {mail['to']}\n"
-                    f"Body:\n{chunk}"
+                    f"Body:\n{current_chunk.strip()}"
                 )
-
-
-
 
 
 

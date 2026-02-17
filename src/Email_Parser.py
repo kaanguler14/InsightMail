@@ -3,7 +3,7 @@ from src.Email_Receiver import EmailReceiver
 import email as email_module
 import time
 from bs4 import BeautifulSoup
-from Decorators.Email_parser_decorator import auto_perf_logger
+from Decorators.perf_logger import auto_perf_logger
 from email.header import decode_header
 
 @auto_perf_logger
@@ -29,7 +29,6 @@ class EmailParser:
             #print("From:", mail_item['From'])
             #print("To:", mail_item['To'])
             #print("Body:",self.parse_body(mail_item))
-            full_text = f"Subject: {self.parse_subject(mail_item)}\nDate: {mail_item['Date']}\nTo: {self.parse_address(mail_item['To'])}\nFrom: {mail_item['From']}\nBody: {self.parse_body(mail_item)}"
             yield {
                 "subject": self.parse_subject(mail_item),
                 "date": mail_item['Date'],
@@ -78,6 +77,7 @@ class EmailParser:
 
         except Exception as e:
             print(f"Subject (Hata Çözülemedi): {mail_item.get('Subject', '(Yok)')}")
+            return ""
 
     def parse_body(self, mail_item):
         html_content = None
@@ -97,9 +97,13 @@ class EmailParser:
                 content_type = part.get_content_type()
 
                 try:
-                    payload = part.get_payload(decode=True).decode("utf-8", errors="ignore").strip()
-                except UnicodeDecodeError:
+                    raw = part.get_payload(decode=True)
+                    if raw is None:
+                        continue
+                    payload = raw.decode("utf-8", errors="ignore").strip()
+                except Exception:
                     print("decode error")
+                    continue
 
                 if content_type == "text/html":
                     html_content = payload

@@ -1,18 +1,13 @@
-from torch.fx.experimental.unification.unification_tools import first
-
 from src.Email_Chunker import EmailChunker
-from sentence_transformers import SentenceTransformer
 import torch
 
 from src.Email_Parser import EmailParser
-from src.global_model import  GLOBAL_MODEL
-from src.global_model import  t
-MODEL_NAME="Qwen/Qwen3-Embedding-0.6B"
+from src.global_model import GLOBAL_MODEL
 import time
 
 
 class Email_Embedding:
-    def __init__(self,chunker: EmailChunker,model_name):
+    def __init__(self,chunker: EmailChunker =None):
         startINITEmail=time.time()
         self.chunker = chunker
         self.device="cuda" if torch.cuda.is_available() else "cpu"
@@ -60,40 +55,50 @@ class Email_Embedding:
                     "embedding": embedding.tolist()
 
                 }
+    
+    def embed_anything(self,text:str):
+        embedding=self.model.encode(text,convert_to_tensor=False)
+        return embedding
 
 
+if __name__=="__main__":
+    import os
+    from dotenv import load_dotenv
+    load_dotenv()
 
-start=time.time()
-startParser=time.time()
-parser = EmailParser("", "")
-endParser=time.time()
-startChunking=time.time()
-chunker = EmailChunker(parser)
-endChunking=time.time()
-startChunker=time.time()
-i=0
-for chunk in chunker.parse_and_chunk(size=400):
-    print("------------CHUNK--------------")
-    print(chunk)
-    i=i+1
-print("Total Chunk=",i)
-endChunker=time.time()
+    EMAIL_ADDRESS = os.environ.get("EMAIL_ADDRESS", "")
+    EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD", "")
 
-startinitembed=time.time()
-embedder=Email_Embedding(chunker,MODEL_NAME)
-endinitembed=time.time()
-startEmbedder=time.time()
-for item in embedder.embedding(batch_size=1024):
-    print(item)
-endEmbedder=time.time()
-print("Total Embedder=",endEmbedder-startEmbedder)
-print("init embed time: ",endinitembed-startinitembed)
-end=time.time()
-print("total loader",t)
-print("Total time Parser", endParser-startParser)
-print("Total time Chunking", endChunking-startChunking)
-print("Total time Chunker", endChunker-startChunker)
-print("TOTAL TIME ELAPSED ",end-start)
+    start=time.time()
+    startParser=time.time()
+    parser = EmailParser(EMAIL_ADDRESS, EMAIL_PASSWORD)
+    endParser=time.time()
+    startChunking=time.time()
+    chunker = EmailChunker(parser)
+    endChunking=time.time()
+    startChunker=time.time()
+    i=0
+    for chunk in chunker.parse_and_chunk(min_chunk_size=400):
+        print("------------CHUNK--------------")
+        print(chunk)
+        i=i+1
+    print("Total Chunk=",i)
+    endChunker=time.time()
+
+    startinitembed=time.time()
+    embedder=Email_Embedding(chunker)
+    endinitembed=time.time()
+    startEmbedder=time.time()
+    for item in embedder.embedding(batch_size=1024):
+        print(item)
+    endEmbedder=time.time()
+    print("Total Embedder=",endEmbedder-startEmbedder)
+    print("init embed time: ",endinitembed-startinitembed)
+    end=time.time()
+    print("Total time Parser", endParser-startParser)
+    print("Total time Chunking", endChunking-startChunking)
+    print("Total time Chunker", endChunker-startChunker)
+    print("TOTAL TIME ELAPSED ",end-start)
 
 
 

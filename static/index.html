@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InsightMail</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #f8fafc;
+            margin-bottom: 6px;
+        }
+
+        header h1 span { color: #38bdf8; }
+
+        header p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        .search-box {
+            background: #1e293b;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid #334155;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .input-row input {
+            flex: 1;
+            padding: 14px 18px;
+            border-radius: 10px;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: #f1f5f9;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-row input:focus { border-color: #38bdf8; }
+        .input-row input::placeholder { color: #64748b; }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .mode-toggle {
+            display: flex;
+            background: #0f172a;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #334155;
+        }
+
+        .mode-toggle label {
+            padding: 10px 16px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #94a3b8;
+            transition: all 0.2s;
+            user-select: none;
+            white-space: nowrap;
+        }
+
+        .mode-toggle input { display: none; }
+
+        .mode-toggle input:checked + label {
+            background: #38bdf8;
+            color: #0f172a;
+        }
+
+        .top-k-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.875rem;
+            color: #94a3b8;
+        }
+
+        .top-k-control select {
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: #f1f5f9;
+            font-size: 0.875rem;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .btn-search {
+            margin-left: auto;
+            padding: 12px 28px;
+            border-radius: 10px;
+            border: none;
+            background: #38bdf8;
+            color: #0f172a;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-search:hover { background: #7dd3fc; }
+        .btn-search:disabled { background: #334155; color: #64748b; cursor: wait; }
+
+        .results-area { display: none; }
+        .results-area.visible { display: block; }
+
+        .answer-card {
+            background: #1e293b;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 16px;
+            border: 1px solid #334155;
+        }
+
+        .answer-card h3 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #38bdf8;
+            margin-bottom: 12px;
+        }
+
+        .answer-card .answer-text {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #e2e8f0;
+            white-space: pre-wrap;
+        }
+
+        .context-list h3 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #94a3b8;
+            margin-bottom: 12px;
+        }
+
+        .context-item {
+            background: #1e293b;
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 10px;
+            border: 1px solid #334155;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #cbd5e1;
+            white-space: pre-wrap;
+        }
+
+        .context-item strong { color: #f8fafc; }
+
+        /* Timeline styles */
+        .timeline { position: relative; padding-left: 28px; }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #334155;
+        }
+
+        .timeline-item {
+            position: relative;
+            background: #1e293b;
+            border-radius: 12px;
+            padding: 16px 18px;
+            margin-bottom: 12px;
+            border: 1px solid #334155;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -24px;
+            top: 20px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #38bdf8;
+        }
+
+        .timeline-item.giden::before { background: #a78bfa; }
+
+        .timeline-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px;
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .direction-badge {
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .direction-badge.gelen {
+            background: #164e63;
+            color: #67e8f9;
+        }
+
+        .direction-badge.giden {
+            background: #2e1065;
+            color: #c4b5fd;
+        }
+
+        .timeline-subject {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #f1f5f9;
+            margin-bottom: 4px;
+        }
+
+        .timeline-body {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            line-height: 1.5;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #334155;
+            border-top-color: #38bdf8;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .error-msg {
+            background: #371520;
+            border: 1px solid #7f1d1d;
+            color: #fca5a5;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            font-size: 0.9rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #64748b;
+        }
+
+        .status-bar {
+            text-align: center;
+            margin-top: 8px;
+            font-size: 0.8rem;
+            color: #475569;
+        }
+
+        .hidden { display: none !important; }
+
+        /* Recent contacts */
+        .contacts-panel {
+            margin-bottom: 16px;
+        }
+
+        .contacts-panel h3 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #94a3b8;
+            margin-bottom: 10px;
+        }
+
+        .contacts-list {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .contact-chip {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .contact-chip:hover {
+            border-color: #38bdf8;
+            background: #1e293b;
+        }
+
+        .contact-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #334155;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #38bdf8;
+            flex-shrink: 0;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .contact-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #f1f5f9;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 160px;
+        }
+
+        .contact-email-text {
+            font-size: 0.75rem;
+            color: #64748b;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 160px;
+        }
+
+        .btn-load-contacts {
+            padding: 8px 18px;
+            border-radius: 8px;
+            border: 1px dashed #334155;
+            background: transparent;
+            color: #64748b;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-load-contacts:hover {
+            border-color: #38bdf8;
+            color: #38bdf8;
+        }
+
+        .btn-load-contacts:disabled {
+            cursor: wait;
+            color: #475569;
+        }
+
+        /* Tone selector */
+        .tone-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .tone-btn {
+            padding: 8px 18px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tone-btn:hover { border-color: #38bdf8; color: #38bdf8; }
+
+        .tone-btn.active {
+            background: #38bdf8;
+            color: #0f172a;
+            border-color: #38bdf8;
+        }
+
+        /* Reply cards */
+        .reply-card {
+            background: #1e293b;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 12px;
+            border: 1px solid #334155;
+            position: relative;
+        }
+
+        .reply-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .reply-card-header h4 {
+            font-size: 0.85rem;
+            color: #38bdf8;
+            font-weight: 600;
+        }
+
+        .btn-copy {
+            padding: 5px 14px;
+            border-radius: 6px;
+            border: 1px solid #334155;
+            background: transparent;
+            color: #94a3b8;
+            font-size: 0.78rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-copy:hover { border-color: #38bdf8; color: #38bdf8; }
+        .btn-copy.copied { border-color: #4ade80; color: #4ade80; }
+
+        .reply-subject {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #f1f5f9;
+            margin-bottom: 8px;
+        }
+
+        .reply-body {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #cbd5e1;
+            white-space: pre-wrap;
+        }
+
+        .original-mail-card {
+            background: #1a1f2e;
+            border: 1px solid #2d3548;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .original-mail-card h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .original-mail-card .om-subject {
+            font-weight: 600;
+            color: #e2e8f0;
+            margin-bottom: 4px;
+        }
+
+        .original-mail-card .om-meta {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .original-mail-card .om-body {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Insight<span>Mail</span></h1>
+            <p>E-postalarini anlamsal olarak ara, soru sor veya konusmalari ozetle</p>
+        </header>
+
+        <div class="search-box">
+            <!-- Query input (for search/ask modes) -->
+            <div class="input-row" id="queryRow">
+                <input type="text" id="queryInput" placeholder="E-postalarinda ne aramak istiyorsun?" autofocus>
+            </div>
+            <!-- Contact input (for summarize mode) -->
+            <div class="input-row hidden" id="contactRow">
+                <input type="email" id="contactInput" placeholder="Kisi e-posta adresi (orn: ali@firma.com)">
+            </div>
+
+            <!-- Recent contacts panel -->
+            <div class="contacts-panel hidden" id="contactsPanel">
+                <h3>Son Gorusulen Kisiler</h3>
+                <div class="contacts-list" id="contactsList">
+                    <button class="btn-load-contacts" id="btnLoadContacts" onclick="loadContacts()">Kisileri Yukle</button>
+                </div>
+            </div>
+
+            <!-- Tone selector (for reply mode) -->
+            <div class="tone-row hidden" id="toneRow">
+                <button class="tone-btn" data-tone="formal" onclick="setTone('formal', this)">Formal</button>
+                <button class="tone-btn active" data-tone="friendly" onclick="setTone('friendly', this)">Friendly</button>
+                <button class="tone-btn" data-tone="brief" onclick="setTone('brief', this)">Brief</button>
+            </div>
+
+            <div class="controls">
+                <div class="mode-toggle">
+                    <input type="radio" name="mode" id="modeSummarize" value="summarize" checked>
+                    <label for="modeSummarize">Ozet</label>
+                    <input type="radio" name="mode" id="modeReply" value="reply">
+                    <label for="modeReply">Yanit Onerisi</label>
+                    <input type="radio" name="mode" id="modeSearch" value="search">
+                    <label for="modeSearch">Soru-Cevap</label>
+                    <input type="radio" name="mode" id="modeAsk" value="ask">
+                    <label for="modeAsk">Arama</label>
+                </div>
+                <div class="top-k-control" id="topKControl">
+                    <span>Sonuc:</span>
+                    <select id="topK">
+                        <option value="3">3</option>
+                        <option value="5" selected>5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                    </select>
+                </div>
+                <button class="btn-search" id="btnSearch" onclick="doAction()">Gonder</button>
+            </div>
+        </div>
+
+        <div class="results-area" id="resultsArea">
+            <div id="resultsContent"></div>
+        </div>
+
+        <div class="status-bar" id="statusBar"></div>
+    </div>
+
+    <script>
+        const queryInput = document.getElementById('queryInput');
+        const contactInput = document.getElementById('contactInput');
+        const queryRow = document.getElementById('queryRow');
+        const contactRow = document.getElementById('contactRow');
+        const topKControl = document.getElementById('topKControl');
+        const btnSearch = document.getElementById('btnSearch');
+        const resultsArea = document.getElementById('resultsArea');
+        const resultsContent = document.getElementById('resultsContent');
+        const statusBar = document.getElementById('statusBar');
+
+        const toneRow = document.getElementById('toneRow');
+        let selectedTone = 'friendly';
+
+        function setTone(tone, btn) {
+            selectedTone = tone;
+            document.querySelectorAll('.tone-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        // Mode switching
+        document.querySelectorAll('input[name="mode"]').forEach(radio => {
+            radio.addEventListener('change', () => {
+                const mode = radio.value;
+                const isContactMode = (mode === 'summarize' || mode === 'reply');
+                queryRow.classList.toggle('hidden', isContactMode);
+                contactRow.classList.toggle('hidden', !isContactMode);
+                contactsPanel.classList.toggle('hidden', !isContactMode);
+                toneRow.classList.toggle('hidden', mode !== 'reply');
+                topKControl.classList.toggle('hidden', mode === 'reply');
+                topKControl.querySelector('span').textContent = isContactMode ? 'Mail:' : 'Sonuc:';
+                if (isContactMode) contactInput.focus(); else queryInput.focus();
+            });
+        });
+
+        const contactsPanel = document.getElementById('contactsPanel');
+        const contactsList = document.getElementById('contactsList');
+        const btnLoadContacts = document.getElementById('btnLoadContacts');
+
+        // Initialize with summarize mode active
+        queryRow.classList.add('hidden');
+        contactRow.classList.remove('hidden');
+        contactsPanel.classList.remove('hidden');
+        topKControl.querySelector('span').textContent = 'Mail:';
+
+        // Enter key
+        queryInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') doAction(); });
+        contactInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') doAction(); });
+
+        async function doAction() {
+            const mode = document.querySelector('input[name="mode"]:checked').value;
+            if (mode === 'summarize') {
+                await doSummarize();
+            } else if (mode === 'reply') {
+                await doReply();
+            } else {
+                await doSearch();
+            }
+        }
+
+        async function doSummarize() {
+            const contact = contactInput.value.trim();
+            if (!contact) return;
+
+            const limit = parseInt(document.getElementById('topK').value);
+
+            btnSearch.disabled = true;
+            btnSearch.innerHTML = '<span class="spinner"></span>Bekle...';
+            resultsArea.classList.add('visible');
+            resultsContent.innerHTML = '<div class="empty-state"><span class="spinner"></span> E-postalar getiriliyor ve ozetleniyor... Bu islem 15-30 saniye surebilir.</div>';
+            statusBar.textContent = '';
+
+            const startTime = performance.now();
+
+            try {
+                const res = await fetch('/summarize', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contact_email: contact, limit })
+                });
+
+                if (!res.ok) {
+                    const err = await res.json();
+                    throw new Error(err.detail || `HTTP ${res.status}`);
+                }
+
+                const data = await res.json();
+                const elapsed = ((performance.now() - startTime) / 1000).toFixed(1);
+
+                let html = '';
+
+                if (data.summary) {
+                    html += `
+                        <div class="answer-card">
+                            <h3>Konusma Ozeti - ${escapeHtml(contact)}</h3>
+                            <div class="answer-text">${escapeHtml(data.summary)}</div>
+                        </div>
+                    `;
+                }
+
+                if (data.emails && data.emails.length > 0) {
+                    html += `<div class="context-list"><h3>E-posta Gecmisi (${data.emails.length})</h3></div>`;
+                    html += '<div class="timeline">';
+                    data.emails.forEach(em => {
+                        const dirClass = em.direction === 'giden' ? 'giden' : 'gelen';
+                        const dirLabel = em.direction === 'giden' ? 'Giden' : 'Gelen';
+                        html += `
+                            <div class="timeline-item ${dirClass}">
+                                <div class="timeline-meta">
+                                    <span class="direction-badge ${dirClass}">${dirLabel}</span>
+                                    <span>${escapeHtml(em.date || '')}</span>
+                                </div>
+                                <div class="timeline-subject">${escapeHtml(em.subject || '(Konu yok)')}</div>
+                                <div class="timeline-body">${escapeHtml(em.body_preview || '')}</div>
+                            </div>
+                        `;
+                    });
+                    html += '</div>';
+                }
+
+                if (!data.summary && (!data.emails || data.emails.length === 0)) {
+                    html = `<div class="empty-state">Bu kisiyle e-posta bulunamadi.</div>`;
+                }
+
+                resultsContent.innerHTML = html;
+                statusBar.textContent = `${elapsed}s - Konusma Ozeti`;
+
+            } catch (err) {
+                resultsContent.innerHTML = `<div class="error-msg">${escapeHtml(err.message)}</div>`;
+            } finally {
+                btnSearch.disabled = false;
+                btnSearch.textContent = 'Gonder';
+            }
+        }
+
+        async function doSearch() {
+            const query = queryInput.value.trim();
+            if (!query) return;
+
+            const mode = document.querySelector('input[name="mode"]:checked').value;
+            const topK = parseInt(document.getElementById('topK').value);
+
+            btnSearch.disabled = true;
+            btnSearch.innerHTML = '<span class="spinner"></span>Bekle...';
+            resultsArea.classList.add('visible');
+            resultsContent.innerHTML = '';
+            statusBar.textContent = '';
+
+            const startTime = performance.now();
+
+            try {
+                const endpoint = mode === 'search' ? '/search' : '/ask';
+                const res = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query, top_k: topK })
+                });
+
+                if (!res.ok) {
+                    const err = await res.json();
+                    throw new Error(err.detail || `HTTP ${res.status}`);
+                }
+
+                const data = await res.json();
+                const elapsed = ((performance.now() - startTime) / 1000).toFixed(1);
+
+                let html = '';
+
+                if (data.answer) {
+                    html += `
+                        <div class="answer-card">
+                            <h3>Cevap</h3>
+                            <div class="answer-text">${escapeHtml(data.answer)}</div>
+                        </div>
+                    `;
+                }
+
+                if (data.contexts && data.contexts.length > 0) {
+                    html += `<div class="context-list"><h3>Bulunan E-posta Parcalari (${data.contexts.length})</h3>`;
+                    data.contexts.forEach((ctx) => {
+                        const formatted = escapeHtml(ctx)
+                            .replace(/^(Subject:.*)/m, '<strong>$1</strong>')
+                            .replace(/^(From:.*)/m, '<strong>$1</strong>');
+                        html += `<div class="context-item">${formatted}</div>`;
+                    });
+                    html += `</div>`;
+                }
+
+                if (!data.answer && (!data.contexts || data.contexts.length === 0)) {
+                    html = `<div class="empty-state">Sonuc bulunamadi. Farkli bir sorgu deneyin.</div>`;
+                }
+
+                resultsContent.innerHTML = html;
+                statusBar.textContent = `${elapsed}s - ${mode === 'search' ? 'Soru-Cevap (LLM)' : 'Anlamsal Arama'}`;
+
+            } catch (err) {
+                resultsContent.innerHTML = `<div class="error-msg">${escapeHtml(err.message)}</div>`;
+            } finally {
+                btnSearch.disabled = false;
+                btnSearch.textContent = 'Gonder';
+            }
+        }
+
+        async function doReply() {
+            const contact = contactInput.value.trim();
+            if (!contact) return;
+
+            btnSearch.disabled = true;
+            btnSearch.innerHTML = '<span class="spinner"></span>Bekle...';
+            resultsArea.classList.add('visible');
+            resultsContent.innerHTML = '<div class="empty-state"><span class="spinner"></span> Yanit onerileri olusturuluyor... Bu islem 20-40 saniye surebilir.</div>';
+            statusBar.textContent = '';
+
+            const startTime = performance.now();
+
+            try {
+                const res = await fetch('/reply-suggest', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contact_email: contact, tone: selectedTone })
+                });
+
+                if (!res.ok) {
+                    const err = await res.json();
+                    throw new Error(err.detail || `HTTP ${res.status}`);
+                }
+
+                const data = await res.json();
+                const elapsed = ((performance.now() - startTime) / 1000).toFixed(1);
+
+                let html = '';
+
+                // Show original email
+                if (data.original_email && data.original_email.subject) {
+                    const om = data.original_email;
+                    html += `
+                        <div class="original-mail-card">
+                            <h3>Yanit Verilecek E-posta</h3>
+                            <div class="om-subject">${escapeHtml(om.subject)}</div>
+                            <div class="om-meta">
+                                ${escapeHtml(om.from_addr || '')} &middot; ${escapeHtml(om.date || '')}
+                            </div>
+                            <div class="om-body">${escapeHtml(om.body_preview || '')}</div>
+                        </div>
+                    `;
+                }
+
+                // Show reply suggestions
+                if (data.suggestions && data.suggestions.length > 0) {
+                    data.suggestions.forEach((s, i) => {
+                        const id = 'reply-' + i;
+                        html += `
+                            <div class="reply-card">
+                                <div class="reply-card-header">
+                                    <h4>Oneri ${i + 1}</h4>
+                                    <button class="btn-copy" id="btn-${id}" onclick="copyReply('${id}')">Kopyala</button>
+                                </div>
+                                <div class="reply-subject">${escapeHtml(s.subject || '')}</div>
+                                <div class="reply-body" id="${id}">${escapeHtml(s.body || '')}</div>
+                            </div>
+                        `;
+                    });
+                }
+
+                if (!data.suggestions || data.suggestions.length === 0) {
+                    html += '<div class="empty-state">Yanit onerisi olusturulamadi.</div>';
+                }
+
+                resultsContent.innerHTML = html;
+                statusBar.textContent = `${elapsed}s - Yanit Onerisi (${selectedTone})`;
+
+            } catch (err) {
+                resultsContent.innerHTML = `<div class="error-msg">${escapeHtml(err.message)}</div>`;
+            } finally {
+                btnSearch.disabled = false;
+                btnSearch.textContent = 'Gonder';
+            }
+        }
+
+        function copyReply(id) {
+            const el = document.getElementById(id);
+            const btn = document.getElementById('btn-' + id);
+            if (!el) return;
+            navigator.clipboard.writeText(el.textContent).then(() => {
+                btn.textContent = 'Kopyalandi!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = 'Kopyala';
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        async function loadContacts() {
+            btnLoadContacts.disabled = true;
+            btnLoadContacts.innerHTML = '<span class="spinner"></span> Yukleniyor...';
+
+            try {
+                const res = await fetch('/recent-contacts');
+                if (!res.ok) {
+                    const err = await res.json();
+                    throw new Error(err.detail || `HTTP ${res.status}`);
+                }
+
+                const data = await res.json();
+
+                if (!data.contacts || data.contacts.length === 0) {
+                    contactsList.innerHTML = '<span style="color:#64748b;font-size:0.85rem;">Kisi bulunamadi.</span>';
+                    return;
+                }
+
+                contactsList.innerHTML = '';
+                data.contacts.forEach(c => {
+                    const initials = (c.name || c.email).charAt(0).toUpperCase();
+                    const displayName = c.name && c.name !== c.email
+                        ? c.name.replace(/<[^>]+>/g, '').trim()
+                        : c.email;
+                    const chip = document.createElement('div');
+                    chip.className = 'contact-chip';
+                    chip.onclick = () => selectContact(c.email);
+                    chip.innerHTML = `
+                        <div class="contact-avatar">${escapeHtml(initials)}</div>
+                        <div class="contact-info">
+                            <span class="contact-name">${escapeHtml(displayName)}</span>
+                            <span class="contact-email-text">${escapeHtml(c.email)}</span>
+                        </div>
+                    `;
+                    contactsList.appendChild(chip);
+                });
+
+            } catch (err) {
+                contactsList.innerHTML = `<span style="color:#fca5a5;font-size:0.85rem;">${escapeHtml(err.message)}</span>`;
+            }
+        }
+
+        function selectContact(email) {
+            contactInput.value = email;
+            contactInput.focus();
+        }
+
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>

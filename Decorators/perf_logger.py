@@ -1,7 +1,6 @@
 import time
 import logging
 import types
-import email
 
 logging.basicConfig(
     filename='performance.log',
@@ -9,10 +8,11 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 
+
 def auto_perf_logger(cls):
     """
-    Sınıf dekoratörü: tüm metodları sarar, süreyi ölçer.
-    fetch_mails metodunda mail sayısı ve toplam byte boyutu da loglanır.
+    Class decorator: wraps all methods and logs execution time.
+    For fetch_mails, also logs mail count and total byte size.
     """
     for attr_name, attr_value in cls.__dict__.items():
         if isinstance(attr_value, types.FunctionType):
@@ -24,13 +24,12 @@ def auto_perf_logger(cls):
                 end = time.time()
                 duration = end - start
 
-                message = f"{cls.__name__}.{__orig_func.__name__} çalıştı: {duration:.3f}s"
+                message = f"{cls.__name__}.{__orig_func.__name__}: {duration:.3f}s"
 
-                # fetch_mails için özel log: mail sayısı ve toplam boyut
                 if __orig_func.__name__ == "fetch_mails" and isinstance(result, list):
                     mail_count = len(result)
                     total_bytes = sum(len(m.as_bytes()) for m in result)
-                    message += f", mail sayısı: {mail_count}, toplam boyut: {total_bytes} byte"
+                    message += f", mail count: {mail_count}, total size: {total_bytes} bytes"
 
                 print(message)
                 logging.info(message)

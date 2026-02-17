@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+pydantic
+sentence-transformers
+torch
+qdrant-client
+llama-cpp-python
+spacy
+beautifulsoup4
+python-dotenv

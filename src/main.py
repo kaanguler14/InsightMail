@@ -1,34 +1,37 @@
 import os
-import time
-from typing import List ,Dict,Any
+from pathlib import Path
+from dotenv import load_dotenv
 
-from fastapi import FastAPI,HTTPException
-from pydantic import BaseModel
-from starlette.responses import HTMLResponse
-from src.custom_types import SearchRequest,SearchResult
-
-from src.global_model import GLOBAL_MODEL
-from src.custom_types import SearchResult
+from fastapi import FastAPI, HTTPException
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+from src.custom_types import (
+    SearchRequest, RAGResponse, SummarizeRequest, SummarizeResponse,
+    EmailItem, RecentContactsResponse, ContactItem,
+    ReplyRequest, ReplyResponse, ReplySuggestion
+)
+from src.global_model import MODEL_DIMENSION, GLOBAL_MODEL
 from src.vector_database import QdrantStorage
 from src.Email_Embedding import Email_Embedding as Embedder
-from llama_cpp import Llama
+from src.Email_Receiver import EmailReceiver
+from src.conversation_summarizer import summarize_conversation
+from src.reply_suggester import suggest_replies
+import src.query_database as query_database
 
-# İndirdiğiniz GGUF dosyasının yolunu buraya yazın
-MODEL_PATH = "models/Llama-3.2-3B-Instruct-Q4_K_M.gguf"
+load_dotenv()
 
-print("Model yükleniyor...")
-# n_gpu_layers=-1 -> Tüm katmanları GPU'ya atar (RTX 2060 için ideal)
-llm = Llama(
-    model_path=MODEL_PATH,
-    n_ctx=4096,          # Context penceresi
-    n_gpu_layers=-1,     # GPU kullanımı (Hepsini GPU'ya yükle)
-    verbose=True
-)
+
+global_embedder = Embedder(chunker=None)
+print("embedder is ready")
+
 QDRANT_URL = "http://localhost:6333"
 QDRANT_COLLECTION = "emails"
-VECTOR_DIM=1024
+VECTOR_DIM = MODEL_DIMENSION
 
-app = FastAPI(title="Email Rag App",version="1.0")
+app = FastAPI(title="Email Rag App", version="1.0")
+
+STATIC_DIR = Path(__file__).resolve().parent.parent / "static"
+app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
 try:
     qdrant_storage = QdrantStorage(
@@ -36,33 +39,39 @@ try:
         collection=QDRANT_COLLECTION,
         dim=VECTOR_DIM,
     )
-    print("QDRANT_URL=",qdrant_storage)
+    print("QDRANT_URL=", qdrant_storage)
 except Exception as e:
     print(f"Qdrant bağlantı hatası {e}")
     qdrant_storage = None
 
 
-#Endpoint
 @app.get("/")
 async def root():
-    return {"status": "ok","model_loaded": GLOBAL_MODEL is not None}
+    return FileResponse(str(STATIC_DIR / "index.html"))
 
-@app.get("/ask",response_model=SearchResult)
-async def ask_email(question:str,top_k,request: SearchRequest):
+
+@app.get("/health")
+async def health():
+    return {"status": "ok", "model_loaded": GLOBAL_MODEL is not None}
+
+
+@app.post("/ask", response_model=RAGResponse)
+async def ask_email(request: SearchRequest):
+
     if qdrant_storage is None:
         raise HTTPException(
             status_code=503,
             detail="Database couldn't connect"
         )
     if not request.query:
-        raise HTTPException(status_code=400,detail="boş sorgu")
-    query_vec=Embedder.embed_anything(question)[0]
-    found=qdrant_storage.search(query_vector=query_vec,top_k=top_k)
-    return SearchResult(contexts=found["contexts"],sources=found["sources"])
-    
-    
+        raise HTTPException(status_code=400, detail="boş sorgu")
 
-@app.post("/search",response_model=SearchResult)
+    query_vector = global_embedder.embed_anything(request.query).tolist()
+    found = qdrant_storage.search(query_vector=query_vector, top_k=request.top_k)
+    return RAGResponse(contexts=found["contexts"], sources=found["sources"])
+
+
+@app.post("/search", response_model=RAGResponse)
 async def search_emails(request: SearchRequest):
 
     if qdrant_storage is None:
@@ -72,55 +81,150 @@ async def search_emails(request: SearchRequest):
         )
 
     if not request.query:
-        raise HTTPException(status_code=400,detail="boş sorgu")
+        raise HTTPException(status_code=400, detail="boş sorgu")
 
-    
-    start_search=time.perf_counter()
-    query_vector=GLOBAL_MODEL.encode(
-        [request.query],
-        convert_to_tensor=False
-    )[0].tolist()
-
-    results=qdrant_storage.search(query_vector=query_vector,top_k=request.top_k)
-    
-    search_time_ms = (time.perf_counter()-start_searh) * 1000
-
-    #context
-    context_text=""
-    for idx , text in enumerate(results["contexts"]):
-        #Prompt'a  eklenecek kaynak metin
-        context_text+=f"-Kaynak {idx+1}, -{text}"
-    
-    #Prompt
-    if context_text is None:
-        prompt=f"""<|start_header_id|>system<|end_header_id|>
-bununla ilgili bir mail bulunamadığını söyle
-<|eot_id|>"""
-    else:
-        prompt=f"""<|start_header_id|>system<|end_header_id|>
-Sen yardımsever bir asistansın. Aşağıdaki E-posta içeriklerine (Kaynaklar) dayanarak kullanıcının sorusunu **kesinlikle Türkçe** olarak cevapla. Cevabın Kaynaklarda bulunmuyorsa, "Bu e-postalarda sorunuzla ilgili bilgi bulunmamaktadır." diye yanıtla.
-<|eot_id|>
-<|start_header_id|>user<|end_header_id|>
-Soru: {request.query}
-
-Kaynaklar:
-{context_text}
-<|eot_id|>
-<|start_header_id|>assistant<|end_header_id|>
-"""
-    gen_start=time.perf_counter()
-
-    #call LLM
-    output=llm(prompt,max_tokens=512,stop=["<|eot_id|>","Kaynaklar:"],
-               temperature=0.2,echo=False)
-    
-    gen_time_ms=(time.perf_counter()-gen_start)*1000
-    generated_text=output["choices"][0]["text"].strip()
-
-    return SearchResult(
-        answer=generated_text,
-        contexts=results["contexts"],
-        sources=results["sources"],
-        search_time_ms=search_time_ms,
-    
+    result = query_database.local_api_llm(
+        request.query,
+        qdrant_storage=qdrant_storage,
+        embedder=global_embedder,
+        top_k=request.top_k
     )
+    if "error" in result:
+        raise HTTPException(status_code=500, detail=str(result["error"]))
+
+    print("answer--->", result.get("answer"))
+    return RAGResponse(
+        answer=result.get("answer"),
+        contexts=result.get("context_used"),
+        sources=result.get("sources"),
+    )
+
+
+@app.get("/recent-contacts", response_model=RecentContactsResponse)
+async def recent_contacts():
+
+    email_address = os.environ.get("EMAIL_ADDRESS")
+    email_password = os.environ.get("EMAIL_PASSWORD")
+
+    if not email_address or not email_password:
+        raise HTTPException(status_code=500, detail="E-posta kimlik bilgileri ayarlanmamış (.env)")
+
+    try:
+        receiver = EmailReceiver(email_address, email_password)
+        contacts_raw = receiver.fetch_recent_contacts(scan_limit=50, contact_count=5)
+        receiver.close_connection()
+    except ConnectionError as e:
+        raise HTTPException(status_code=503, detail=f"IMAP bağlantı hatası: {e}")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+    contacts = [
+        ContactItem(
+            email=c["email"],
+            name=c.get("name", c["email"]),
+            last_date=c.get("last_date", ""),
+            direction=c.get("direction", ""),
+        )
+        for c in contacts_raw
+    ]
+
+    return RecentContactsResponse(contacts=contacts)
+
+
+@app.post("/summarize", response_model=SummarizeResponse)
+async def summarize_emails(request: SummarizeRequest):
+
+    email_address = os.environ.get("EMAIL_ADDRESS")
+    email_password = os.environ.get("EMAIL_PASSWORD")
+
+    if not email_address or not email_password:
+        raise HTTPException(status_code=500, detail="E-posta kimlik bilgileri ayarlanmamış (.env)")
+
+    if not request.contact_email:
+        raise HTTPException(status_code=400, detail="contact_email boş olamaz")
+
+    try:
+        receiver = EmailReceiver(email_address, email_password)
+        result = summarize_conversation(
+            contact_email=request.contact_email,
+            receiver=receiver,
+            limit=request.limit
+        )
+        receiver.close_connection()
+    except ConnectionError as e:
+        raise HTTPException(status_code=503, detail=f"IMAP bağlantı hatası: {e}")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+    if "error" in result:
+        raise HTTPException(status_code=500, detail=result["error"])
+
+    email_items = [
+        EmailItem(
+            subject=em.get("subject", ""),
+            date=em.get("date", ""),
+            direction=em.get("direction", ""),
+            from_addr=em.get("from", ""),
+            to_addr=em.get("to", ""),
+            body_preview=em.get("body_preview", ""),
+        )
+        for em in result.get("emails", [])
+    ]
+
+    return SummarizeResponse(
+        summary=result.get("summary", ""),
+        emails=email_items,
+    )
+
+
+@app.post("/reply-suggest", response_model=ReplyResponse)
+async def reply_suggest(request: ReplyRequest):
+
+    email_address = os.environ.get("EMAIL_ADDRESS")
+    email_password = os.environ.get("EMAIL_PASSWORD")
+
+    if not email_address or not email_password:
+        raise HTTPException(status_code=500, detail="E-posta kimlik bilgileri ayarlanmamış (.env)")
+
+    if not request.contact_email:
+        raise HTTPException(status_code=400, detail="contact_email boş olamaz")
+
+    if request.tone not in ("formal", "friendly", "brief"):
+        raise HTTPException(status_code=400, detail="tone must be: formal, friendly, or brief")
+
+    try:
+        receiver = EmailReceiver(email_address, email_password)
+        result = suggest_replies(
+            contact_email=request.contact_email,
+            tone=request.tone,
+            receiver=receiver,
+        )
+        receiver.close_connection()
+    except ConnectionError as e:
+        raise HTTPException(status_code=503, detail=f"IMAP bağlantı hatası: {e}")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+    if "error" in result:
+        raise HTTPException(status_code=500, detail=result["error"])
+
+    orig = result.get("original_email", {})
+    original_item = EmailItem(
+        subject=orig.get("subject", ""),
+        date=orig.get("date", ""),
+        direction=orig.get("direction", ""),
+        from_addr=orig.get("from", ""),
+        to_addr=orig.get("to", ""),
+        body_preview=orig.get("body_preview", ""),
+    )
+
+    suggestions = [
+        ReplySuggestion(
+            tone=s.get("tone", request.tone),
+            subject=s.get("subject", ""),
+            body=s.get("body", ""),
+        )
+        for s in result.get("suggestions", [])
+    ]
+
+    return ReplyResponse(original_email=original_item, suggestions=suggestions)

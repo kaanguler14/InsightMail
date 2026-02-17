@@ -3,12 +3,29 @@ from qdrant_client.models import VectorParams , Distance , PointStruct
 
 
 class QdrantStorage:
-    def __init__(self,url="https://localhost:6333",collection="emails",dim=1024):
-        self.client = QdrantClient(url=url,timeout=30)
+    def __init__(self, url="http://localhost:6333", collection="emails", dim=1024):
+        self.client = QdrantClient(url=url, timeout=30)
         self.collection = collection
-        if not self.client.collection_exists(self.collection):
-            self.client.create_collection(collection_name=self.collection,
-                                         vectors_config=VectorParams(size=dim,distance=Distance.COSINE))
+        
+        # Check if collection exists
+        if self.client.collection_exists(self.collection):
+            # Get existing config
+            collection_info = self.client.get_collection(self.collection)
+            existing_dim = collection_info.config.params.vectors.size
+            
+            # If dimensions don't match, DELETE the collection to avoid errors
+            if existing_dim != dim:
+                print(f"Mismatch! Collection dim: {existing_dim}, Model dim: {dim}. Recreating collection...")
+                self.client.delete_collection(self.collection)
+                self.client.create_collection(
+                    collection_name=self.collection,
+                    vectors_config=VectorParams(size=dim, distance=Distance.COSINE)
+                )
+        else:
+            self.client.create_collection(
+                collection_name=self.collection,
+                vectors_config=VectorParams(size=dim, distance=Distance.COSINE)
+            )
 
     def upsert(self,ids,vectors,payloads):
         points=[PointStruct(id=ids[i],vector=vectors[i],payload=payloads[i]) for i in range(len(ids))]
@@ -16,7 +33,7 @@ class QdrantStorage:
 
 
     def search(self,query_vector,top_k: int =5):
-        results = self.client.search(collection_name=self.collection,query_vector=query_vector,limit=top_k,with_payload=True)
+        results = self.client.search(collection_name=self.collection,query_vector=query_vector,limit=top_k,with_payload=True,score_threshold=0.5)
 
         contexts=[]
         sources=set()

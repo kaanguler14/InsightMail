@@ -1,35 +1,41 @@
-from vector_database import QdrantStorage
+import os
+import uuid
+from dotenv import load_dotenv
+from src.vector_database import QdrantStorage
 from src.Email_Parser import EmailParser
 from src.Email_Chunker import EmailChunker
 from src.Email_Embedding import Email_Embedding
+
+load_dotenv()
+
+EMAIL_ADDRESS = os.environ.get("EMAIL_ADDRESS")
+EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")
+
+if not EMAIL_ADDRESS or not EMAIL_PASSWORD:
+    raise RuntimeError("EMAIL_ADDRESS and EMAIL_PASSWORD must be set in .env")
 
 qdrant = QdrantStorage(
     url="http://localhost:6333",
     collection="emails",
     dim=1024
 )
-parser = EmailParser("","")
+parser = EmailParser(EMAIL_ADDRESS, EMAIL_PASSWORD)
 chunker = EmailChunker(parser)
-embedder = Email_Embedding(chunker,'Qwen/Qwen3-Embedding-0.6B')
+embedder = Email_Embedding(chunker)
 
-
-ids =[]
-vector=[]
-payloads=[]
-
-counter=0
+ids = []
+vectors = []
+payloads = []
 
 for item in embedder.embedding(batch_size=1024):
 
-    ids.append(counter)
-    vector.append(item["embedding"])
-    payloads.append({"text":item["text"],
-                     "source":item["source"]})
-    counter+=1
+    ids.append(str(uuid.uuid4()))
+    vectors.append(item["embedding"])
+    payloads.append({"text": item["text"]})
 
-    if len(ids)>=100:
-        qdrant.upsert(ids,vector,payloads)
-        ids,vectors,payloads=[],[],[]
+    if len(ids) >= 50:
+        qdrant.upsert(ids, vectors, payloads)
+        ids, vectors, payloads = [], [], []
 
 if ids:
-    qdrant.upsert(ids,vector,payloads)
+    qdrant.upsert(ids, vectors, payloads)
