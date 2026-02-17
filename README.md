@@ -51,6 +51,39 @@ Email is the largest unstructured knowledge base most professionals have, yet it
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
+### Diagram (Mermaid)
+
+```mermaid
+flowchart LR
+  subgraph INGEST["Ingestion Pipeline"]
+    A1[IMAP] --> A2[Receiver]
+    A2 --> A3[Parser]
+    A3 --> A4[Chunker]
+    A4 --> A5[Embedder]
+    A5 --> A6[Qdrant]
+  end
+
+  subgraph QUERY["Query Pipeline"]
+    B1[Query] --> B2[Embed]
+    B2 --> B3[Search]
+    B3 --> B4[Context]
+    B4 --> B5[LLM]
+    B5 --> B6[Response]
+  end
+
+  subgraph CONV["Conversation Pipeline"]
+    C1[Contact] --> C2[IMAP Fetch]
+    C2 --> C3[Parse & Label]
+    C3 --> C4[LLM]
+    C4 --> C5[Summary / Replies]
+  end
+
+  subgraph SERVE["Serving Layer"]
+    D1[Browser] --> D2[React]
+    D2 --> D3[FastAPI]
+  end
+```
+
 ## Tech Stack
 
 | Layer | Technology | Rationale |
