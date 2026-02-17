@@ -1,0 +1,37 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 6px;
+  border-radius: var(--radius-xs);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  line-height: 1.4;
+  white-space: nowrap;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.default {
+  background: var(--bg-hover);
+  color: var(--text-tertiary);
+}
+
+.sent {
+  background: var(--sent-soft);
+  color: var(--accent-text);
+}
+
+.received {
+  background: var(--received-soft);
+  color: var(--received);
+}
+
+.success {
+  background: var(--success-soft);
+  color: var(--success);
+}
+
+.error {
+  background: var(--error-soft);
+  color: var(--error);
+}

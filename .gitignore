@@ -23,6 +23,16 @@ models/
 
 # Logs
 performance.log
+.cursor/
+
+# Frontend / Node
+node_modules/
+frontend/node_modules/
+static/react/
+
+# Local env overrides
+.env.local
+frontend/.env.local
 
 # OS
 .DS_Store

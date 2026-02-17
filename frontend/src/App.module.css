@@ -1,0 +1,13 @@
+.page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: var(--sp-8) var(--sp-8) var(--sp-6);
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: var(--sp-5) var(--sp-4);
+  }
+}

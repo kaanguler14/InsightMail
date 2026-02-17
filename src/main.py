@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
+from fastapi.middleware.cors import CORSMiddleware
 from src.custom_types import (
     SearchRequest, RAGResponse, SummarizeRequest, SummarizeResponse,
     EmailItem, RecentContactsResponse, ContactItem,
@@ -29,6 +30,13 @@ QDRANT_COLLECTION = "emails"
 VECTOR_DIM = MODEL_DIMENSION
 
 app = FastAPI(title="Email Rag App", version="1.0")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 STATIC_DIR = Path(__file__).resolve().parent.parent / "static"
 app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")

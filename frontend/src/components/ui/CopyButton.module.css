@@ -1,0 +1,23 @@
+.btn {
+  padding: 3px var(--sp-2);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xs);
+  color: var(--text-ghost);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-medium);
+  transition: all var(--duration-fast) var(--ease-out);
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+}
+
+.btn:hover:not(.copied) {
+  border-color: var(--border-default);
+  color: var(--text-secondary);
+  background: var(--bg-hover);
+}
+
+.copied {
+  border-color: var(--success);
+  color: var(--success);
+}
