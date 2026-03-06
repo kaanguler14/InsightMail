@@ -37,3 +37,8 @@ frontend/.env.local
 # OS
 .DS_Store
 Thumbs.db
+package-lock.json
+src/__pycache__/custom_types.cpython-312.pyc
+src/__pycache__/global_model.cpython-312.pyc
+src/__pycache__/main.cpython-312.pyc
+src/__pycache__/main.cpython-312.pyc
