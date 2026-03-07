@@ -37,14 +37,16 @@ export default function ReplyView({ contactEmail, onContactChange }) {
 
   return (
     <div className={styles.view}>
-      <div className={styles.titleRow}>
+      <p className={styles.docLabel}>Features</p>
+      <div id="overview" className={styles.titleRow}>
         <h1 className={styles.title}>Reply Suggestions</h1>
         {elapsed && data && (
           <span className={styles.timing}>{elapsed}s</span>
         )}
       </div>
+      <p className={styles.docSubtitle}>Generate context-aware reply drafts to a contact&apos;s latest email.</p>
 
-      <div className={styles.toolbar}>
+      <div id="suggestions" className={styles.toolbar}>
         <Input
           ref={inputRef}
           placeholder="Enter contact email..."

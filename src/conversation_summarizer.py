@@ -1,5 +1,5 @@
 from src.Email_Receiver import EmailReceiver
-from src.query_database import llm
+from src.query_database import get_llm, extract_llm_text
 from src.email_utils import parse_contact_emails, build_reply_context
 
 
@@ -45,7 +45,7 @@ def summarize_conversation(contact_email: str, receiver: EmailReceiver, limit: i
             "<|start_header_id|>assistant<|end_header_id|>\n"
         )
 
-        response = llm(
+        response = get_llm()(
             prompt,
             max_tokens=600,
             stop=["<|eot_id|>"],
@@ -53,7 +53,9 @@ def summarize_conversation(contact_email: str, receiver: EmailReceiver, limit: i
             temperature=0.3,
         )
 
-        summary = response["choices"][0]["text"].strip()
+        summary = extract_llm_text(response)
+        if not summary:
+            summary = "Could not generate summary."
 
         email_list = [
             {
@@ -72,5 +74,10 @@ def summarize_conversation(contact_email: str, receiver: EmailReceiver, limit: i
             "emails": email_list,
         }
 
+    except ConnectionError as e:
+        return {"error": f"IMAP connection error: {e}"}
+    except TimeoutError as e:
+        return {"error": f"Operation timed out: {e}"}
     except Exception as e:
-        return {"error": str(e)}
+        return {"error": f"Unexpected error: {e}"}
+

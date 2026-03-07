@@ -17,43 +17,34 @@ class Email_Embedding:
         self.model.max_seq_length = 1024
 
         torch.set_float32_matmul_precision('high')
-        #LINUX
-        #transformer = self.model[0]  # (0): Transformer
-        #hf_model = transformer.auto_model  # gerçek Qwen3 HF modeli
-#
-        ## ---- Compile ONLY HF model ----
-        #hf_model.forward = torch.compile(hf_model.forward)
-#
 
         endINITEmail=time.time()
-        print("Total time INIT emal embed:",endINITEmail-startINITEmail)
+        print("Total time INIT email embed:",endINITEmail-startINITEmail)
 
 
-    def embedding(self,batch_size):
-
-        current_email=[]
+    def embedding(self, batch_size):
+        current_batch = []
 
         for email_chunk in self.chunker.parse_and_chunk():
-            current_email.append(email_chunk)
+            current_batch.append(email_chunk)
 
-            if len(current_email) >= batch_size:
-                embeddings = self.model.encode(current_email,convert_to_tensor=False)
-
-                for text , embedding in zip(current_email, embeddings):
+            if len(current_batch) >= batch_size:
+                texts = [c["text"] for c in current_batch]
+                embeddings = self.model.encode(texts, convert_to_tensor=False)
+                for chunk, embedding in zip(current_batch, embeddings):
                     yield {
-                        "text": text,
-                        "embedding": embedding.tolist()
+                        **chunk,
+                        "embedding": embedding.tolist(),
                     }
+                current_batch = []
 
-                current_email=[]
-
-        if current_email:
-            embeddings = self.model.encode(current_email,convert_to_tensor=False)
-            for text , embedding in zip(current_email, embeddings):
+        if current_batch:
+            texts = [c["text"] for c in current_batch]
+            embeddings = self.model.encode(texts, convert_to_tensor=False)
+            for chunk, embedding in zip(current_batch, embeddings):
                 yield {
-                    "text": text,
-                    "embedding": embedding.tolist()
-
+                    **chunk,
+                    "embedding": embedding.tolist(),
                 }
     
     def embed_anything(self,text:str):

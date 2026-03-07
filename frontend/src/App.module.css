@@ -2,12 +2,26 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: var(--sp-8) var(--sp-8) var(--sp-6);
+  min-height: 0;
   overflow-y: auto;
+  padding: var(--sp-5) var(--sp-6);
+}
+
+.homePage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  padding: 0;
+}
+
+/* Doc-style content (Mintlify-like): no heavy panel, clean sections */
+.doc {
+  width: 100%;
+  max-width: 100%;
 }
 
 @media (max-width: 768px) {
-  .page {
-    padding: var(--sp-5) var(--sp-4);
-  }
+  .page { padding: 0; }
 }

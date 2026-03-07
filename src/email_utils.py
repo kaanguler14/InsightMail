@@ -102,15 +102,6 @@ def parse_contact_emails(raw_emails, max_body_chars=MAX_BODY_CHARS):
     return parsed
 
 
-def build_conversation_text(parsed_emails):
-    """Build a chronological conversation string for LLM context (oldest first)."""
-    lines = []
-    for m in reversed(parsed_emails):
-        arrow = ">>" if m["direction"] == "giden" else "<<"
-        lines.append(f"[{m['date']}] {arrow} Subject: {m['subject']}\n{m['body']}")
-    return "\n---\n".join(lines)
-
-
 def build_reply_context(parsed_emails, my_email, contact_email):
     """Build conversation text with clear ME/THEM labels for reply generation (oldest first)."""
     lines = []

@@ -35,12 +35,14 @@ export default function SearchView() {
 
   return (
     <div className={styles.view}>
-      <div className={styles.titleRow}>
+      <p className={styles.docLabel}>Features</p>
+      <div id="ask" className={styles.titleRow}>
         <h1 className={styles.title}>Q&A</h1>
         {elapsed && data && (
           <span className={styles.timing}>{elapsed}s</span>
         )}
       </div>
+      <p className={styles.docSubtitle}>Ask natural language questions across your mailbox and get grounded answers with sources.</p>
 
       <div className={styles.toolbar}>
         <Input
@@ -51,13 +53,24 @@ export default function SearchView() {
           onKeyDown={handleKeyDown}
           aria-label="Question"
         />
-        <Tabs options={TOP_K_OPTIONS} value={topK} onChange={setTopK} />
+        <div className={styles.limitWrap}>
+          <Tabs options={TOP_K_OPTIONS} value={topK} onChange={setTopK} />
+          <span className={styles.infoTrigger} aria-label="What are these numbers?">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <circle cx="7" cy="7" r="6" />
+              <path d="M7 6.5v0M7 9.5v-2" />
+            </svg>
+            <span className={styles.infoTooltip} role="tooltip">
+              Number of email chunks to retrieve and use as context for the AI answer (top N most relevant).
+            </span>
+          </span>
+        </div>
         <Button onClick={handleSubmit} loading={loading} size="lg">
           Ask
         </Button>
       </div>
 
-      <section className={styles.results} aria-live="polite">
+      <section id="answer" className={styles.results} aria-live="polite">
         {loading && (
           <EmptyState loading message="Searching and generating answer..." />
         )}
@@ -89,7 +102,7 @@ export default function SearchView() {
                 </div>
 
                 {data.contexts?.length > 0 && (
-                  <aside className={styles.context}>
+                  <aside id="sources" className={styles.context}>
                     <div className={styles.contextHead}>
                       <span className={styles.contextTitle}>Sources</span>
                       <span className={styles.contextCount}>{data.contexts.length}</span>

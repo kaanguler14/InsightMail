@@ -36,14 +36,16 @@ export default function SummaryView({ contactEmail, onContactChange }) {
 
   return (
     <div className={styles.view}>
-      <div className={styles.titleRow}>
+      <p className={styles.docLabel}>Features</p>
+      <div id="overview" className={styles.titleRow}>
         <h1 className={styles.title}>Conversation Summary</h1>
         {elapsed && data && (
           <span className={styles.timing}>{elapsed}s</span>
         )}
       </div>
+      <p className={styles.docSubtitle}>Summarize your email thread with a specific contact using the local LLM.</p>
 
-      <div className={styles.toolbar}>
+      <div id="options" className={styles.toolbar}>
         <Input
           ref={inputRef}
           placeholder="Enter contact email..."
@@ -52,17 +54,28 @@ export default function SummaryView({ contactEmail, onContactChange }) {
           onKeyDown={handleKeyDown}
           aria-label="Contact email"
         />
-        <Tabs
-          options={LIMIT_OPTIONS}
-          value={limit}
-          onChange={setLimit}
-        />
+        <div className={styles.limitWrap}>
+          <Tabs
+            options={LIMIT_OPTIONS}
+            value={limit}
+            onChange={setLimit}
+          />
+          <span className={styles.infoTrigger} aria-label="What are these numbers?">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <circle cx="7" cy="7" r="6" />
+              <path d="M7 6.5v0M7 9.5v-2" />
+            </svg>
+            <span className={styles.infoTooltip} role="tooltip">
+              Number of recent emails to include in the summary (last N messages with this contact).
+            </span>
+          </span>
+        </div>
         <Button onClick={handleSubmit} loading={loading} size="lg">
           Summarize
         </Button>
       </div>
 
-      <section className={styles.results} aria-live="polite">
+      <section id="result" className={styles.results} aria-live="polite">
         {loading && (
           <EmptyState
             loading

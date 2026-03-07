@@ -1,7 +1,5 @@
 @import './tokens.css';
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
 *,
 *::before,
 *::after {
@@ -24,7 +22,7 @@ body {
   color: var(--text-primary);
   line-height: var(--leading-normal);
   min-height: 100vh;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 #root {
@@ -63,8 +61,8 @@ textarea {
 }
 
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -72,10 +70,10 @@ textarea {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--text-ghost);
+  background: var(--border-default);
   border-radius: var(--radius-full);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-tertiary);
+  background: var(--text-ghost);
 }

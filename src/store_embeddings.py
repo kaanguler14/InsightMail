@@ -1,6 +1,7 @@
 import os
 import uuid
 from dotenv import load_dotenv
+from src.global_model import MODEL_DIMENSION
 from src.vector_database import QdrantStorage
 from src.Email_Parser import EmailParser
 from src.Email_Chunker import EmailChunker
@@ -17,25 +18,31 @@ if not EMAIL_ADDRESS or not EMAIL_PASSWORD:
 qdrant = QdrantStorage(
     url="http://localhost:6333",
     collection="emails",
-    dim=1024
+    dim=MODEL_DIMENSION,
 )
-parser = EmailParser(EMAIL_ADDRESS, EMAIL_PASSWORD)
-chunker = EmailChunker(parser)
-embedder = Email_Embedding(chunker)
 
-ids = []
-vectors = []
-payloads = []
+with EmailParser(EMAIL_ADDRESS, EMAIL_PASSWORD) as parser:
+    chunker = EmailChunker(parser)
+    embedder = Email_Embedding(chunker)
 
-for item in embedder.embedding(batch_size=1024):
+    ids = []
+    vectors = []
+    payloads = []
 
-    ids.append(str(uuid.uuid4()))
-    vectors.append(item["embedding"])
-    payloads.append({"text": item["text"]})
+    for item in embedder.embedding(batch_size=1024):
+        ids.append(str(uuid.uuid4()))
+        vectors.append(item["embedding"])
+        payloads.append({
+            "text": item["text"],
+            "subject": item.get("subject", ""),
+            "from": item.get("from_addr", ""),
+            "body": item.get("body", ""),
+            "email_type": item.get("email_type", "email"),
+        })
 
-    if len(ids) >= 50:
+        if len(ids) >= 50:
+            qdrant.upsert(ids, vectors, payloads)
+            ids, vectors, payloads = [], [], []
+
+    if ids:
         qdrant.upsert(ids, vectors, payloads)
-        ids, vectors, payloads = [], [], []
-
-if ids:
-    qdrant.upsert(ids, vectors, payloads)

@@ -8,7 +8,7 @@ from email.header import decode_header
 import re
 import time
 import socket
-DNS_CACHE={}
+from datetime import datetime, timezone
 
 IMAP_PROVIDERS = {
     "gmail.com": "imap.gmail.com",
@@ -49,12 +49,6 @@ class ForceIPv4IMAP(imaplib.IMAP4_SSL):
             return ssl.wrap_socket(sock, self.keyfile, self.certfile,
                                    server_hostname=self.host)
 
-def resolve_imap_host(hostname: str) -> str:
-    if hostname not in DNS_CACHE:
-        ip = socket.gethostbyname(hostname)
-        DNS_CACHE[hostname] = ip
-    return DNS_CACHE[hostname]
-
 @auto_perf_logger
 class EmailReceiver:
     def __init__(self, username, password,ip_cache=True):
@@ -71,14 +65,14 @@ class EmailReceiver:
 
     def connect(self):
         context = ssl.create_default_context()
-        print(f"Bağlanılıyor: {self.host} (IPv4 Zorlanmış)...")
+        print(f"Connecting: {self.host} (IPv4 forced)...")
 
         start = time.time()
 
         try:
             self.mail = ForceIPv4IMAP(self.host, ssl_context=context, timeout=10)
         except Exception as e:
-            raise ConnectionError(f"IMAP bağlantı hatası ({self.host}): {e}") from e
+            raise ConnectionError(f"IMAP connection error ({self.host}): {e}") from e
 
         end = time.time()
         print(f"SSL connect (IPv4 Forced): {end - start:.2f}s")
@@ -95,7 +89,7 @@ class EmailReceiver:
 
         print("Connected successfully")
 
-    def fetch_mails(self, limit=10,from_email=None, to_email=None,date=None):
+    def fetch_mails(self, limit=10, from_email=None):
         emails = []
         try:
             if from_email:
@@ -128,7 +122,7 @@ class EmailReceiver:
                                 msg=email.message_from_bytes(response_part[1])
                                 emails.append(msg)
                             except Exception as e:
-                                print("parse hatası",e)
+                                print(f"Parse error: {e}")
 
             return emails
         except Exception as e:
@@ -199,22 +193,28 @@ class EmailReceiver:
         return fallback
 
     def _fetch_uids(self, search_criteria, limit=None):
-        """Search with criteria and return UIDs."""
+        """Search with criteria and return UIDs (list of bytes for fetch)."""
         status, data = self.mail.uid('search', None, search_criteria)
-        if status != 'OK':
+        if status != 'OK' or not data or data[0] is None:
             return []
-        uids = data[0].split()
+        raw = data[0]
+        if isinstance(raw, bytes):
+            uids = [u for u in raw.split() if u]
+        else:
+            uids = [u for u in str(raw).split() if u]
         if limit:
             uids = uids[-limit:]
-        return uids
+        return [u if isinstance(u, bytes) else u.encode("ascii") for u in uids]
 
     def _fetch_messages(self, uids):
         """Fetch email messages by UIDs."""
         messages = []
+        if not uids:
+            return messages
         batch_size = 20
         for i in range(0, len(uids), batch_size):
             batch = uids[i:i + batch_size]
-            uid_str = b",".join(batch)
+            uid_str = b",".join(b if isinstance(b, bytes) else str(b).encode() for b in batch)
             status, data = self.mail.uid('fetch', uid_str, "(RFC822)")
             if status == 'OK':
                 for part in data:
@@ -222,7 +222,7 @@ class EmailReceiver:
                         try:
                             messages.append(email.message_from_bytes(part[1]))
                         except Exception as e:
-                            print("parse hatası", e)
+                            print(f"Parse error: {e}")
         return messages
 
     def fetch_mails_by_contact(self, contact_email, limit=15):
@@ -290,8 +290,44 @@ class EmailReceiver:
             return full.strip().lower()
         return None
 
-    def fetch_recent_contacts(self, scan_limit=50, contact_count=5):
-        """Scan last N emails and return the most recent unique contacts."""
+    def _extract_email_addresses(self, header_value):
+        """Extract all email addresses from a header that may contain 'a@x.com, B <b@y.com>'."""
+        if not header_value:
+            return []
+        try:
+            decoded_parts = []
+            for s, charset in decode_header(header_value):
+                if isinstance(s, bytes):
+                    decoded_parts.append(s.decode(charset or "utf-8", errors="ignore"))
+                else:
+                    decoded_parts.append(s)
+            full = "".join(decoded_parts)
+        except Exception:
+            full = str(header_value)
+        out = []
+        for segment in full.split(","):
+            segment = segment.strip()
+            m = re.search(r'<([^>]+)>', segment)
+            if m:
+                out.append(m.group(1).lower().strip())
+            elif "@" in segment:
+                out.append(segment.lower().strip())
+        return out
+
+    def _parse_date_for_sort(self, date_str):
+        """Parse Date header to naive UTC datetime for sorting (so all are comparable)."""
+        if not date_str:
+            return (datetime.min, date_str)
+        try:
+            dt = email.utils.parsedate_to_datetime(date_str)
+            if dt.tzinfo is not None:
+                dt = dt.astimezone(timezone.utc).replace(tzinfo=None)
+            return (dt, date_str)
+        except Exception:
+            return (datetime.min, date_str)
+
+    def fetch_recent_contacts(self, scan_limit=50, contact_count=10):
+        """Scan last N emails; return unique contacts sorted by most recent activity (newest first)."""
         try:
             self.mail.select("inbox")
             uids = self._fetch_uids("ALL")
@@ -299,19 +335,17 @@ class EmailReceiver:
             uids.reverse()
 
             messages = self._fetch_messages(uids)
-
-            seen = set()
-            seen.add(self.username.lower())
-            contacts = []
+            me = self.username.lower()
+            # email -> { name, last_date, last_dt, direction }
+            by_email = {}
 
             for msg in messages:
-                from_addr = self._extract_email_address(msg.get("From", ""))
-                to_addr = self._extract_email_address(msg.get("To", ""))
-                date = msg.get("Date", "")
+                from_addr = self._extract_email_address(msg.get("From") or "")
+                to_addresses = self._extract_email_addresses(msg.get("To") or "")
+                date_str = msg.get("Date") or ""
+                last_dt, _ = self._parse_date_for_sort(date_str)
 
-                # From someone else -> that's a contact
-                if from_addr and from_addr not in seen:
-                    seen.add(from_addr)
+                if from_addr and from_addr != me and from_addr not in by_email:
                     from_name = msg.get("From", from_addr)
                     try:
                         parts = []
@@ -322,37 +356,62 @@ class EmailReceiver:
                                 parts.append(s)
                         from_name = "".join(parts)
                     except Exception:
-                        pass
-                    contacts.append({
+                        from_name = from_addr
+                    by_email[from_addr] = {
                         "email": from_addr,
                         "name": from_name,
-                        "last_date": date,
+                        "last_date": date_str,
+                        "last_dt": last_dt,
                         "direction": "gelen",
-                    })
+                    }
 
-                # To someone else -> that's a contact
-                if to_addr and to_addr not in seen:
-                    seen.add(to_addr)
-                    contacts.append({
-                        "email": to_addr,
-                        "name": to_addr,
-                        "last_date": date,
-                        "direction": "giden",
-                    })
+                for to_addr in to_addresses:
+                    if to_addr and to_addr != me and to_addr not in by_email:
+                        by_email[to_addr] = {
+                            "email": to_addr,
+                            "name": to_addr,
+                            "last_date": date_str,
+                            "last_dt": last_dt,
+                            "direction": "giden",
+                        }
 
-                if len(contacts) >= contact_count:
-                    break
+            # En son mail tarihine göre sırala (yeni önce), sonra ilk contact_count kadar döndür
+            sorted_contacts = sorted(
+                by_email.values(),
+                key=lambda c: c["last_dt"],
+                reverse=True,
+            )[:contact_count]
 
-            return contacts
+            result = [{k: c[k] for k in ("email", "name", "last_date", "direction")} for c in sorted_contacts]
+            if not result and messages:
+                print(f"Recent contacts: {len(messages)} messages scanned but 0 contacts (check From/To parsing)")
+            return result
 
         except Exception as e:
+            import traceback
             print(f"Recent contacts error: {e}")
+            traceback.print_exc()
             return []
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.close_connection()
+        return False
 
     def close_connection(self):
         if self.mail:
-            self.mail.close()
-            self.mail.logout()
+            try:
+                self.mail.close()
+            except Exception:
+                pass
+            finally:
+                try:
+                    self.mail.logout()
+                except Exception:
+                    pass
+                self.mail = None
 
 
 

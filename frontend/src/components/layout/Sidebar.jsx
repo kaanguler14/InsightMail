@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { fetchRecentContacts, fetchHealth } from '../../api/client';
+import { useState, useEffect, useCallback } from 'react';
+import { fetchHealth, fetchRecentContacts } from '../../api/client';
 import ContactChip from '../features/ContactChip';
 import styles from './Sidebar.module.css';
 
@@ -49,36 +49,53 @@ const NAV_ITEMS = [
   },
 ];
 
-export default function Sidebar({ activeView, onNavigate, onSelectContact }) {
-  const [contacts, setContacts] = useState([]);
-  const [contactsLoaded, setContactsLoaded] = useState(false);
-  const [contactsError, setContactsError] = useState(null);
+export default function Sidebar({ activeView, isHorizontal, onNavigate, onSelectContact }) {
   const [health, setHealth] = useState(null);
+  const [contacts, setContacts] = useState([]);
+  const [isLoadingContacts, setIsLoadingContacts] = useState(false);
+
+  const refreshContacts = useCallback(() => {
+    setIsLoadingContacts(true);
+    fetchRecentContacts()
+      .then((data) => {
+        if (data?.contacts) setContacts(data.contacts);
+      })
+      .catch(console.error)
+      .finally(() => setIsLoadingContacts(false));
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
-    fetchRecentContacts()
-      .then((data) => {
-        if (!cancelled) {
-          setContacts(data.contacts || []);
-          setContactsLoaded(true);
-        }
-      })
-      .catch((err) => {
-        if (!cancelled) {
-          setContactsError(err.message);
-          setContactsLoaded(true);
-        }
-      });
+
     fetchHealth()
       .then(() => { if (!cancelled) setHealth('connected'); })
       .catch(() => { if (!cancelled) setHealth('offline'); });
-    return () => { cancelled = true; };
-  }, []);
+
+    refreshContacts();
+
+    const interval = setInterval(() => {
+      if (cancelled) return;
+      fetchRecentContacts()
+        .then((data) => {
+          if (!cancelled && data?.contacts) setContacts(data.contacts);
+        })
+        .catch(() => {});
+    }, 60_000);
+
+    return () => {
+      cancelled = true;
+      clearInterval(interval);
+    };
+  }, [refreshContacts]);
 
   return (
-    <nav className={styles.sidebar} aria-label="Main navigation">
-      <div className={styles.brand}>
+    <nav className={`${styles.sidebar} ${isHorizontal ? styles.horizontal : styles.vertical}`} aria-label="Main navigation">
+      <button
+        type="button"
+        className={styles.brand}
+        onClick={() => onNavigate('home')}
+        aria-label="Go to InsightMail overview"
+      >
         <div className={styles.logoMark}>
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path d="M2 4.5L8 8.5L14 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -86,8 +103,9 @@ export default function Sidebar({ activeView, onNavigate, onSelectContact }) {
           </svg>
         </div>
         <span className={styles.logoText}>InsightMail</span>
-      </div>
+      </button>
 
+      {!isHorizontal && <h2 className={styles.navSectionTitle}>FEATURES</h2>}
       <ul className={styles.nav} role="list">
         {NAV_ITEMS.map((item) => (
           <li key={item.key}>
@@ -104,46 +122,59 @@ export default function Sidebar({ activeView, onNavigate, onSelectContact }) {
         ))}
       </ul>
 
-      <div className={styles.separator} />
+      {/* Horizontal Contacts List (facepile) */}
+      {isHorizontal && (
+        <div className={styles.contactsAreaHorizontal}>
+          <div className={styles.separator} />
+          <span className={styles.contactsLabel}>Recent</span>
+          <div className={styles.contactsListHorizontal} role="list">
+            {isLoadingContacts && <span className={styles.hint}>Loading...</span>}
+            {!isLoadingContacts && contacts.slice(0, 5).map(contact => (
+              <button
+                key={contact.email}
+                className={styles.contactAvatar}
+                title={`${contact.name || contact.email} (${contact.email})`}
+                onClick={() => onSelectContact(contact.email)}
+              >
+                {(contact.name || contact.email).charAt(0).toUpperCase()}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
-      <section className={styles.contacts}>
-        <div className={styles.sectionHead}>
-          <span className={styles.sectionTitle}>Recent</span>
-          {contactsLoaded && contacts.length > 0 && (
+      {/* Vertical Contacts List (full list) */}
+      {!isHorizontal && (
+        <div className={styles.contactsAreaVertical}>
+          <div className={styles.sectionHead}>
+            <span className={styles.sectionTitle}>Recent Contacts</span>
             <span className={styles.sectionCount}>{contacts.length}</span>
-          )}
+          </div>
+          <div className={styles.contactsListVertical}>
+            {isLoadingContacts && <span className={styles.hint}>Fetching contacts...</span>}
+            {!isLoadingContacts && contacts.length === 0 && (
+               <span className={styles.hint}>No recent contacts found.</span>
+            )}
+            {!isLoadingContacts && contacts.map(contact => (
+              <ContactChip
+                key={contact.email}
+                name={contact.name}
+                email={contact.email}
+                onClick={() => onSelectContact(contact.email)}
+              />
+            ))}
+          </div>
         </div>
-        {!contactsLoaded && (
-          <p className={styles.hint}>Loading contacts...</p>
-        )}
-        {contactsError && (
-          <p className={styles.hint}>{contactsError}</p>
-        )}
-        {contactsLoaded && !contactsError && contacts.length === 0 && (
-          <p className={styles.hint}>No recent contacts</p>
-        )}
-        <div className={styles.contactsList}>
-          {contacts.map((c) => (
-            <ContactChip
-              key={c.email}
-              email={c.email}
-              name={c.name}
-              onClick={() => onSelectContact(c.email)}
-            />
-          ))}
-        </div>
-      </section>
+      )}
 
-      <div className={styles.footer}>
-        <div className={styles.status}>
-          <span
-            className={`${styles.dot} ${health === 'connected' ? styles.dotOnline : styles.dotOffline}`}
-            aria-hidden="true"
-          />
-          <span className={styles.statusLabel}>
-            {health === 'connected' ? 'API connected' : health === 'offline' ? 'API offline' : 'Connecting...'}
-          </span>
-        </div>
+      <div className={styles.status}>
+        <span
+          className={`${styles.dot} ${health === 'connected' ? styles.dotOnline : styles.dotOffline}`}
+          aria-hidden="true"
+        />
+        <span className={styles.statusLabel}>
+          {health === 'connected' ? 'API connected' : health === 'offline' ? 'API offline' : 'Connecting...'}
+        </span>
       </div>
     </nav>
   );
