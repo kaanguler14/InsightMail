@@ -2,7 +2,10 @@
 
 A locally-hosted RAG pipeline that turns your email inbox into a queryable knowledge base with conversation summarization and AI-powered reply generation. No data leaves your machine.
 
-<img width="1919" height="943" alt="image" src="https://github.com/user-attachments/assets/9b9747eb-39dd-469b-a85f-4eedf9f7c253" />
+<img width="1919" height="946" alt="image" src="https://github.com/user-attachments/assets/672fe79e-273b-4e2c-958a-c31c1a14c747" />
+
+
+
 
 ## Why This Exists
 
