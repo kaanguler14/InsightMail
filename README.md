@@ -2,6 +2,8 @@
 
 A locally-hosted RAG pipeline that turns your email inbox into a queryable knowledge base with conversation summarization and AI-powered reply generation. No data leaves your machine.
 
+<img width="1919" height="943" alt="image" src="https://github.com/user-attachments/assets/9b9747eb-39dd-469b-a85f-4eedf9f7c253" />
+
 ## Why This Exists
 
 Email is the largest unstructured knowledge base most professionals have, yet it's locked behind keyword search. InsightMail applies retrieval-augmented generation to your inbox: it indexes emails as vector embeddings, retrieves relevant context via semantic similarity, and generates answers, summaries, and reply drafts using a local LLM. Everything runs on your hardware . no API keys, no cloud inference, no data leakage.
