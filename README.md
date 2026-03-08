@@ -214,9 +214,9 @@ InsightMail/
 | Operation | Typical Latency | Notes |
 |-----------|----------------|-------|
 | Embedding model load | ~8s | One-time at startup, FP16 on CUDA |
-| LLM load | ~3s | One-time at startup, Q4_K_M quantization |
-| Single text embedding | <50ms | 1024-dim vector via Qwen3-0.6B |
-| Qdrant search (top-5) | <10ms | Cosine similarity with 0.5 score threshold |
+| LLM load | ~1s | One-time at startup, Q4_K_M quantization |
+| Single text embedding | <30ms | 1024-dim vector via Qwen3-0.6B |
+| Qdrant search (top-5) | <8ms | Cosine similarity with 0.5 score threshold |
 | RAG Q&A (end-to-end) | 5-15s | Dominated by LLM generation (512 max tokens) |
 | Conversation summary | 15-30s | IMAP fetch + LLM generation |
 | Reply suggestions | 20-40s | IMAP fetch + 3x reply generation |
