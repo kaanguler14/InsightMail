@@ -15,6 +15,7 @@ env/
 # IDE
 .idea/
 .vscode/
+.cursor/
 *.swp
 *.swo
 
@@ -23,7 +24,6 @@ models/
 
 # Logs
 performance.log
-.cursor/
 
 # Frontend / Node
 node_modules/
@@ -34,13 +34,10 @@ static/react/
 .env.local
 frontend/.env.local
 
+# Local-only design assets (not tracked)
+frontend/public/hero.png
+frontend/public/testimonial.png
+
 # OS
 .DS_Store
 Thumbs.db
-package-lock.json
-src/__pycache__/custom_types.cpython-312.pyc
-src/__pycache__/global_model.cpython-312.pyc
-src/__pycache__/main.cpython-312.pyc
-src/__pycache__/main.cpython-312.pyc
-frontend/public/hero.png
-frontend/public/testimonial.png

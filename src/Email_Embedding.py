@@ -14,6 +14,16 @@ class Email_Embedding:
         print("Device:",self.device)
         print(torch.cuda.is_available())
         self.model = GLOBAL_MODEL
+        # WHY: global_model.py model yüklenemezse GLOBAL_MODEL = None bırakıyor.
+        # Bunu kontrol etmezsek bir sonraki satırdaki self.model.max_seq_length
+        # 'NoneType has no attribute' ile patlar; main.py bunu import sırasında
+        # oluşturduğu için TÜM uygulama hiç açılmaz. Net bir hata fırlatıp
+        # main.py'nin bunu yakalayıp servisi yine de ayağa kaldırmasına izin veriyoruz.
+        if self.model is None:
+            raise RuntimeError(
+                "Embedding model yüklenemedi (GLOBAL_MODEL=None). "
+                "global_model.py loglarını ve CUDA/torch kurulumunu kontrol edin."
+            )
         self.model.max_seq_length = 1024
 
         torch.set_float32_matmul_precision('high')
@@ -47,9 +57,22 @@ class Email_Embedding:
                     "embedding": embedding.tolist(),
                 }
     
-    def embed_anything(self,text:str):
-        embedding=self.model.encode(text,convert_to_tensor=False)
-        return embedding
+    def embed_anything(self, text: str, is_query: bool = False):
+        # WHY: Qwen3-Embedding ASİMETRİK bir retrieval modelidir. Sorgular için
+        # "query" instruction prompt'u kullanmak (Instruct: ... \nQuery: ...),
+        # sorgu ve döküman vektörlerini doğru hizalar ve retrieval isabetini
+        # belirgin artırır. is_query kullanmazsak alakalı chunk'lar 0.5 skor
+        # eşiğinin altında kalıp hiç dönmeyebilir.
+        # Dökümanlar (indeksleme) prompt'suz gömülür -> embedding() metodu.
+        if is_query:
+            try:
+                return self.model.encode(
+                    text, convert_to_tensor=False, prompt_name="query"
+                )
+            except (KeyError, ValueError):
+                # Model "query" prompt'u tanımlamıyorsa düz encode'a düş.
+                return self.model.encode(text, convert_to_tensor=False)
+        return self.model.encode(text, convert_to_tensor=False)
 
 
 if __name__=="__main__":

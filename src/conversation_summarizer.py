@@ -47,7 +47,7 @@ def summarize_conversation(contact_email: str, receiver: EmailReceiver, limit: i
 
         response = get_llm()(
             prompt,
-            max_tokens=600,
+            max_tokens=300,
             stop=["<|eot_id|>"],
             echo=False,
             temperature=0.3,

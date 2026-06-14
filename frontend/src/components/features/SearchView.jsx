@@ -1,6 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
-import { postSearch } from '../../api/client';
-import useAsync from '../../hooks/useAsync';
+import { postSearchStream } from '../../api/client';
 import Input from '../ui/Input';
 import Button from '../ui/Button';
 import Tabs from '../ui/Tabs';
@@ -16,29 +15,73 @@ const TOP_K_OPTIONS = [
 export default function SearchView() {
   const [query, setQuery] = useState('');
   const [topK, setTopK] = useState('5');
+  const [answer, setAnswer] = useState('');
+  const [contexts, setContexts] = useState([]);
+  const [loading, setLoading] = useState(false);   // istek gönderildi, ilk veri bekleniyor
+  const [streaming, setStreaming] = useState(false); // token akışı sürüyor
+  const [error, setError] = useState(null);
+  const [elapsed, setElapsed] = useState(null);
+  const [started, setStarted] = useState(false);
   const inputRef = useRef(null);
-  const { data, loading, error, elapsed, execute } = useAsync(postSearch);
+  const abortRef = useRef(null);
 
   useEffect(() => {
     inputRef.current?.focus();
+    return () => abortRef.current?.abort();
   }, []);
 
   const handleSubmit = useCallback(() => {
     const q = query.trim();
     if (!q) return;
-    execute(q, parseInt(topK, 10));
-  }, [query, topK, execute]);
+
+    abortRef.current?.abort();
+    const controller = new AbortController();
+    abortRef.current = controller;
+
+    setAnswer('');
+    setContexts([]);
+    setError(null);
+    setElapsed(null);
+    setStarted(true);
+    setLoading(true);
+    setStreaming(false);
+    const start = performance.now();
+
+    postSearchStream(q, parseInt(topK, 10), {
+      signal: controller.signal,
+      onSources: (d) => {
+        setContexts(d.contexts || []);
+        setLoading(false);
+        setStreaming(true);
+      },
+      onToken: (t) => setAnswer((prev) => prev + t),
+      onDone: (d) => {
+        if (d.answer != null) setAnswer(d.answer);
+        if (d.contexts) setContexts(d.contexts);
+        setStreaming(false);
+        setLoading(false);
+        setElapsed(((performance.now() - start) / 1000).toFixed(1));
+      },
+      onError: (err) => {
+        setError(err.message || 'An error occurred');
+        setLoading(false);
+        setStreaming(false);
+      },
+    });
+  }, [query, topK]);
 
   const handleKeyDown = useCallback((e) => {
     if (e.key === 'Enter') handleSubmit();
   }, [handleSubmit]);
+
+  const hasContent = Boolean(answer) || contexts.length > 0;
 
   return (
     <div className={styles.view}>
       <p className={styles.docLabel}>Features</p>
       <div id="ask" className={styles.titleRow}>
         <h1 className={styles.title}>Q&A</h1>
-        {elapsed && data && (
+        {elapsed && !streaming && (
           <span className={styles.timing}>{elapsed}s</span>
         )}
       </div>
@@ -65,7 +108,7 @@ export default function SearchView() {
             </span>
           </span>
         </div>
-        <Button onClick={handleSubmit} loading={loading} size="lg">
+        <Button onClick={handleSubmit} loading={loading || streaming} size="lg">
           Ask
         </Button>
       </div>
@@ -77,16 +120,16 @@ export default function SearchView() {
 
         {error && <EmptyState error={error} />}
 
-        {data && !loading && (
+        {started && !loading && !error && (
           <>
-            {!data.answer && (!data.contexts || data.contexts.length === 0) && (
+            {!hasContent && !streaming && (
               <EmptyState message="No results found. Try a different question." />
             )}
 
-            {(data.answer || data.contexts?.length > 0) && (
+            {hasContent && (
               <div className={styles.columns}>
                 <div className={styles.primary}>
-                  {data.answer && (
+                  {(answer || streaming) && (
                     <article className={styles.answerCard}>
                       <div className={styles.cardLabel}>
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
@@ -96,19 +139,22 @@ export default function SearchView() {
                         </svg>
                         Answer
                       </div>
-                      <p className={styles.answerText}>{data.answer}</p>
+                      <p className={styles.answerText}>
+                        {answer}
+                        {streaming && <span className={styles.cursor} aria-hidden="true">▋</span>}
+                      </p>
                     </article>
                   )}
                 </div>
 
-                {data.contexts?.length > 0 && (
+                {contexts.length > 0 && (
                   <aside id="sources" className={styles.context}>
                     <div className={styles.contextHead}>
                       <span className={styles.contextTitle}>Sources</span>
-                      <span className={styles.contextCount}>{data.contexts.length}</span>
+                      <span className={styles.contextCount}>{contexts.length}</span>
                     </div>
                     <ol className={styles.sourceList}>
-                      {data.contexts.map((ctx, i) => (
+                      {contexts.map((ctx, i) => (
                         <li key={i} className={styles.sourceItem}>
                           <span className={styles.sourceNum}>{i + 1}</span>
                           <p className={styles.sourceText}>{ctx}</p>

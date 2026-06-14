@@ -169,6 +169,18 @@
   white-space: pre-wrap;
 }
 
+/* Streaming sırasında yanıp sönen imleç */
+.cursor {
+  display: inline-block;
+  margin-left: 1px;
+  color: var(--text-secondary);
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
 /* ── Context: sources ── */
 
 .context {

@@ -100,7 +100,7 @@ def suggest_replies(contact_email: str, tone: str, receiver: EmailReceiver):
 
         response = get_llm()(
             prompt,
-            max_tokens=700,
+            max_tokens=500,
             stop=["<|eot_id|>"],
             echo=False,
             temperature=0.7,

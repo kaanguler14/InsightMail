@@ -2,7 +2,9 @@ from sentence_transformers import SentenceTransformer
 import torch
 import time
 
-MODEL_NAME = 'Qwen/Qwen3-Embedding-0.6B'
+from src.config import EMBED_MODEL_NAME
+
+MODEL_NAME = EMBED_MODEL_NAME
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 try:

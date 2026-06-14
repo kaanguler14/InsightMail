@@ -1,10 +1,16 @@
-fastapi
-uvicorn
-pydantic
-sentence-transformers
-torch
-qdrant-client
-llama-cpp-python
-spacy
-beautifulsoup4
-python-dotenv
+# WHY: Sürümler önceden hiç pinlenmemişti; farklı bir makinede uyumsuz sürümler
+# kurulup uygulama patlayabiliyordu. Aşağıda tekrarlanabilirlik için uyumlu sürüm
+# ARALIKLARI kullanılır (beklenmedik major yükseltmeleri engeller).
+# NOT: torch'u kasıtlı olarak kesin sürüme/CUDA build'ine (ör. +cu128) sabitlemiyoruz;
+# CUDA/CPU build seçimi makineye özeldir. GPU için uygun torch tekerleğini ortamınıza
+# göre ayrıca kurun (https://pytorch.org).
+fastapi>=0.104,<1.0
+uvicorn>=0.24,<1.0
+pydantic>=2.5,<3.0
+sentence-transformers>=3.0
+torch>=2.0
+qdrant-client>=1.7,<2.0
+llama-cpp-python>=0.2.70
+spacy>=3.7,<4.0
+beautifulsoup4>=4.12,<5.0
+python-dotenv>=1.0,<2.0

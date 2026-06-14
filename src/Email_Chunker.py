@@ -23,7 +23,16 @@ class EmailChunker():
     def __init__(self, parser: EmailParser):
         self.parser = parser
         if EmailChunker._nlp is None:
-            EmailChunker._nlp = spacy.load("en_core_web_sm")
+            # WHY: en_core_web_sm yalnızca İngilizce'dir; Türkçe (ve diğer dillerde)
+            # e-postalarda cümle sınırlarını yanlış koyar -> chunk'lar bozulur,
+            # retrieval kalitesi düşer. Ayrıca ayrı bir model indirme adımı
+            # (python -m spacy download ...) gerektirir.
+            # Dilden bağımsız, kural tabanlı "sentencizer" hem çok dillidir hem de
+            # indirme gerektirmez (blank multilingual pipeline, sadece noktalama
+            # tabanlı bölme).
+            nlp = spacy.blank("xx")
+            nlp.add_pipe("sentencizer")
+            EmailChunker._nlp = nlp
 
     def spacy_sentence_split(self, text):
         doc = self._nlp(text)

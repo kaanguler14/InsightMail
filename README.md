@@ -60,7 +60,7 @@ Email is the largest unstructured knowledge base most professionals have, yet it
 | **LLM** | Llama 3.2 3B Instruct (Q4_K_M GGUF) | 4-bit quantized, runs on consumer GPU with ~2GB VRAM. Good instruction-following at small size |
 | **Embeddings** | Qwen3-Embedding-0.6B (1024-dim) | Compact model with strong multilingual retrieval quality. FP16 on CUDA |
 | **Vector DB** | Qdrant | Production-grade, supports filtering, payload storage, and cosine similarity out of the box |
-| **Chunking** | spaCy `en_core_web_sm` | Sentence-boundary-aware splitting avoids mid-sentence breaks that degrade retrieval quality |
+| **Chunking** | spaCy `sentencizer` (multilingual, rule-based) | Language-agnostic sentence-boundary splitting avoids mid-sentence breaks; works for Turkish/English alike with no separate model download |
 | **Email** | IMAP via `imaplib` | Direct protocol access . no third-party wrappers. Custom IPv4-forced socket for network reliability |
 | **API** | FastAPI + Pydantic | Typed request/response validation, async-ready, auto-generated OpenAPI docs |
 | **Frontend** | React 19 + Vite + CSS Modules | Component-based UI with design token system, no CSS framework dependency |
@@ -85,7 +85,7 @@ All inference runs locally. This means zero per-query cost and full data privacy
 
 ### Sentence-aware chunking vs fixed-size
 
-Fixed-size chunking (split every N characters) is simpler but produces chunks that break mid-sentence, degrading retrieval precision. spaCy's sentence segmenter produces linguistically coherent chunks with a configurable minimum size (200 chars default). The trade-off is a spaCy model load on startup (~1s).
+Fixed-size chunking (split every N characters) is simpler but produces chunks that break mid-sentence, degrading retrieval precision. spaCy's rule-based `sentencizer` (a blank multilingual pipeline) produces linguistically coherent chunks with a configurable minimum size (200 chars default). It is language-agnostic — important since inboxes are often mixed Turkish/English — and requires no separate language-model download.
 
 ### Dynamic context allocation
 
@@ -106,7 +106,8 @@ Different providers use different sent folder names (Gmail: `[Gmail]/Sent Mail`,
 | `GET` | `/health` | Health check | — |
 | `GET` | `/recent-contacts` | Last 5 contacts with name + email | — |
 | `POST` | `/ask` | Semantic search (no LLM) | `{ query, top_k }` |
-| `POST` | `/search` | RAG Q&A with LLM answer | `{ query, top_k }` |
+| `POST` | `/search` | RAG Q&A with LLM answer (blocking) | `{ query, top_k }` |
+| `POST` | `/search-stream` | RAG Q&A streamed token-by-token (SSE) | `{ query, top_k }` |
 | `POST` | `/summarize` | Conversation summary | `{ contact_email, limit }` |
 | `POST` | `/reply-suggest` | Reply draft generation | `{ contact_email, tone }` |
 
@@ -125,14 +126,15 @@ All endpoints return typed JSON via Pydantic response models. Errors follow Fast
 ### Setup
 
 ```bash
-git clone https://github.com/your-username/InsightMail.git
+git clone https://github.com/kaanguler14/InsightMail.git
 cd InsightMail
 
 # Python environment
 python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
-python -m spacy download en_core_web_sm
+# Not: Cümle bölütleme dilden bağımsız spaCy "sentencizer" ile yapılır,
+# ayrı bir dil modeli indirmeye gerek yoktur.
 
 # Download LLM (place in models/)
 # Llama-3.2-3B-Instruct-Q4_K_M.gguf → models/
@@ -168,6 +170,21 @@ npm run build  # outputs to static/react/
 ```
 
 The FastAPI server serves the built frontend from `/static`.
+
+### Docker (API + Qdrant)
+
+Bring up the API and Qdrant together with one command:
+
+```bash
+# .env must exist (EMAIL_ADDRESS / EMAIL_PASSWORD); place the GGUF model in models/
+docker compose up --build
+```
+
+This starts Qdrant (`:6333`) and the API (`:8000`). The API reaches Qdrant via the
+`http://qdrant:6333` service URL (injected through `QDRANT_URL`). The `models/`
+directory is mounted as a volume so the large GGUF file is **not** baked into the
+image. The default image is CPU-only; see the GPU notes in `Dockerfile` and
+`docker-compose.yml` to enable CUDA.
 
 ## Project Structure
 

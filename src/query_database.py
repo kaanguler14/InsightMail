@@ -1,10 +1,20 @@
+from __future__ import annotations
+
+import json
 import re
+from typing import TYPE_CHECKING
 
-from llama_cpp import Llama
-from src.Email_Embedding import Email_Embedding
-from src.vector_database import QdrantStorage
+# WHY: llama_cpp ve Email_Embedding/QdrantStorage (torch + sentence-transformers
+# zincirini ve model yüklemesini tetikler) modül seviyesinde import edilirse,
+# bu dosyadaki saf fonksiyonları (build_prompt, format_sources vb.) test etmek
+# için bu ağır bağımlılıkların kurulu olması gerekir. Importları tembelleştirip
+# tip ipuçlarını TYPE_CHECKING altına alarak modülü hafif ve test edilebilir
+# tutuyoruz.
+if TYPE_CHECKING:
+    from src.Email_Embedding import Email_Embedding
+    from src.vector_database import QdrantStorage
 
-MODEL_PATH = "models/Llama-3.2-3B-Instruct-Q4_K_M.gguf"
+from src.config import LLM_MODEL_PATH, LLM_N_CTX
 
 _llm_instance = None
 
@@ -13,12 +23,17 @@ def get_llm():
     """Lazy-load the LLM singleton. First call loads the model (~3s), subsequent calls return cached instance."""
     global _llm_instance
     if _llm_instance is None:
+        from llama_cpp import Llama  # ağır import: yalnızca gerçekten gerekince
+
         print("Loading local LLM...")
         _llm_instance = Llama(
-            model_path=MODEL_PATH,
-            n_ctx=4096,
+            model_path=LLM_MODEL_PATH,
+            n_ctx=LLM_N_CTX,
             n_gpu_layers=-1,
-            verbose=False
+            n_batch=2048,
+            n_threads=4,
+            flash_attn=True,
+            verbose=False,
         )
         print("Local LLM loaded.")
     return _llm_instance
@@ -126,7 +141,7 @@ def build_prompt(sources: list[dict], query: str) -> tuple[str, bool]:
 def local_api_llm(query: str, qdrant_storage: QdrantStorage, embedder: Email_Embedding, top_k=3):
 
     try:
-        query_vec = embedder.embed_anything(query).tolist()
+        query_vec = embedder.embed_anything(query, is_query=True).tolist()
 
         results = qdrant_storage.search(query_vector=query_vec, top_k=top_k)
 
@@ -159,3 +174,62 @@ def local_api_llm(query: str, qdrant_storage: QdrantStorage, embedder: Email_Emb
         return {"error": f"Database connection error: {e}"}
     except Exception as e:
         return {"error": f"LLM query error: {e}"}
+
+
+def _sse(event: str, data: dict) -> str:
+    """Server-Sent Events tek mesaj biçimi."""
+    return f"event: {event}\ndata: {json.dumps(data, ensure_ascii=False)}\n\n"
+
+
+def local_api_llm_stream(query: str, qdrant_storage: QdrantStorage, embedder: Email_Embedding, top_k=3):
+    """RAG cevabını token token (SSE) akıtan jeneratör.
+
+    WHY: Bloklayan /search ucu 5-15 sn boyunca kullanıcıya boş ekran gösteriyordu.
+    Streaming ile önce kaynaklar, ardından cevap token token gönderilir; kullanıcı
+    ilerlemeyi anında görür. Olay sırası: sources -> token* -> done (veya error).
+    'done' olayında, doğruluk için nihai (gerekirse temizlenmiş) cevabın tamamı
+    yollanır; frontend canlı akışı bununla değiştirir.
+    """
+    try:
+        query_vec = embedder.embed_anything(query, is_query=True).tolist()
+        results = qdrant_storage.search(query_vector=query_vec, top_k=top_k)
+
+        contexts = results["contexts"]
+        sources = results["sources"]
+        sources_structured = results.get("sources_structured", [])
+
+        yield _sse("sources", {"contexts": contexts, "sources": sources})
+
+        prompt, all_one_directional = build_prompt(sources_structured, query)
+
+        stream = get_llm()(
+            prompt,
+            max_tokens=512,
+            stop=["<|eot_id|>"],
+            echo=False,
+            stream=True,
+        )
+
+        parts = []
+        for chunk in stream:
+            # Akışta her parça bir delta'dır; strip ETME (anlamlı boşluklar kaybolur).
+            try:
+                piece = chunk["choices"][0]["text"]
+            except (KeyError, IndexError, TypeError):
+                piece = ""
+            if piece:
+                parts.append(piece)
+                yield _sse("token", {"text": piece})
+
+        answer = "".join(parts).strip()
+        if not answer:
+            answer = "Could not generate a response."
+        elif all_one_directional:
+            answer = _clean_one_directional_answer(answer)
+
+        yield _sse("done", {"answer": answer, "sources": sources, "contexts": contexts})
+
+    except ConnectionError as e:
+        yield _sse("error", {"detail": f"Database connection error: {e}"})
+    except Exception as e:
+        yield _sse("error", {"detail": f"LLM query error: {e}"})
