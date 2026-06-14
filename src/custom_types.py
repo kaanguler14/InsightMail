@@ -7,13 +7,6 @@ class SearchRequest(BaseModel):
     top_k: int = 5
 
 
-class SearchResult(BaseModel):
-    answer: str
-    contexts: List[str]
-    sources: List[str]
-    search_time_ms: float
-
-
 class RAGResponse(BaseModel):
     answer: Optional[str] = None
     contexts: List[str] = []

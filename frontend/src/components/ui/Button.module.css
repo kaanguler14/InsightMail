@@ -1,103 +1,46 @@
 .button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--sp-2);
-  border-radius: var(--radius-md);
-  font-weight: var(--weight-medium);
-  font-size: var(--text-sm);
-  line-height: 1;
-  cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: var(--sp-2); border-radius: var(--radius-md);
+  font-weight: var(--weight-medium); font-size: var(--text-sm);
+  line-height: 1; cursor: pointer;
   transition: all var(--duration-normal) var(--ease-out);
-  white-space: nowrap;
-  position: relative;
-  flex-shrink: 0;
+  white-space: nowrap; position: relative; flex-shrink: 0;
 }
 
-.button:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-/* ── Variants ── */
+.button:disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
 
 .primary {
-  background: var(--accent);
-  color: white;
+  background: var(--accent); color: white;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
-
 .primary:hover:not(:disabled) {
   background: var(--accent-hover);
-  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
-
-.primary:active:not(:disabled) {
-  transform: scale(0.98);
-}
+.primary:active:not(:disabled) { transform: scale(0.98); }
 
 .ghost {
-  background: transparent;
-  color: var(--text-secondary);
+  background: transparent; color: var(--text-secondary);
   border: 1px solid var(--border-default);
 }
-
 .ghost:hover:not(:disabled) {
-  background: var(--bg-hover);
-  color: var(--text-primary);
+  background: var(--bg-hover); color: var(--text-primary);
   border-color: var(--border-strong);
 }
 
-.subtle {
-  background: var(--bg-hover);
-  color: var(--text-secondary);
-}
+.subtle { background: var(--bg-hover); color: var(--text-secondary); }
+.subtle:hover:not(:disabled) { background: var(--bg-active); color: var(--text-primary); }
 
-.subtle:hover:not(:disabled) {
-  background: var(--bg-active);
-  color: var(--text-primary);
-}
+.sm { padding: 5px var(--sp-3); font-size: var(--text-xs); height: 28px; border-radius: var(--radius-sm); }
+.md { padding: 6px var(--sp-4); height: 36px; }
+.lg { padding: 8px var(--sp-5); height: 40px; }
 
-/* ── Sizes ── */
-
-.sm {
-  padding: 5px var(--sp-3);
-  font-size: var(--text-xs);
-  height: 28px;
-  border-radius: var(--radius-sm);
-}
-
-.md {
-  padding: 6px var(--sp-4);
-  height: 36px;
-}
-
-.lg {
-  padding: 8px var(--sp-5);
-  height: 40px;
-}
-
-/* ── Loading ── */
-
-.loading {
-  cursor: wait;
-}
-
+.loading { cursor: wait; }
 .spinner {
-  width: 14px;
-  height: 14px;
+  width: 14px; height: 14px;
   border: 2px solid rgba(255, 255, 255, 0.2);
-  border-top-color: currentColor;
-  border-radius: 50%;
-  animation: spin 0.6s linear infinite;
-  position: absolute;
+  border-top-color: currentColor; border-radius: 50%;
+  animation: spin 0.6s linear infinite; position: absolute;
 }
-
-.labelHidden {
-  opacity: 0;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
+.labelHidden { opacity: 0; }
+@keyframes spin { to { transform: rotate(360deg); } }

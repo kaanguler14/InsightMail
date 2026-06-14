@@ -1,8 +1,7 @@
-import os
 import re
 
 from src.Email_Receiver import EmailReceiver
-from src.query_database import llm
+from src.query_database import get_llm, extract_llm_text
 from src.email_utils import parse_contact_emails, build_reply_context
 
 TONE_INSTRUCTIONS = {
@@ -99,15 +98,15 @@ def suggest_replies(contact_email: str, tone: str, receiver: EmailReceiver):
             "<|start_header_id|>assistant<|end_header_id|>\n"
         )
 
-        response = llm(
+        response = get_llm()(
             prompt,
-            max_tokens=700,
+            max_tokens=500,
             stop=["<|eot_id|>"],
             echo=False,
             temperature=0.7,
         )
 
-        raw_text = response["choices"][0]["text"].strip()
+        raw_text = extract_llm_text(response)
         suggestions = _parse_llm_replies(raw_text)
 
         while len(suggestions) < 3:
@@ -133,5 +132,9 @@ def suggest_replies(contact_email: str, tone: str, receiver: EmailReceiver):
             ],
         }
 
+    except ConnectionError as e:
+        return {"error": f"IMAP connection error: {e}"}
+    except TimeoutError as e:
+        return {"error": f"Operation timed out: {e}"}
     except Exception as e:
-        return {"error": str(e)}
+        return {"error": f"Unexpected error: {e}"}

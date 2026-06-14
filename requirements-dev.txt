@@ -1,0 +1,7 @@
+# CI ve birim testleri için hafif bağımlılıklar.
+# WHY: Tam requirements.txt (torch, sentence-transformers, llama-cpp-python,
+# spacy) CI'da kurulması çok ağır/kırılgan olur. Saf fonksiyon testleri yalnızca
+# pytest + beautifulsoup4 + python-dotenv gerektirir.
+pytest
+beautifulsoup4
+python-dotenv

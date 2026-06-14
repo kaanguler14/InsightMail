@@ -1,0 +1,33 @@
+# WHY: Build context'i küçük tutar (hızlı build) ve gereksiz/büyük/gizli
+# dosyaların imaja sızmasını engeller.
+
+# Git / IDE
+.git
+.gitignore
+.idea
+.vscode
+.cursor
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+env/
+
+# Modeller (2GB+, runtime'da volume ile bağlanır)
+models/
+
+# Frontend kaynak/derleme (API imajı yalnızca static/ derlenmiş çıktıyı kullanır)
+frontend/node_modules/
+frontend/dist/
+
+# Loglar ve yereller
+performance.log
+.env
+.env.local
+
+# Dokümanlar/testler (imaja gerekmez)
+tests/
+*.md

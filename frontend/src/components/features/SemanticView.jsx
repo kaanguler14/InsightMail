@@ -35,7 +35,8 @@ export default function SemanticView() {
 
   return (
     <div className={styles.view}>
-      <div className={styles.titleRow}>
+      <p className={styles.docLabel}>Features</p>
+      <div id="search" className={styles.titleRow}>
         <h1 className={styles.title}>Semantic Search</h1>
         {elapsed && data && (
           <span className={styles.timing}>
@@ -43,6 +44,7 @@ export default function SemanticView() {
           </span>
         )}
       </div>
+      <p className={styles.docSubtitle}>Find emails by meaning, not just keywords. Returns the most relevant chunks.</p>
 
       <div className={styles.toolbar}>
         <Input
@@ -53,13 +55,24 @@ export default function SemanticView() {
           onKeyDown={handleKeyDown}
           aria-label="Search query"
         />
-        <Tabs options={TOP_K_OPTIONS} value={topK} onChange={setTopK} />
+        <div className={styles.limitWrap}>
+          <Tabs options={TOP_K_OPTIONS} value={topK} onChange={setTopK} />
+          <span className={styles.infoTrigger} aria-label="What are these numbers?">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <circle cx="7" cy="7" r="6" />
+              <path d="M7 6.5v0M7 9.5v-2" />
+            </svg>
+            <span className={styles.infoTooltip} role="tooltip">
+              Number of most relevant email chunks to return (no AI answer, just raw results).
+            </span>
+          </span>
+        </div>
         <Button onClick={handleSubmit} loading={loading} size="lg">
           Search
         </Button>
       </div>
 
-      <section className={styles.results} aria-live="polite">
+      <section id="results" className={styles.results} aria-live="polite">
         {loading && (
           <EmptyState loading message="Searching your emails..." />
         )}

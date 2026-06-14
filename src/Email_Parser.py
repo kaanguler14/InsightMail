@@ -14,7 +14,7 @@ class EmailParser:
         start=time.time()
         self.email_receiver = EmailReceiver(self.address,self.password)
         self.emails = self.email_receiver.fetch_mails(100)
-        print("MAİL SAYISI:", len(self.emails))
+        print("Mail count:", len(self.emails))
         end=time.time()
         print("Receiver->", end-start )
 
@@ -58,7 +58,6 @@ class EmailParser:
     def parse_subject(self,mail_item):
 
         try:
-            print("Parsing subjects")
             decoded_subject = email_module.header.decode_header(mail_item['Subject'])
 
             subject_parts = []
@@ -76,7 +75,7 @@ class EmailParser:
             return subject_str
 
         except Exception as e:
-            print(f"Subject (Hata Çözülemedi): {mail_item.get('Subject', '(Yok)')}")
+            print(f"Could not decode subject: {mail_item.get('Subject', '(None)')}")
             return ""
 
     def parse_body(self, mail_item):
@@ -101,8 +100,8 @@ class EmailParser:
                     if raw is None:
                         continue
                     payload = raw.decode("utf-8", errors="ignore").strip()
-                except Exception:
-                    print("decode error")
+                except Exception as e:
+                    print(f"Decode error: {e}")
                     continue
 
                 if content_type == "text/html":
@@ -152,9 +151,13 @@ class EmailParser:
 
 
 
-#start=time.time()
-#email_parser = EmailParser("", "")
-#for mail in email_parser.parse():
-#    print(mail)
-#end=time.time()
-#print(f"TOTAL TIME ELAPSED {end-start}")
+    def close(self):
+        if self.email_receiver:
+            self.email_receiver.close_connection()
+            self.email_receiver = None
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *args):
+        self.close()

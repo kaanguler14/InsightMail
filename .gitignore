@@ -15,6 +15,7 @@ env/
 # IDE
 .idea/
 .vscode/
+.cursor/
 *.swp
 *.swo
 
@@ -23,7 +24,6 @@ models/
 
 # Logs
 performance.log
-.cursor/
 
 # Frontend / Node
 node_modules/
@@ -33,6 +33,10 @@ static/react/
 # Local env overrides
 .env.local
 frontend/.env.local
+
+# Local-only design assets (not tracked)
+frontend/public/hero.png
+frontend/public/testimonial.png
 
 # OS
 .DS_Store

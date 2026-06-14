@@ -9,6 +9,7 @@ export default defineConfig({
       '/health': 'http://127.0.0.1:8000',
       '/recent-contacts': 'http://127.0.0.1:8000',
       '/search': 'http://127.0.0.1:8000',
+      '/search-stream': 'http://127.0.0.1:8000',
       '/ask': 'http://127.0.0.1:8000',
       '/summarize': 'http://127.0.0.1:8000',
       '/reply-suggest': 'http://127.0.0.1:8000',

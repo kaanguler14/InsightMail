@@ -1,0 +1,38 @@
+# InsightMail — tek komutla ayağa kaldırma: `docker compose up --build`
+#
+# WHY: API + Qdrant'ı birlikte, doğru ağ/ortam ile başlatır. Qdrant URL'i
+# servis adı üzerinden (http://qdrant:6333) verilir; bu yüzden src/config.py'nin
+# QDRANT_URL'i ortam değişkeninden okuması kritikti (bkz. Madde 6).
+
+services:
+  qdrant:
+    image: qdrant/qdrant:latest
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_storage:/qdrant/storage
+
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      # Konteyner ağı içinde Qdrant'a servis adıyla erişilir.
+      QDRANT_URL: http://qdrant:6333
+    env_file:
+      - .env            # EMAIL_ADDRESS / EMAIL_PASSWORD ve opsiyonel ayarlar
+    volumes:
+      - ./models:/app/models   # büyük GGUF modeli imaja gömmek yerine bağla
+    depends_on:
+      - qdrant
+    # GPU için (NVIDIA Container Toolkit gerekir):
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
+
+volumes:
+  qdrant_storage:
