@@ -6,13 +6,13 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
-      '/health': 'http://127.0.0.1:8000',
-      '/recent-contacts': 'http://127.0.0.1:8000',
-      '/search': 'http://127.0.0.1:8000',
-      '/search-stream': 'http://127.0.0.1:8000',
-      '/ask': 'http://127.0.0.1:8000',
-      '/summarize': 'http://127.0.0.1:8000',
-      '/reply-suggest': 'http://127.0.0.1:8000',
+      '/health': 'http://127.0.0.1:8001',
+      '/recent-contacts': 'http://127.0.0.1:8001',
+      '/search': 'http://127.0.0.1:8001',
+      '/search-stream': 'http://127.0.0.1:8001',
+      '/ask': 'http://127.0.0.1:8001',
+      '/summarize': 'http://127.0.0.1:8001',
+      '/reply-suggest': 'http://127.0.0.1:8001',
     },
   },
   build: {
