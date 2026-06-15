@@ -18,6 +18,10 @@ load_dotenv()
 # --- Qdrant ---
 QDRANT_URL = os.environ.get("QDRANT_URL", "http://localhost:6333")
 QDRANT_COLLECTION = os.environ.get("QDRANT_COLLECTION", "emails")
+# Retrieval: bu cosine skorunun altındaki sonuçlar elenir. Qwen3 kısa/diller-arası
+# sorgularda düşük mutlak benzerlik verir; 0.5 çok katıydı (alakalı e-postalar ~0.45'te
+# eleniyordu, ör. "what temu says"). 0.4 daha iyi recall/precision dengesi; env ile ayarlanır.
+RETRIEVAL_SCORE_THRESHOLD = float(os.environ.get("RETRIEVAL_SCORE_THRESHOLD", "0.4"))
 
 # --- Embedding modeli ---
 EMBED_MODEL_NAME = os.environ.get("EMBED_MODEL_NAME", "Qwen/Qwen3-Embedding-0.6B")

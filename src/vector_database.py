@@ -3,6 +3,8 @@ import logging
 from qdrant_client import QdrantClient
 from qdrant_client.models import VectorParams , Distance , PointStruct
 
+from src.config import RETRIEVAL_SCORE_THRESHOLD
+
 logger = logging.getLogger(__name__)
 
 
@@ -50,13 +52,13 @@ class QdrantStorage:
                 seen[key] = point
         return list(seen.values())
 
-    def search(self, query_vector, top_k: int = 5):
+    def search(self, query_vector, top_k: int = 5, score_threshold: float = RETRIEVAL_SCORE_THRESHOLD):
         response = self.client.query_points(
             collection_name=self.collection,
             query=query_vector,
             limit=top_k * 3,
             with_payload=True,
-            score_threshold=0.5,
+            score_threshold=score_threshold,
         )
         points = self._deduplicate_by_email(response.points)
         points = points[:top_k]
