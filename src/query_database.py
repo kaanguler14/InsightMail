@@ -95,6 +95,28 @@ def _clean_one_directional_answer(answer: str) -> str:
     return re.sub(pattern, r"• \1: ", answer, count=1).strip() or answer
 
 
+# Soru mu yoksa salt konu/anahtar-kelime mi? "football" gibi kısa girdilerde model
+# "soruyu cevapla" modunda kalıp bazen "yeterli bilgi yok" diyordu (sampling non-deterministik).
+# Kararı Python verir: konu sorgularına reddetme seçeneği OLMAYAN "özetle" görevi verilir.
+_QUESTION_WORDS = {
+    "what", "why", "how", "when", "who", "where", "which", "whose", "whom",
+    "is", "are", "was", "were", "do", "does", "did", "can", "could", "should",
+    "would", "will", "may", "might", "summarize", "summarise", "list", "tell",
+    "give", "show", "find", "explain", "describe",
+}
+
+
+def _looks_like_topic(query: str) -> bool:
+    """Salt konu/anahtar-kelime (ör. 'football') mi, yoksa gerçek soru/komut mu?"""
+    q = query.strip()
+    if not q or "?" in q:
+        return False
+    words = re.findall(r"\w+", q.lower())
+    if not words or len(words) > 4:
+        return False
+    return not any(w in _QUESTION_WORDS for w in words)
+
+
 def build_prompt(sources: list[dict], query: str) -> tuple[str, bool]:
     """Python decides the task from email_type; model gets one simple instruction. Returns (prompt, all_one_directional)."""
     all_one_directional = False
@@ -114,10 +136,15 @@ def build_prompt(sources: list[dict], query: str) -> tuple[str, bool]:
                 "from [sender]. ' followed by one sentence summarizing what it says. "
                 "Do not answer the question directly."
             )
+        elif _looks_like_topic(query):
+            task = (
+                "The input is a topic or keyword, not a full question. In a few sentences, "
+                "summarize what the sources say about this topic, citing them inline like "
+                "[SOURCE 1]. Do not add any disclaimer about missing information."
+            )
         else:
             task = (
-                "Answer the question using only the sources. "
-                "Cite sources inline like [SOURCE 1]. "
+                "Answer the question using only the sources, citing them inline like [SOURCE 1]. "
                 "If the answer is not in the sources, say: "
                 "'The provided sources do not contain enough information to answer this question.'"
             )

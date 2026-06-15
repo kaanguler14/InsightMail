@@ -90,7 +90,7 @@ export default function SearchView() {
       <div className={styles.toolbar}>
         <Input
           ref={inputRef}
-          placeholder="Ask about your emails..."
+          placeholder="Ask a full question, e.g. “What did Temu send me?”"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
