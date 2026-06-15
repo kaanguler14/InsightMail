@@ -23,7 +23,7 @@ env/
 models/
 
 # Logs
-performance.log
+*.log
 
 # Frontend / Node
 node_modules/
