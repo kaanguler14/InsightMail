@@ -32,7 +32,7 @@ def get_llm():
             n_gpu_layers=-1,
             n_batch=2048,
             n_threads=4,
-            flash_attn=True,
+            flash_attn=False,
             verbose=False,
         )
         print("Local LLM loaded.")

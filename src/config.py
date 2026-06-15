@@ -21,6 +21,11 @@ QDRANT_COLLECTION = os.environ.get("QDRANT_COLLECTION", "emails")
 
 # --- Embedding modeli ---
 EMBED_MODEL_NAME = os.environ.get("EMBED_MODEL_NAME", "Qwen/Qwen3-Embedding-0.6B")
+# Embedder cihazı: "cpu" | "cuda" | None(=otomatik: cuda varsa cuda).
+# WHY: API sunucusu llama-cpp (LLM, CUDA) ile aynı süreçte çalışır; embedder de
+# aynı GPU'da olursa ikisi çakışıp embedder çıktısını bozuyor. main.py bunu
+# sunucu için varsayılan "cpu" yapar; toplu indeksleme GPU'da kalır.
+EMBED_DEVICE = os.environ.get("EMBED_DEVICE")
 
 # --- LLM ---
 LLM_MODEL_PATH = os.environ.get(

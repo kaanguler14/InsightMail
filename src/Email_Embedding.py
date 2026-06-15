@@ -10,9 +10,6 @@ class Email_Embedding:
     def __init__(self,chunker: EmailChunker =None):
         startINITEmail=time.time()
         self.chunker = chunker
-        self.device="cuda" if torch.cuda.is_available() else "cpu"
-        print("Device:",self.device)
-        print(torch.cuda.is_available())
         self.model = GLOBAL_MODEL
         # WHY: global_model.py model yüklenemezse GLOBAL_MODEL = None bırakıyor.
         # Bunu kontrol etmezsek bir sonraki satırdaki self.model.max_seq_length
@@ -24,6 +21,13 @@ class Email_Embedding:
                 "Embedding model yüklenemedi (GLOBAL_MODEL=None). "
                 "global_model.py loglarını ve CUDA/torch kurulumunu kontrol edin."
             )
+        # Gerçek model cihazını (global_model.py / EMBED_DEVICE belirler) yansıt;
+        # torch.cuda.is_available() yanıltıcıydı (model CPU'da olsa bile cuda basıyordu).
+        # API sunucusunda bu "cpu" olmalı: LLM (llama-cpp) ile aynı GPU'da çalışınca
+        # embedder bozuk/NaN vektör üretiyor.
+        self.device = str(self.model.device)
+        print("Embedder device:", self.device)
+
         self.model.max_seq_length = 1024
 
         torch.set_float32_matmul_precision('high')

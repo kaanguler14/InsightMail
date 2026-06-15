@@ -1,3 +1,13 @@
+import os
+# WHY: API sunucusu LLM (llama-cpp, CUDA) ile aynı süreçte çalışır. torch embedder
+# de aynı GPU'da olursa ikisi çakışıp embedder çıktısını bozuyor: ya CUDA "illegal
+# memory access" ile çöküyor, ya da sessizce NaN vektör üretip Qdrant 400 "Format
+# error in JSON body" veriyor. Bu yüzden sunucuda embedder'ı varsayılan olarak CPU'ya
+# sabitliyoruz (Qwen3-0.6B, sorgu başına ~0.1-0.3s). Toplu indeksleme ayrı bir süreçtir
+# (store_embeddings) ve GPU'da kalır. Açık EMBED_DEVICE verilirse ona saygı gösterilir.
+# NOT: src.* importlarından ÖNCE çalışmalı (config/global_model import anında okur).
+os.environ.setdefault("EMBED_DEVICE", "cpu")
+
 import asyncio
 from pathlib import Path
 
