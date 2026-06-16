@@ -138,9 +138,13 @@ def build_prompt(sources: list[dict], query: str) -> tuple[str, bool]:
             )
         elif _looks_like_topic(query):
             task = (
-                "The input is a topic or keyword, not a full question. In a few sentences, "
-                "summarize what the sources say about this topic, citing them inline like "
-                "[SOURCE 1]. Do not add any disclaimer about missing information."
+                "The input is a topic or keyword, not a full question. Write a few sentences "
+                "summarizing what the sources say about this topic, citing them inline like "
+                "[SOURCE 1]. Start your very first sentence with a concrete fact from the "
+                "sources. Do NOT open with any preamble, hedge, or meta-commentary — for "
+                "example do not begin with phrases like 'There is no clear answer', 'Based on "
+                "the sources', 'The sources discuss', or 'It appears that'. Never add a "
+                "disclaimer about missing information."
             )
         else:
             task = (
