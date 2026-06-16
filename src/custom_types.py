@@ -1,10 +1,14 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import List, Optional
+
+# WHY: top_k / limit kullanıcı girdisidir ve doğrudan retrieval/IMAP yüküne dönüşür.
+# Üst sınır olmadan çok büyük bir değer bellek/işlem tüketimine veya IMAP sağlayıcısını
+# zorlamaya (DoS sınıfı) yol açabilir. Pydantic ile makul aralıklara sıkıştırıyoruz.
 
 
 class SearchRequest(BaseModel):
     query: str
-    top_k: int = 5
+    top_k: int = Field(default=5, ge=1, le=50)
 
 
 class RAGResponse(BaseModel):
@@ -15,7 +19,7 @@ class RAGResponse(BaseModel):
 
 class SummarizeRequest(BaseModel):
     contact_email: str
-    limit: int = 15
+    limit: int = Field(default=15, ge=1, le=100)
 
 
 class EmailItem(BaseModel):

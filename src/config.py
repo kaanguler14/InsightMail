@@ -46,6 +46,12 @@ EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")
 # Ayarlı değilse auth devre dışıdır (yerel tek-kullanıcı geliştirme kolaylığı).
 API_TOKEN = os.environ.get("API_TOKEN")
 
+# REQUIRE_AUTH=1 ise (ağa açık kurulumlar için) API_TOKEN zorunludur: token yoksa
+# uygulama hiç başlamaz (fail-closed). Docker imajında varsayılan olarak açıktır;
+# böylece token'sız bir konteyner kişisel e-posta API'sini ağa açmaz. Yerel
+# geliştirmede kapalıdır (token'sız çalışmaya devam, yalnızca uyarı loglanır).
+REQUIRE_AUTH = os.environ.get("REQUIRE_AUTH", "").strip().lower() in ("1", "true", "yes", "on")
+
 # --- CORS ---
 # Virgülle ayrılmış origin listesi.
 FRONTEND_ORIGINS = [

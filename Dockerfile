@@ -30,7 +30,18 @@ COPY static/ ./static/
 # Model dosyaları imaja GÖMÜLMEZ (2GB+); compose'da volume olarak bağlanır.
 # models/ dizini runtime'da mount edilir.
 
+# Güvenlik: root yerine ayrıcalıksız bir kullanıcı ile çalış (container sertleştirmesi).
+# Kod ve modeller yalnızca okunur; yazma gerekmez.
+RUN useradd --create-home --uid 10001 appuser
+USER appuser
+
 EXPOSE 8000
 
+# Güvenlik: imaj 0.0.0.0'e bağlanıp port'u ağa açtığından, kimlik doğrulamasını
+# zorunlu kılıyoruz. API_TOKEN verilmeden konteyner başlamayı reddeder (fail-closed),
+# böylece kişisel e-posta API'si yanlışlıkla token'sız ağa açılmaz.
+ENV REQUIRE_AUTH=1
+
 # QDRANT_URL gibi ayarlar ortam değişkeninden gelir (src/config.py).
+# Çalıştırırken API_TOKEN verin: `docker run -e API_TOKEN=... ` veya compose env_file.
 CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]

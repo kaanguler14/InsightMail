@@ -4,6 +4,21 @@ from email.header import decode_header
 
 MAX_BODY_CHARS = 400
 
+# WHY: contact_email kullanıcı girdisidir ve IMAP SEARCH komutuna gömülür
+# (Email_Receiver: (FROM "...") / (TO "...")). İçinde tırnak/boşluk/kontrol karakteri
+# olan bir değer IMAP sorgusunu kırıp protokol enjeksiyonuna yol açabilir. Bu yüzden
+# IMAP katmanına ulaşmadan önce sıkı (tırnak/boşluk/backslash içermeyen) bir e-posta
+# biçimi dayatıyoruz. RFC açısından eksiksiz değil ama enjeksiyonu kapatır.
+_EMAIL_RE = re.compile(r'^[^@\s"\'\\<>()]+@[^@\s"\'\\<>()]+\.[^@\s"\'\\<>()]+$')
+
+
+def is_valid_email(addr) -> bool:
+    """contact_email gibi kullanıcı girdisinin güvenli bir e-posta biçimi olup
+    olmadığını döndürür (IMAP arama enjeksiyonunu önlemek için)."""
+    if not addr or not isinstance(addr, str):
+        return False
+    return bool(_EMAIL_RE.match(addr.strip()))
+
 
 def decode_email_header(header_value):
     """Decode an email header (subject, from, to)."""

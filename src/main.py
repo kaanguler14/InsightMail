@@ -9,6 +9,7 @@ import os
 os.environ.setdefault("EMBED_DEVICE", "cpu")
 
 import asyncio
+import hmac
 from pathlib import Path
 
 from typing import Optional
@@ -18,6 +19,26 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from src import config
+
+# --- Güvenlik: kimlik doğrulama açık mı? (ağır model yüklemesinden ÖNCE) ---
+# WHY: Veri uçları kişisel e-posta içeriği döndürür. API_TOKEN ayarlı değilse auth
+# devre dışıdır (yerel tek-kullanıcı kolaylığı). Ağa açık bir kurulumda (Docker,
+# host 0.0.0.0) bu tehlikelidir: token'sız port'a erişen herkes posta kutusunu
+# sorgular. REQUIRE_AUTH=1 ise token yoksa süreç fail-closed davranıp hiç başlamaz;
+# aksi halde yalnızca görünür bir uyarı loglanır. Bu kontrolü global_model importu
+# (3B modeli yükler) öncesine koyuyoruz ki güvensiz kurulum boşuna model yüklemesin.
+if not config.API_TOKEN:
+    if config.REQUIRE_AUTH:
+        raise RuntimeError(
+            "REQUIRE_AUTH is set but API_TOKEN is empty: refusing to start an "
+            "unauthenticated server. Set API_TOKEN in the environment."
+        )
+    print(
+        "WARNING: API_TOKEN not set -> ALL data endpoints are UNAUTHENTICATED. "
+        "Do NOT expose this server to a network. Set API_TOKEN (and REQUIRE_AUTH=1) "
+        "for any non-localhost deployment."
+    )
+
 from src.custom_types import (
     SearchRequest, RAGResponse, SummarizeRequest, SummarizeResponse,
     EmailItem, RecentContactsResponse, ContactItem,
@@ -29,6 +50,7 @@ from src.Email_Embedding import Email_Embedding as Embedder
 from src.Email_Receiver import EmailReceiver
 from src.conversation_summarizer import summarize_conversation
 from src.reply_suggester import suggest_replies
+from src.email_utils import is_valid_email
 import src.query_database as query_database
 
 
@@ -79,7 +101,10 @@ def require_auth(authorization: Optional[str] = Header(default=None)):
     """
     if not config.API_TOKEN:
         return
-    if authorization != f"Bearer {config.API_TOKEN}":
+    # Sabit-zamanlı karşılaştırma: normal '!=' karakter karakter erken çıkıp token'ın
+    # ne kadarının doğru olduğunu zamanlama ile sızdırabilir. hmac.compare_digest bunu önler.
+    expected = f"Bearer {config.API_TOKEN}"
+    if not hmac.compare_digest(authorization or "", expected):
         raise HTTPException(status_code=401, detail="Invalid or missing API token")
 
 
@@ -136,9 +161,12 @@ async def search_emails(request: SearchRequest):
         top_k=request.top_k
     )
     if "error" in result:
-        raise HTTPException(status_code=500, detail=str(result["error"]))
+        # WHY: Ham hata metni (Qdrant/dosya yolu/istisna ayrıntısı) istemciye
+        # sızdırılmamalı. Sunucuda logla, istemciye genel mesaj ver (diğer uçlarla tutarlı).
+        print(f"Internal error (/search): {result['error']}")
+        raise HTTPException(status_code=500, detail="Internal server error")
 
-    print("answer--->", result.get("answer"))
+    # NOT: Cevap gövdesi hassas e-posta içeriği olabilir; stdout'a basılmaz.
     return RAGResponse(
         answer=result.get("answer"),
         contexts=result.get("context_used"),
@@ -217,6 +245,8 @@ async def summarize_emails(request: SummarizeRequest):
 
     if not request.contact_email:
         raise HTTPException(status_code=400, detail="contact_email is required")
+    if not is_valid_email(request.contact_email):
+        raise HTTPException(status_code=400, detail="contact_email is not a valid email address")
 
     def _summarize():
         with EmailReceiver(email_address, email_password) as receiver:
@@ -268,6 +298,8 @@ async def reply_suggest(request: ReplyRequest):
 
     if not request.contact_email:
         raise HTTPException(status_code=400, detail="contact_email is required")
+    if not is_valid_email(request.contact_email):
+        raise HTTPException(status_code=400, detail="contact_email is not a valid email address")
 
     if request.tone not in ("formal", "friendly", "brief"):
         raise HTTPException(status_code=400, detail="tone must be: formal, friendly, or brief")

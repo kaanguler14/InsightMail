@@ -11,7 +11,26 @@ from src.email_utils import (
     extract_body,
     parse_contact_emails,
     build_reply_context,
+    is_valid_email,
 )
+
+
+def test_is_valid_email_accepts_normal_addresses():
+    assert is_valid_email("ali@firma.com")
+    assert is_valid_email("a.b+tag@sub.example.co.uk")
+    assert is_valid_email("  spaced@x.com  ")  # strip edilir
+
+
+def test_is_valid_email_rejects_malformed_and_injection():
+    assert not is_valid_email("")
+    assert not is_valid_email(None)
+    assert not is_valid_email("notanemail")
+    assert not is_valid_email("no-domain@")
+    assert not is_valid_email("a b@x.com")          # boşluk
+    # IMAP arama enjeksiyonu denemeleri: tırnak/kontrol karakteri reddedilmeli
+    assert not is_valid_email('x" BODY "secret@x.com')
+    assert not is_valid_email('a@x.com" OR "1"="1')
+    assert not is_valid_email('a@x.com\r\nX-Inject: 1')
 
 
 def test_decode_email_header_plain():
