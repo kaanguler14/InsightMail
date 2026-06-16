@@ -14,7 +14,10 @@ if TYPE_CHECKING:
     from src.Email_Embedding import Email_Embedding
     from src.vector_database import QdrantStorage
 
-from src.config import LLM_MODEL_PATH, LLM_N_CTX
+from src.config import (
+    LLM_MODEL_PATH, LLM_N_CTX,
+    LLM_BASE_URL, LLM_API_MODEL, LLM_API_KEY,
+)
 
 _llm_instance = None
 
@@ -129,8 +132,13 @@ _UNTRUSTED_CONTENT_NOTICE = (
 )
 
 
-def build_prompt(sources: list[dict], query: str) -> tuple[str, bool]:
-    """Python decides the task from email_type; model gets one simple instruction. Returns (prompt, all_one_directional)."""
+def build_chat_parts(sources: list[dict], query: str) -> tuple[str, str, bool]:
+    """Python görevi email_type'tan seçer; modele tek basit talimat verilir.
+
+    (system_text, user_text, all_one_directional) döndürür. Hem gömülü llama-cpp
+    template'i (build_prompt) hem de yerel OpenAI-uyumlu endpoint'in system/user
+    mesajları bu iki parçadan kurulur; böylece prompt mantığı tek yerde kalır.
+    """
     all_one_directional = False
     if not sources:
         task = (
@@ -165,21 +173,78 @@ def build_prompt(sources: list[dict], query: str) -> tuple[str, bool]:
                 "'The provided sources do not contain enough information to answer this question.'"
             )
 
-    prompt = (
-        "<|start_header_id|>system<|end_header_id|>\n\n"
-        f"You are a precise question-answering assistant. {task}\n"
-        f"{_UNTRUSTED_CONTENT_NOTICE}\n"
-        "<|eot_id|>\n"
-        "<|start_header_id|>user<|end_header_id|>\n\n"
+    system_text = f"You are a precise question-answering assistant. {task}\n{_UNTRUSTED_CONTENT_NOTICE}"
+    user_text = (
         "## Sources (untrusted data)\n"
         f"{context_text}\n\n"
         "## Question\n"
         f"{query}\n\n"
-        "## Answer:\n"
+        "## Answer:"
+    )
+    return system_text, user_text, all_one_directional
+
+
+def _llama_prompt(system_text: str, user_text: str) -> str:
+    """system/user parçalarını Llama-3 sohbet template'ine sarar (gömülü llama-cpp için)."""
+    return (
+        "<|start_header_id|>system<|end_header_id|>\n\n"
+        f"{system_text}\n"
+        "<|eot_id|>\n"
+        "<|start_header_id|>user<|end_header_id|>\n\n"
+        f"{user_text}\n"
         "<|eot_id|>\n"
         "<|start_header_id|>assistant<|end_header_id|>\n\n"
     )
-    return prompt, all_one_directional
+
+
+def build_prompt(sources: list[dict], query: str) -> tuple[str, bool]:
+    """Gömülü llama-cpp için tam prompt'u kurar. Returns (prompt, all_one_directional)."""
+    system_text, user_text, all_one_directional = build_chat_parts(sources, query)
+    return _llama_prompt(system_text, user_text), all_one_directional
+
+
+# --- Yerel OpenAI-uyumlu endpoint (Ollama / LM Studio / llama.cpp --server) ---
+# WHY: Kullanıcı LLM_BASE_URL ayarlarsa, gömülü llama-cpp yerine kendi yerel model
+# sunucusunu kullanabilir. Endpoint localhost'ta olduğundan veri makineden çıkmaz.
+# openai istemcisi tembel import edilir; yalnızca bu yol kullanılınca gerekir.
+
+def _endpoint_client():
+    from openai import OpenAI  # opsiyonel: yalnızca yerel endpoint kullanılınca
+    return OpenAI(base_url=LLM_BASE_URL, api_key=LLM_API_KEY or "local")
+
+
+def _endpoint_messages(system_text: str, user_text: str) -> list[dict]:
+    return [
+        {"role": "system", "content": system_text},
+        {"role": "user", "content": user_text},
+    ]
+
+
+def _endpoint_chat(system_text: str, user_text: str) -> str:
+    """Yerel endpoint'ten bloklayıcı tek cevap."""
+    resp = _endpoint_client().chat.completions.create(
+        model=LLM_API_MODEL,
+        max_tokens=512,
+        messages=_endpoint_messages(system_text, user_text),
+    )
+    return (resp.choices[0].message.content or "").strip()
+
+
+def _endpoint_chat_stream(system_text: str, user_text: str):
+    """Yerel endpoint'ten token token (delta) üreten jeneratör."""
+    stream = _endpoint_client().chat.completions.create(
+        model=LLM_API_MODEL,
+        max_tokens=512,
+        messages=_endpoint_messages(system_text, user_text),
+        stream=True,
+    )
+    for chunk in stream:
+        try:
+            piece = chunk.choices[0].delta.content
+        except (AttributeError, IndexError, TypeError):
+            piece = None
+        if piece:
+            yield piece
 
 
 def local_api_llm(query: str, qdrant_storage: QdrantStorage, embedder: Email_Embedding, top_k=3):
@@ -193,16 +258,20 @@ def local_api_llm(query: str, qdrant_storage: QdrantStorage, embedder: Email_Emb
         sources = results["sources"]
         sources_structured = results.get("sources_structured", [])
 
-        prompt, all_one_directional = build_prompt(sources_structured, query)
+        system_text, user_text, all_one_directional = build_chat_parts(sources_structured, query)
 
-        response = get_llm()(
-            prompt,
-            max_tokens=512,
-            stop=["<|eot_id|>"],
-            echo=False
-        )
+        if LLM_BASE_URL:
+            # Yerel OpenAI-uyumlu endpoint (Ollama / LM Studio / llama.cpp server).
+            answer = _endpoint_chat(system_text, user_text)
+        else:
+            response = get_llm()(
+                _llama_prompt(system_text, user_text),
+                max_tokens=512,
+                stop=["<|eot_id|>"],
+                echo=False
+            )
+            answer = extract_llm_text(response)
 
-        answer = extract_llm_text(response)
         if not answer:
             answer = "Could not generate a response."
         elif all_one_directional:
@@ -244,26 +313,31 @@ def local_api_llm_stream(query: str, qdrant_storage: QdrantStorage, embedder: Em
 
         yield _sse("sources", {"contexts": contexts, "sources": sources})
 
-        prompt, all_one_directional = build_prompt(sources_structured, query)
-
-        stream = get_llm()(
-            prompt,
-            max_tokens=512,
-            stop=["<|eot_id|>"],
-            echo=False,
-            stream=True,
-        )
+        system_text, user_text, all_one_directional = build_chat_parts(sources_structured, query)
 
         parts = []
-        for chunk in stream:
-            # Akışta her parça bir delta'dır; strip ETME (anlamlı boşluklar kaybolur).
-            try:
-                piece = chunk["choices"][0]["text"]
-            except (KeyError, IndexError, TypeError):
-                piece = ""
-            if piece:
+        if LLM_BASE_URL:
+            # Yerel OpenAI-uyumlu endpoint: token token (delta) akıt.
+            for piece in _endpoint_chat_stream(system_text, user_text):
                 parts.append(piece)
                 yield _sse("token", {"text": piece})
+        else:
+            stream = get_llm()(
+                _llama_prompt(system_text, user_text),
+                max_tokens=512,
+                stop=["<|eot_id|>"],
+                echo=False,
+                stream=True,
+            )
+            for chunk in stream:
+                # Akışta her parça bir delta'dır; strip ETME (anlamlı boşluklar kaybolur).
+                try:
+                    piece = chunk["choices"][0]["text"]
+                except (KeyError, IndexError, TypeError):
+                    piece = ""
+                if piece:
+                    parts.append(piece)
+                    yield _sse("token", {"text": piece})
 
         answer = "".join(parts).strip()
         if not answer:

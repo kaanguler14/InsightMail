@@ -86,7 +86,12 @@ Email is the largest unstructured knowledge base most professionals have, yet it
 
 ### Local-first inference vs cloud APIs
 
-All inference runs locally. This means zero per-query cost and full data privacy, but requires a CUDA-capable GPU. The Llama 3.2 3B Q4_K_M model loads in ~8s and fits in ~2GB VRAM. For teams needing higher quality, the architecture supports swapping in any GGUF model by changing one path in `query_database.py`.
+All inference runs locally — zero per-query cost, full data privacy, no API keys. There are **two local ways** to provide the LLM (see [Running the LLM locally](#running-the-llm-locally)):
+
+1. **Embedded model (default):** the bundled `llama-cpp-python` runtime loads a GGUF model directly. The Llama 3.2 3B Q4_K_M model loads in ~8s and fits in ~2GB VRAM (CUDA). Swap in any GGUF by changing `LLM_MODEL_PATH`.
+2. **Local model server (optional):** set `LLM_BASE_URL` to point at your own OpenAI-compatible server on `localhost` — Ollama, LM Studio, or `llama.cpp --server`. Lets you run any model your tooling already manages. Still fully local: requests go to `localhost`, **email content never leaves the machine**.
+
+Both keep the privacy guarantee; the only difference is *which local runtime* serves the model. There is intentionally **no cloud-API path** — sending retrieved email content to a third-party provider would break the privacy thesis the project is built on.
 
 ### Sentence-aware chunking vs fixed-size
 
@@ -166,6 +171,33 @@ npm run dev
 ```
 
 The app is available at `http://localhost:5173`. The Vite dev server proxies API calls to the FastAPI backend at `:8000`.
+
+### Running the LLM locally
+
+The LLM is pluggable but **local-first** — both options below run entirely on your machine; email content never leaves it.
+
+**Option A — Embedded GGUF model (default).** No extra config. Download a GGUF model into `models/` and point `LLM_MODEL_PATH` at it (defaults to `models/Llama-3.2-3B-Instruct-Q4_K_M.gguf`). Runs via `llama-cpp-python` on your GPU (CUDA) or CPU. This is what runs if `LLM_BASE_URL` is unset.
+
+**Option B — Local model server (Ollama / LM Studio / llama.cpp).** Prefer to manage models with your own tooling? Run a local OpenAI-compatible server and set `LLM_BASE_URL` in `.env`. The app then sends chat requests to that `localhost` endpoint instead of loading a GGUF itself.
+
+```bash
+# Example: Ollama
+ollama serve                 # exposes http://localhost:11434
+ollama pull llama3.2
+
+# .env
+LLM_BASE_URL=http://localhost:11434/v1
+LLM_API_MODEL=llama3.2
+# LLM_API_KEY=local          # local servers ignore this; a placeholder is fine
+```
+
+| Server | `LLM_BASE_URL` | `LLM_API_MODEL` |
+|--------|----------------|-----------------|
+| Ollama | `http://localhost:11434/v1` | `llama3.2` (or any pulled model) |
+| LM Studio | `http://localhost:1234/v1` | the model loaded in LM Studio |
+| llama.cpp `--server` | `http://localhost:8080/v1` | the served model name |
+
+Only the `pip install openai` client is needed for Option B (already in `requirements.txt`); it is imported lazily, so Option A users pay no cost. Streaming (`/search-stream`) works with both options.
 
 ### Production Build
 

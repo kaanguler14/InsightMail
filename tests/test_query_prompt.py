@@ -9,7 +9,39 @@ from src.query_database import (
     format_sources,
     _clean_one_directional_answer,
     build_prompt,
+    build_chat_parts,
+    _llama_prompt,
 )
+
+
+def test_build_chat_parts_no_sources():
+    system, user, all_one = build_chat_parts([], "ne zaman?")
+    assert all_one is False
+    assert "do not contain enough information" in system
+    assert "untrusted" in system  # prompt-injection çerçevesi system'de
+    assert "ne zaman?" in user
+
+
+def test_build_chat_parts_conversational():
+    sources = [{"id": 1, "subject": "Re: toplantı", "from": "ali@firma.com", "body": "Yarın 10'da", "email_type": "conversational"}]
+    system, user, all_one = build_chat_parts(sources, "toplantı kaçta?")
+    assert all_one is False
+    assert "Answer the question using only the sources" in system
+    assert "[SOURCE 1]" in user
+
+
+def test_build_chat_parts_all_one_directional():
+    sources = [{"id": 1, "subject": "Welcome", "from": "no-reply@acme.com", "body": "Hi", "email_type": "one-directional"}]
+    system, user, all_one = build_chat_parts(sources, "ne diyor?")
+    assert all_one is True
+    assert "one-directional" in system
+
+
+def test_llama_prompt_wraps_parts():
+    out = _llama_prompt("SYS", "USR")
+    assert "<|start_header_id|>system<|end_header_id|>" in out
+    assert "<|start_header_id|>assistant<|end_header_id|>" in out
+    assert "SYS" in out and "USR" in out
 
 
 def test_extract_llm_text_valid():

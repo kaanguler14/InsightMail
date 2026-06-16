@@ -37,6 +37,19 @@ LLM_MODEL_PATH = os.environ.get(
 )
 LLM_N_CTX = int(os.environ.get("LLM_N_CTX", "4096"))
 
+# --- Yerel LLM endpoint'i (opsiyonel) ---
+# LLM_BASE_URL ayarlıysa LLM çağrıları gömülü llama-cpp yerine YERELDEKİ OpenAI-uyumlu
+# bir model sunucusuna (Ollama, LM Studio, llama.cpp --server) gider. Hepsi localhost'ta
+# kalır; e-posta verisi makineden çıkmaz (bulut değil). Ayarlı değilse gömülü model kullanılır.
+#   Ollama:    http://localhost:11434/v1   (LLM_API_MODEL=llama3.2)
+#   LM Studio: http://localhost:1234/v1
+#   llama.cpp: http://localhost:8080/v1
+LLM_BASE_URL = os.environ.get("LLM_BASE_URL")
+LLM_API_MODEL = os.environ.get("LLM_API_MODEL", "llama3.2")
+# Yerel sunucular genelde anahtar istemez; OpenAI istemcisi boş anahtar kabul etmediği
+# için yer tutucu bir değer veriyoruz.
+LLM_API_KEY = os.environ.get("LLM_API_KEY", "local")
+
 # --- E-posta / IMAP kimlik bilgileri (zorunlu, varsayılan yok) ---
 EMAIL_ADDRESS = os.environ.get("EMAIL_ADDRESS")
 EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")

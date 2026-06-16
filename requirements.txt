@@ -14,3 +14,7 @@ llama-cpp-python>=0.2.70
 spacy>=3.7,<4.0
 beautifulsoup4>=4.12,<5.0
 python-dotenv>=1.0,<2.0
+# Opsiyonel: LLM_BASE_URL ayarlandığında, yereldeki OpenAI-uyumlu bir model sunucusuna
+# (Ollama / LM Studio / llama.cpp --server) bağlanmak için kullanılır. Gömülü llama-cpp
+# ile çalışıyorsanız gerekmez (yalnızca yerel endpoint yolunda tembel import edilir).
+openai>=1.40,<3.0
